@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.log
+.env
+.env.*
+!.env.example
+outputs/
+*.glb
+*.obj
+*.ply
+*.safetensors
+.pytest_cache/

@@ -1,0 +1,7 @@
+[project]
+name = "001-hunyuan3d-2-1"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "modal[api-proxy-support]>=1.6.2",
+]

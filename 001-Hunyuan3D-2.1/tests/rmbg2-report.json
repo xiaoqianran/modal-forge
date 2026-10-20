@@ -1,0 +1,26 @@
+{
+  "image_size": [
+    500,
+    500
+  ],
+  "device": "NVIDIA L40S",
+  "outputs": {
+    "original": {
+      "seconds": 6.176,
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    "rmbg2": {
+      "seconds": 1.002,
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    }
+  },
+  "model": "briaai/RMBG-2.0",
+  "model_load_seconds": 10.636,
+  "peak_gpu_memory_mb": 3209
+}

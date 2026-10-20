@@ -1,0 +1,14 @@
+{
+  "original": {
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0,
+    "degenerate_index_faces": 0,
+    "winding_consistent": true
+  },
+  "rmbg2": {
+    "nonmanifold_edges": 4,
+    "boundary_edges": 0,
+    "degenerate_index_faces": 4,
+    "winding_consistent": true
+  }
+}
