@@ -1,3 +1,6 @@
 [submodule "001-Hunyuan3D-2.1/modal-forge-Hunyuan3D-2.1"]
     path = 001-Hunyuan3D-2.1/modal-forge-Hunyuan3D-2.1
     url = https://github.com/xiaoqianran/modal-forge-Hunyuan3D-2.1.git
+[submodule "002-Pixal3D/modal-forge-Pixal3D"]
+	path = 002-Pixal3D/modal-forge-Pixal3D
+	url = https://github.com/xiaoqianran/modal-forge-Pixal3D
