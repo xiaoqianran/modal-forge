@@ -19,6 +19,7 @@ import modal
 from qwen_core.hardware import capture_hardware
 
 from qwen_core.storage import MODEL_ID, MODEL_VOLUME, link_ready_model
+from benchmarks.qwen_compiler_cache import COMPILER_VOLUME
 
 GPU = "RTX-PRO-6000"
 IMAGE_TAG = "ghcr.io/jpezzulli/sglang-rtxpro6000:v3.1.5"
@@ -36,7 +37,7 @@ penny_image = (
     .entrypoint([])
     # Base Penny Royal image has no apt-get. Hardware commands are best-effort.
     # Never change the inference runtime image to install optional diagnostics.
-    .add_local_python_source('qwen_core')
+    .add_local_python_source('qwen_core', 'benchmarks')
 )
 
 
@@ -186,10 +187,12 @@ def probe():
 
 @app.function(image=penny_image, gpu=GPU, cpu=8, memory=131072,
               timeout=900, scaledown_window=2, max_containers=1,
-              volumes={"/cache": MODEL_VOLUME})
+              volumes={"/cache": MODEL_VOLUME, "/compiler-vol": COMPILER_VOLUME})
 def infer(ram_gib: int, hicache_gb: int, max_seconds: int, cpu_cores: int = 8,
-          workload: str = "smoke"):
+          workload: str = "smoke", compiler_cache: str = "off"):
     from qwen_core.profile import run_suite, parse_startup_log
+    if compiler_cache not in {"off", "restore"}:
+        raise ValueError("compiler_cache = off | restore")
     started = time.monotonic()
     deadline = started + max_seconds
     phase_state = {"current": "function_start"}
@@ -203,6 +206,7 @@ def infer(ram_gib: int, hicache_gb: int, max_seconds: int, cpu_cores: int = 8,
         "stage": "infer", "success": False, "ram_gib": ram_gib, "cpu_cores": cpu_cores,
         "hicache_gb_decimal": hicache_gb, "model": MODEL_ID, "image": IMAGE_TAG,
         "workload": workload,
+        "compiler_cache": {"mode": compiler_cache, "status": "disabled" if compiler_cache == "off" else "pending"},
         "ple_backend": "ram", "nixl": "off", "before": _machine(),
         "profile_constraints": {
             "max_running_requests": 2, "gpu_count": 1,
@@ -227,6 +231,23 @@ def infer(ram_gib: int, hicache_gb: int, max_seconds: int, cpu_cores: int = 8,
         return result
 
     mark("volume_manifest_checked")
+    if compiler_cache == "restore":
+        from benchmarks.qwen_compiler_cache import runtime_identity, fingerprint, restore
+        try:
+            identity = runtime_identity(
+                capacity="c2", hicache_gb=hicache_gb,
+                revision=cache_manifest["revision"],
+            )
+            result["compiler_cache"]["fingerprint"] = fingerprint(identity)
+            COMPILER_VOLUME.reload()
+            mark("compiler_cache_restore_begin")
+            result["compiler_cache"]["restore"] = restore(identity)
+            result["compiler_cache"]["status"] = "restored"
+            mark("compiler_cache_restore_done")
+        except Exception as exc:
+            result["compiler_cache"]["status"] = "failed"
+            result["error"] = "Compiler cache restore failed: " + repr(exc)
+            return result
     env = os.environ.copy()
     env.update({
         "TARGET_MODEL": model_path,
@@ -473,9 +494,14 @@ def pin_probe():
 @app.local_entrypoint()
 def main(stage: str = "probe", ram_gib: int = 128, hicache_gb: int = 8,
          max_seconds: int = 540, budget_usd: float = 1.5,
-         cpu_cores: int = 8, workload: str = "smoke"):
+         cpu_cores: int = 8, workload: str = "smoke",
+         compiler_cache: str = "off"):
     if stage not in {"probe", "pin", "infer"}:
         raise ValueError("stage = probe | pin | infer; use qwen_download.py for CPU-only downloads")
+    if compiler_cache not in {"off", "restore"}:
+        raise ValueError("compiler_cache = off | restore")
+    if compiler_cache != "off" and stage != "infer":
+        raise ValueError("compiler_cache restore requires stage=infer")
     if workload not in {"smoke", "extended", "profile"}:
         raise ValueError("workload = smoke | extended | profile")
     if not 32 <= ram_gib <= 256 or not 1 <= hicache_gb <= 64:
@@ -503,7 +529,7 @@ def main(stage: str = "probe", ram_gib: int = 128, hicache_gb: int = 8,
         else:
             custom = infer.with_options(memory=ram_gib * 1024, cpu=cpu_cores,
                                         timeout=max_seconds + 30)
-            output = custom.remote(ram_gib, hicache_gb, max_seconds, cpu_cores, workload)
+            output = custom.remote(ram_gib, hicache_gb, max_seconds, cpu_cores, workload, compiler_cache)
     except Exception as exc:
         _save({"stage": stage, "success": False, "remote_error": repr(exc)},
               time.monotonic() - start, ram_gib)

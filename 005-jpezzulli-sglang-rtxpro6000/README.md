@@ -45,6 +45,18 @@ uv run --locked python -m modal run -m qwen_modal_v2 --stage infer --cpu-cores 4
 
 独立历史和基准测试入口：`legacy.qwen_modal_v1`、`legacy.qwen_download_v1`、`legacy.app`、`benchmarks.qwen_mem_benchmark`、`benchmarks.qwen_volume_cpu_benchmark`、`benchmarks.qwen_volume_gpu_benchmark`、`benchmarks.qwen_opt_experiment`。例如用 `uv run --locked python -m modal run -m legacy.app --help` 验证旧入口可加载。
 
+## 稳定推理入口：可选 JIT 编译缓存
+
+默认 --compiler-cache off，行为与此前一致；不会自动恢复或发布编译缓存。
+需要复用已验证的 C2/12 编译缓存时，指定 --compiler-cache restore：
+
+    uv run --locked python -m modal run -m qwen_modal_v2 --stage infer --cpu-cores 4 --ram-gib 80 --hicache-gb 8 --max-seconds 540 --budget-usd 1.5 --workload smoke --compiler-cache restore
+
+该命令真实申请 Modal RTX PRO 6000 GPU 并产生费用，请仅在需要时执行。
+缓存放在独立 Volume modal-forge-qwen38-compile-v2；恢复前核对模型 revision、容量 C2/12、HiCache、依赖版本、启动脚本指纹和 SHA-256。
+缓存缺失或不兼容时返回错误，不会静默退回无缓存推理。稳定入口只读编译缓存，不负责新建或覆盖；模型权重 Volume 不变。
+已有测试确认 TileLang 编译事件 3 → 0，但尚不能证明整体冷启动缩短。去掉 --compiler-cache restore 即可回退。
+
 ## 历史沿革
 
 项目原名 `005-Default-GPU-Memory`，最初的 `legacy/app.py` 用于探测 T4、L4、L40S 等 GPU 的默认内存与硬件信息，无需模型，探测结果现写入 `results/default_gpu/results_<gpu>.json`。这一旧实验仍可用：
