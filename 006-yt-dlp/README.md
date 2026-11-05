@@ -8,7 +8,7 @@
 uv run python -m unittest discover -s tests -p "test_*.py" -v
 ```
 
-测试文件分别覆盖下载器配置、下载协议、NVIDIA 视频理解、NVIDIA 密钥读取。
+测试文件分别覆盖下载器配置、认证、存储路径与下载协议。
 FFmpeg 相关测试仅在本机安装 FFmpeg 时运行；下载协议探测测试需要安装
 `yt-dlp`（未安装时自动跳过）。本地需要验证该项时执行：
 
@@ -31,36 +31,28 @@ uv run python -m modal run benchmarks/benchmark_ffmpeg.py --help
 - `app.py`：Modal 下载入口；`yt_downloader/`：下载、认证与 Volume 存储的业务代码。
 - `tests/`：离线测试；`benchmarks/`：可选、可能产生 Modal 费用的云端性能测试。
 - `scripts/`：本地 Secret 配置工具与 **仅在明确需要时执行** 的一次性 Volume 迁移脚本。
-- `vision_app.py`、`video_vision.py`：保留旧版 NVIDIA 视频分析入口，兼容原有调用。
-  分析入口使用独立的 FFmpeg 轻量镜像，不再复用包含 Deno、yt-dlp、aria2 的下载镜像。
-  新的独立视频分析架构位于同仓库 `007-video-understanding/`；
-  007 的 Cloudflare 全流程尚未完成端到端验证，因此此处暂不删除旧入口。
+- 视频理解统一由同仓库 `007-video-understanding/` 负责；006 仅下载并保存
+  视频及 `manifest.json`，不再调用 NVIDIA。两个模块通过 Modal Volume 中
+  的 `job_id` 衔接，不依赖相互导入源码。
 
-根目录的 `.env` 和 `cookies.txt` 均属于本地敏感配置、已被 Git 忽略；
+根目录可能仍有历史遗留的 `.env` 和 `cookies.txt`，均已被 Git 忽略；
 `.venv/`、`__pycache__/` 属于运行缓存，不需要移动进业务目录。
 
-## NVIDIA 视频抽帧分析（独立入口）
+## 下载完成后如何分析视频
 
-指定模型：`nvidia/nemotron-3.5-super-vl-120b-a12b`。
-使用现有 Modal Volume 中已下载的视频，通过 FFmpeg 每隔 5 秒提取一帧，
-默认最多 24 帧，每 4 帧附带时间戳一起发送给 NVIDIA API。
-分析结果以 `nvidia_vision.json` 保存在对应视频任务目录，不修改下载器。
-
-先在 NVIDIA Build 创建 API Key。可以复制 `.env.example` 为 `.env`，
-填入 `NVIDIA_API_KEY=你的密钥`；该文件已被 Git 忽略。
-然后运行以下命令，把密钥安全写入 Modal Secret（不会把 .env 打包进镜像）：
+下载命令返回 `job_id` 后，在 `../007-video-understanding/` 中运行新入口：
 
 ```powershell
-# 自动读取 .env 的 NVIDIA_API_KEY；没有配置时才隐藏输入
-uv run python scripts/setup_nvidia_secret.py
-
-# 先使用下载任务 manifest.json 里的 job_id
-uv run python -m modal run vision_app.py --job-id "JOB_ID" --interval 5 --max-frames 24 --batch-size 4
+cd ../007-video-understanding
+uv run python -m modal run smoke.py --job-id "JOB_ID"
+# 完成 Cloudflare R2、Queues、Worker 和 Modal Secret 配置并验收后：
+uv run python -m modal run app.py --job-id "JOB_ID" --start-second 0 --max-batches 25 --batch-size 4
 ```
 
-Secret 名称必须是 `nvidia-api`，字段名是 `NVIDIA_API_KEY`。
-请注意接口每批包含多张图，调用次数约为 `ceil(帧数 / batch_size)`。
-此流程需要对 NVIDIA API 的访问权限，可能产生用量费用。
+007 将窗口内帧上传 R2 并写入队列，由 Worker 请求 NVIDIA，分析 JSON 保存在
+R2 `results/<job_id>/<batch_id>.json`；成功写入后删除临时 JPEG。
+它目前是分窗口运行，不会在下载完成时自动调用；Cloudflare 生产端到端流程尚未验收。
+详细配置与限制见 `../007-video-understanding/README.md`。
 
 Download YouTube media **inside Modal cloud containers** into a persistent Modal Volume. Nothing is downloaded to the Windows workstation by default.
 

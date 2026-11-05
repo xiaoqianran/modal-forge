@@ -1,6 +1,12 @@
 # 007 - Video Understanding
 
 与 `006-yt-dlp` **分离**，复用同一个 Modal Volume `modal-forge` 中已经下载的视频。
+**本项目是唯一保留的视频理解入口**：006 的旧版 `vision_app.py`、
+`video_vision.py` 及 NVIDIA Secret 配置脚本已删除。下载仍使用 006 的
+`app.py`；从下载结果获取 `job_id` 后，在本目录运行 `smoke.py` 检查
+抽帧，再运行 `app.py` 上传并排队。
+此迁移不自动删除此前部署的 Modal App/Secret 或历史 Volume 数据，
+也不自动把旧的 `nvidia_vision.json` 转换为新格式。
 这是首版**按窗口运行**的低成本工作流：Modal CPU 抽帧、临时上传 R2，
 Cloudflare Queues 独立限速消费、NVIDIA 视觉理解、结果保存后立即清理 JPEG。
 无需把视频或图片下载到 PC2。
