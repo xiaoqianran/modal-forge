@@ -63,10 +63,13 @@ uv run python -m modal run app.py --job-id 3631d8c342d94847a2ba4ba140cdfc28 --st
 ### 测试
 
 ```powershell
-uv run python -m unittest -v test_pipeline
+uv run python -m unittest discover -s tests -p "test_*.py" -v
 cd worker
 npm test
 ```
+
+Python 单元测试统一放在根目录的 `tests/` 中；Cloudflare Worker 的
+JavaScript 测试保留在 `worker/test/`，分别使用对应运行时验证。
 
 ## 限速与成本
 
