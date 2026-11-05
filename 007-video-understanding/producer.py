@@ -43,12 +43,16 @@ def publish_batch(message: dict) -> None:
     request = urllib.request.Request(
         url, data=json.dumps(message).encode("utf-8"),
         headers={"Authorization": "Bearer " + os.environ["CF_INGEST_TOKEN"],
-                 "Content-Type": "application/json"},
+                 "Content-Type": "application/json",
+                 "User-Agent": "modal-forge-007-video-understanding/1.0"},
         method="POST",
     )
-    with urllib.request.urlopen(request, timeout=30) as response:
-        if response.status != 202:
-            raise RuntimeError(f"Unexpected queue HTTP status: {response.status}")
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            if response.status != 202:
+                raise RuntimeError(f"Unexpected queue HTTP status: {response.status}")
+    except urllib.error.HTTPError as error:
+        raise RuntimeError(f"Cloudflare enqueue failed: HTTP {error.code}") from None
 
 
 def produce(job_id: str, start_second: int = 0, max_batches: int = 25,
