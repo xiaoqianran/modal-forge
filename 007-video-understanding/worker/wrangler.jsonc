@@ -1,0 +1,34 @@
+{
+  "name": "modal-forge-007-video-consumer",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-01",
+  "vars": {
+    "NVIDIA_MODEL": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+    "MIN_REQUEST_INTERVAL_MS": "5000"
+  },
+  "r2_buckets": [
+    {
+      "binding": "FRAMES",
+      "bucket_name": "modal-video-frames"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "VIDEO_QUEUE",
+        "queue": "modal-video-analysis"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "modal-video-analysis",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_concurrency": 1,
+        "max_retries": 3,
+        "retry_delay": 60,
+        "dead_letter_queue": "modal-video-analysis-dlq"
+      }
+    ]
+  }
+}
