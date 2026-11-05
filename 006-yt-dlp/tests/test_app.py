@@ -14,6 +14,46 @@ from yt_downloader.models import validate_url, public_metadata
 from yt_downloader.storage import ROOT
 
 
+class TestAutomaticAnalysis(unittest.TestCase):
+    def test_download_starts_analysis_after_success(self):
+        import app
+
+        result = {"status": "success", "job_id": "1234567890abcdef1234567890abcdef"}
+        with (
+            patch("yt_downloader.downloader.download", return_value=result),
+            patch("modal.Function.from_name") as locate,
+        ):
+            locate.return_value.spawn.return_value.object_id = "fc-test"
+            output = app.download_video.local("https://youtube.com/watch?v=abc")
+        self.assertEqual(output["analysis"]["status"], "scheduled")
+        self.assertEqual(output["analysis"]["function_call_id"], "fc-test")
+        locate.assert_called_once_with(
+            "modal-forge-007-video-understanding", "process_video"
+        )
+        locate.return_value.spawn.assert_called_once_with(result["job_id"])
+
+    def test_download_opt_out_does_not_trigger_analysis(self):
+        import app
+
+        with (
+            patch("yt_downloader.downloader.download", return_value={"job_id": "test"}),
+            patch("modal.Function.from_name") as locate,
+        ):
+            output = app.download_video.local("https://youtube.com/watch?v=abc", analyze=False)
+        self.assertEqual(output["analysis"]["status"], "disabled")
+        locate.assert_not_called()
+
+    def test_analysis_failure_does_not_discard_completed_download(self):
+        import app
+
+        with (
+            patch("yt_downloader.downloader.download", return_value={"job_id": "test"}),
+            patch("modal.Function.from_name", side_effect=RuntimeError("unavailable")),
+        ):
+            output = app.download_video.local("https://youtube.com/watch?v=abc")
+        self.assertEqual(output["analysis"]["status"], "trigger_failed")
+
+
 class TestConfig(unittest.TestCase):
     def test_valid_url(self):
         self.assertEqual(validate_url("https://www.youtube.com/watch?v=abc"), "https://www.youtube.com/watch?v=abc")

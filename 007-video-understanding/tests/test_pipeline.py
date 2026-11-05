@@ -5,16 +5,72 @@ import unittest
 import shutil
 import subprocess
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 from extractor import locate_video, extract_window
-from producer import make_batch, produce
+from producer import make_batch, produce, produce_all, _pending_frames
 
 
 JOB = "8748ecf7da644a1884d7cd8fae692b41"
 
 
 class PipelineTests(unittest.TestCase):
+    def test_pending_frames_counts_paginated_objects(self):
+        client = MagicMock()
+        client.get_paginator.return_value.paginate.return_value = [
+            {"KeyCount": 100}, {"KeyCount": 14},
+        ]
+        self.assertEqual(_pending_frames(client, "bucket", JOB), 114)
+
+    def test_full_video_progress_and_resume(self):
+        client = MagicMock()
+        with (
+            patch("producer.locate_video", return_value=Path("video.mp4")),
+            patch("producer.duration_seconds", return_value=235.4),
+            patch("producer.r2_client", return_value=client),
+            patch("producer._read_progress", return_value={"next_second": 100, "windows": 1}),
+            patch("producer._pending_frames", return_value=0),
+            patch("producer.produce", side_effect=[
+                {"next_second": 200}, {"next_second": 236},
+            ]) as create,
+            patch.dict("os.environ", {"CF_R2_BUCKET": "bucket"}),
+        ):
+            state = produce_all(JOB)
+        self.assertEqual(state["status"], "submitted")
+        self.assertEqual(state["next_second"], 236)
+        self.assertEqual(state["windows"], 3)
+        self.assertEqual([call.kwargs["start_second"] for call in create.call_args_list], [100, 200])
+        self.assertEqual(client.put_object.call_count, 2)
+
+    def test_full_video_already_submitted_is_idempotent(self):
+        with (
+            patch("producer.locate_video", return_value=Path("video.mp4")),
+            patch("producer.duration_seconds", return_value=4),
+            patch("producer.r2_client"),
+            patch("producer._read_progress", return_value={"status": "submitted", "next_second": 4}),
+            patch("producer.produce") as create,
+            patch.dict("os.environ", {"CF_R2_BUCKET": "bucket"}),
+        ):
+            state = produce_all(JOB)
+        self.assertEqual(state["status"], "submitted")
+        create.assert_not_called()
+
+    def test_muxing_padding_does_not_create_extra_frame(self):
+        client = MagicMock()
+        with (
+            patch("producer.locate_video", return_value=Path("video.mp4")),
+            patch("producer.duration_seconds", return_value=4.004),
+            patch("producer.r2_client", return_value=client),
+            patch("producer._read_progress", return_value={"next_second": 4, "windows": 1}),
+            patch("producer.produce") as create,
+            patch.dict("os.environ", {"CF_R2_BUCKET": "bucket"}),
+        ):
+            state = produce_all(JOB)
+        self.assertEqual(state["status"], "submitted")
+        self.assertEqual(state["next_second"], 4)
+        client.put_object.assert_called_once()
+        create.assert_not_called()
+
     def test_video_path_and_id(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

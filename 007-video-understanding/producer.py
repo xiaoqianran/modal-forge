@@ -9,6 +9,7 @@ import urllib.request
 from pathlib import Path
 
 import boto3
+from botocore.exceptions import ClientError
 
 from extractor import duration_seconds, extract_window, locate_video
 
@@ -94,3 +95,82 @@ def produce(job_id: str, start_second: int = 0, max_batches: int = 25,
         "batches": published,
         "extract_and_publish_s": round(time.perf_counter() - started, 3),
     }
+
+
+def _read_progress(client, bucket: str, job_id: str) -> dict:
+    try:
+        response = client.get_object(Bucket=bucket, Key=f"state/{job_id}.json")
+    except ClientError as error:
+        if error.response.get("Error", {}).get("Code") in {"404", "NoSuchKey"}:
+            return {}
+        raise
+    return json.loads(response["Body"].read())
+
+
+def _pending_frames(client, bucket: str, job_id: str) -> int:
+    """Count images awaiting consumption, without downloading the images."""
+    paginator = client.get_paginator("list_objects_v2")
+    return sum(
+        page.get("KeyCount", 0)
+        for page in paginator.paginate(Bucket=bucket, Prefix=f"temp/{job_id}/")
+    )
+
+
+def produce_all(job_id: str, max_pending_frames: int = 200) -> dict:
+    """Submit all windows, persisting progress; NVIDIA consumption stays async."""
+    if max_pending_frames < 100:
+        raise ValueError("max_pending_frames must be at least 100")
+    video = locate_video(job_id)
+    duration = duration_seconds(video)
+    bucket = os.environ["CF_R2_BUCKET"]
+    client = r2_client()
+    state = _read_progress(client, bucket, job_id)
+    if state.get("status") == "submitted":
+        return state
+
+    start = int(state.get("next_second", 0))
+    windows = int(state.get("windows", 0))
+    # The per-video cap protects against uncontrolled R2 backlog.
+    wait_started = time.monotonic()
+    # Container duration may include a few milliseconds of muxing padding.
+    # Do not schedule a spurious final frame for e.g. a 4.004s / 4-frame clip.
+    while start + 0.02 < duration:
+        while _pending_frames(client, bucket, job_id) > max_pending_frames - 100:
+            if time.monotonic() - wait_started > 3600:
+                raise TimeoutError("R2 pending frame limit exceeded for one hour; rerun to resume")
+            time.sleep(15)
+        wait_started = time.monotonic()
+        result = produce(job_id, start_second=start)
+        if result["next_second"] <= start:
+            raise RuntimeError("Video producer made no progress")
+        start = result["next_second"]
+        windows += 1
+        state = {
+            "job_id": job_id,
+            "status": "submitted" if start + 0.02 >= duration else "submitting",
+            "next_second": start,
+            "duration_s": duration,
+            "windows": windows,
+            "updated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        }
+        client.put_object(
+            Bucket=bucket, Key=f"state/{job_id}.json",
+            Body=json.dumps(state, ensure_ascii=False).encode("utf-8"),
+            ContentType="application/json",
+        )
+        print(f"VIDEO_PROGRESS {job_id} {start:.0f}/{duration:.0f}s", flush=True)
+    if state.get("status") != "submitted":
+        state = {
+            "job_id": job_id,
+            "status": "submitted",
+            "next_second": start,
+            "duration_s": duration,
+            "windows": windows,
+            "updated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        }
+        client.put_object(
+            Bucket=bucket, Key=f"state/{job_id}.json",
+            Body=json.dumps(state, ensure_ascii=False).encode("utf-8"),
+            ContentType="application/json",
+        )
+    return state

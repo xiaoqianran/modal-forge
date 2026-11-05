@@ -1,5 +1,6 @@
 """Modal CPU download application; downloaded media never touches the local PC."""
 import json
+import re
 import time
 
 import modal
@@ -22,6 +23,14 @@ image = (
     .add_local_python_source("yt_downloader")
 )
 volume = modal.Volume.from_name(VOLUME_NAME, create_if_missing=True)
+
+
+def _schedule_analysis(job_id: str) -> dict:
+    process = modal.Function.from_name(
+        "modal-forge-007-video-understanding", "process_video"
+    )
+    call = process.spawn(job_id)
+    return {"status": "scheduled", "function_call_id": call.object_id}
 
 
 @app.function(
@@ -50,19 +59,48 @@ def download_video(
     strategy: str = "native",
     connections: int = 4,
     fragments: int = 1,
+    analyze: bool = True,
 ) -> dict:
     from yt_downloader.downloader import download
 
-    return download(
+    result = download(
         url, volume, subtitles=subtitles, strategy=strategy,
         connections=connections, fragments=fragments,
     )
+    if analyze:
+        # publish() commits the Volume before returning. Launch 007 independently
+        # so the downloader does not wait for frame extraction or NVIDIA.
+        try:
+            result["analysis"] = _schedule_analysis(result["job_id"])
+        except Exception as error:
+            # A completed download must not be reported as failed.
+            result["analysis"] = {
+                "status": "trigger_failed",
+                "error": f"{type(error).__name__}: {str(error)[:300]}",
+            }
+            print("ANALYSIS trigger failed; video remains saved", flush=True)
+    else:
+        result["analysis"] = {"status": "disabled"}
+    return result
+
+
+@app.function(image=image, volumes={"/data": volume}, cpu=1, timeout=60)
+def start_analysis(job_id: str) -> dict:
+    """Retry analysis of an already downloaded video; no re-download."""
+    from yt_downloader.storage import VIDEOS
+
+    if not re.fullmatch(r"[0-9a-f]{32}", job_id):
+        raise ValueError("Invalid download job ID")
+    if not (VIDEOS / job_id / "manifest.json").is_file():
+        raise FileNotFoundError(f"Completed download not found: {job_id}")
+    return _schedule_analysis(job_id)
 
 
 @app.local_entrypoint()
 def main(
     url: str, download: bool = False, subtitles: bool = False,
     strategy: str = "native", connections: int = 4, fragments: int = 1,
+    analyze: bool = True,
 ):
     from yt_downloader.downloader import validate_tuning
 
@@ -76,7 +114,7 @@ def main(
         result = (
             download_video.remote(
                 url, subtitles=subtitles, strategy=strategy,
-                connections=connections, fragments=fragments,
+                connections=connections, fragments=fragments, analyze=analyze,
             )
             if download
             else inspect_video.remote(url)

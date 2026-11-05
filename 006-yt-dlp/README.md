@@ -1,5 +1,13 @@
 # 006-yt-dlp
 
+下载完成后默认调用已部署的 007 `process_video`，云端执行抽帧、
+Cloudflare 排队及 NVIDIA 分析。本地只发送启动指令，不中转媒体数据。
+先部署 007，再部署 006；只下载不分析时添加 `--no-analyze`。
+返回值中的 `analysis.status=scheduled` 表示已提交云端分析任务，
+不表示所有截图已经完成分析。如果触发失败，视频仍会保存在共享 Volume，
+可使用 `modal run app.py::start_analysis --job-id <job_id>` 重新触发，
+无需重新下载。
+
 ## 本地测试
 
 所有单元测试集中放在 `tests/`，不需要启动 Modal 云端容器：

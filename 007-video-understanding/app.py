@@ -26,6 +26,21 @@ def queue_window(job_id: str, start_second: int = 0, max_batches: int = 25,
     return produce(job_id, start_second, max_batches, batch_size, width)
 
 
+@app.function(
+    image=image,
+    volumes={"/data": volume},
+    secrets=[modal.Secret.from_name("cf-video-pipeline")],
+    cpu=2,
+    timeout=21600,
+    max_containers=1,
+)
+def process_video(job_id: str) -> dict:
+    """Cloud-only full-video producer; never waits for NVIDIA results."""
+    from producer import produce_all
+
+    return produce_all(job_id)
+
+
 @app.local_entrypoint()
 def main(job_id: str, start_second: int = 0, max_batches: int = 25,
          batch_size: int = 4, width: int = 960):

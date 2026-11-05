@@ -21,10 +21,42 @@ Cloudflare Queues 独立限速消费、NVIDIA 视觉理解、结果保存后立�
 5. **结果保存后立即删除**对应临时 JPEG。失败保留供重试（最多 3 次，之后进入 DLQ）。
 6. Modal 完成上传后退出，不等待 NVIDIA 推理。
 
+### 自动化：006 下载完成直接触发 007
+
+先部署本项目，再部署 006（部署后不需要本地电脑持续在线）：
+
+```powershell
+cd 007-video-understanding
+uv run python -m modal deploy app.py
+cd ../006-yt-dlp
+uv run python -m modal deploy app.py
+```
+
+006 下载时默认开启 `analyze=True`：完成下载、提交共享 Modal Volume
+后，从云端调用已部署的 007 `process_video.spawn(job_id)`。不需要本机
+转发视频或截图。如只想下载，可传入 `--no-analyze`。
+
+007 在云端顺序提交整部视频的 100 秒窗口；R2 的
+`state/<job_id>.json` 记录下一个秒数，重新触发会从最后成功提交的
+窗口继续。每部视频默认最多积压约 200 张临时截图，超额时等待队列
+消费；持续一小时无法疏通则报错，之后可以再次触发恢复。
+避免对同一 job_id 同时触发多次分析：状态文件是恢复检查点而不是分布式锁。
+
+要恢复已经下载的视频，不必重新下载：
+
+```powershell
+cd ../006-yt-dlp
+uv run python -m modal run app.py::start_analysis --job-id <job_id>
+```
+
+状态 `submitted` **只表示全部帧已经进入队列**，不代表 NVIDIA
+已全部处理。真实分析结果仍保存在 R2
+`results/<job_id>/<8位起始秒>.json`；成功后临时 JPEG 自动删除。
+
 **边界：** 一次生产最多 50 批（200 张图）；默认 25 批（100 张图）。
 这只是单次上传限制，**不是全局并发生产者的 R2 空间硬上限**；
-当前需逐窗口提交下一段，防止大量未处理图片积压。
-尚未实现无人值守的跨窗口自动调度或全局容量锁。
+通过 `process_video` 可以自动逐窗口推进，并按当前视频的临时图片
+积压量进行背压控制；尚未实现跨视频的全局容量锁。
 
 ## 配置
 
