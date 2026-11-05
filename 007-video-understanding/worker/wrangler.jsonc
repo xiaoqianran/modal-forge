@@ -30,5 +30,6 @@
         "dead_letter_queue": "modal-video-analysis-dlq"
       }
     ]
-  }
+  },
+  "workers_dev": true
 }
