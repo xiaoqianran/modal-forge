@@ -1,0 +1,16 @@
+{
+  "requested_gpu": "L4",
+  "success": false,
+  "status": "capacity_unavailable",
+  "attempted_at_utc": "2026-11-04",
+  "reason": "Modal scheduler explicitly reported GPU_L4 worker capacity unavailable on first run; both first queued attempt and later dedicated retry were stopped without executing the probe",
+  "first_app_id": "ap-g6WgZrC3MT6LbVsHeNntl7",
+  "retry_app_id": "ap-4i03TeHnAcRkxx2b8St5tX",
+  "not_measured": [
+    "lscpu",
+    "numactl --hardware",
+    "nvidia-smi -q",
+    "cat /proc/cpuinfo"
+  ],
+  "gpu_runtime_seconds": 0
+}

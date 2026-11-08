@@ -1,0 +1,7 @@
+{
+  "requested_gpu": "L4",
+  "success": false,
+  "error": "RemoteError('')",
+  "timestamp_utc": "2026-11-04T06:22:02.083928+00:00",
+  "wall_seconds": 82.562
+}

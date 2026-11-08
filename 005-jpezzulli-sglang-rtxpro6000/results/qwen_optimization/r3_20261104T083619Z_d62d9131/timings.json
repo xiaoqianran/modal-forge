@@ -1,0 +1,224 @@
+{
+  "startup_s": 267.04,
+  "traffic_ready_s": 292.098,
+  "first_useful_answer_s": 293.105,
+  "elapsed_s": 311.62,
+  "phase_marks": [
+    {
+      "phase": "hardware_recorded",
+      "elapsed_s": 0.245,
+      "timestamp_utc": "2026-11-04T08:31:07.900416+00:00"
+    },
+    {
+      "phase": "volume_manifest_checked",
+      "elapsed_s": 2.54,
+      "timestamp_utc": "2026-11-04T08:31:10.195656+00:00"
+    },
+    {
+      "phase": "pennyroyal_process_start",
+      "elapsed_s": 2.872,
+      "timestamp_utc": "2026-11-04T08:31:10.527727+00:00"
+    },
+    {
+      "phase": "api_models_ready",
+      "elapsed_s": 267.041,
+      "timestamp_utc": "2026-11-04T08:35:34.696429+00:00"
+    },
+    {
+      "phase": "smoke_warmup",
+      "elapsed_s": 267.041,
+      "timestamp_utc": "2026-11-04T08:35:34.696440+00:00"
+    },
+    {
+      "phase": "shape_warmup_begin",
+      "elapsed_s": 282.158,
+      "timestamp_utc": "2026-11-04T08:35:49.813307+00:00"
+    },
+    {
+      "phase": "shape_warmup_complete",
+      "elapsed_s": 292.098,
+      "timestamp_utc": "2026-11-04T08:35:59.753554+00:00"
+    },
+    {
+      "phase": "profile_suite_start",
+      "elapsed_s": 292.098,
+      "timestamp_utc": "2026-11-04T08:35:59.753566+00:00"
+    },
+    {
+      "phase": "single_short",
+      "elapsed_s": 292.098,
+      "timestamp_utc": "2026-11-04T08:35:59.753802+00:00"
+    },
+    {
+      "phase": "single_medium",
+      "elapsed_s": 293.105,
+      "timestamp_utc": "2026-11-04T08:36:00.760019+00:00"
+    },
+    {
+      "phase": "single_long",
+      "elapsed_s": 294.067,
+      "timestamp_utc": "2026-11-04T08:36:01.722589+00:00"
+    },
+    {
+      "phase": "concurrency_1",
+      "elapsed_s": 296.708,
+      "timestamp_utc": "2026-11-04T08:36:04.363244+00:00"
+    },
+    {
+      "phase": "concurrency_2",
+      "elapsed_s": 297.592,
+      "timestamp_utc": "2026-11-04T08:36:05.247167+00:00"
+    },
+    {
+      "phase": "concurrency_4",
+      "elapsed_s": 298.815,
+      "timestamp_utc": "2026-11-04T08:36:06.470152+00:00"
+    },
+    {
+      "phase": "suite_complete",
+      "elapsed_s": 305.646,
+      "timestamp_utc": "2026-11-04T08:36:13.301117+00:00"
+    },
+    {
+      "phase": "shutdown_begin",
+      "elapsed_s": 305.646,
+      "timestamp_utc": "2026-11-04T08:36:13.301186+00:00"
+    }
+  ],
+  "compiler_event_counts": {
+    "tilelang_begin": 3,
+    "tilelang_end": 3,
+    "flashinfer_autotune": 3
+  },
+  "engine_running_max_observed": 4,
+  "log_phase_report": {
+    "log_line_count": 621,
+    "patterns": {
+      "weight_begin": {
+        "total_matching_lines": 2,
+        "first_lines": [
+          "[2026-11-04 08:32:08] Load weight begin. avail mem=94.18 GB",
+          "[2026-11-04 08:33:41] Load weight begin. avail mem=23.09 GB"
+        ],
+        "last_lines": []
+      },
+      "weight_end": {
+        "total_matching_lines": 2,
+        "first_lines": [
+          "[2026-11-04 08:33:41] Load weight end. elapsed=92.37 s, type=Qwen4ExpForConditionalGeneration, quant=modelopt_fp4, quant_algo=NVFP4, avail mem=23.20 GB, mem usage=70.97 GB.",
+          "[2026-11-04 08:33:53] Load weight end. elapsed=11.79 s, type=Qwen4ExpForCausalLMMTP, quant=modelopt_fp4, quant_algo=NVFP4, avail mem=19.24 GB, mem usage=3.85 GB."
+        ],
+        "last_lines": []
+      },
+      "engine_timings": {
+        "total_matching_lines": 1,
+        "first_lines": [
+          "[2026-11-04 08:35:20] Engine startup timings (s): load_weight=104.17, kv_cache_allocation=2.10, scheduler_e2e=195.32, cuda_graph={prefill=0.00, decode=0.00, target_verify=15.05, draft_prefill=0.00, draft_decode=6.85, draft_extend=4.29}, tokenizer_e2e=213.75"
+        ],
+        "last_lines": []
+      },
+      "cuda_graph": {
+        "total_matching_lines": 10,
+        "first_lines": [
+          "[2026-11-04 08:34:40] Capture target verify CUDA graph begin. backend=full, num_tokens_per_req=8, bs=[1], avail mem=17.81 GB",
+          "[2026-11-04 08:34:45] Capture target verify CUDA graph end. elapsed=4.44 s, mem usage=0.13 GB, avail mem=17.67 GB.",
+          "[2026-11-04 08:34:47] Capture draft decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1], avail mem=17.67 GB",
+          "[2026-11-04 08:34:51] Capture draft decode CUDA graph end. elapsed=4.25 s, mem usage=0.03 GB, avail mem=17.64 GB.",
+          "[2026-11-04 08:34:52] Capture draft extend CUDA graph begin. backend=full, num_tokens_per_req=8, bs=[1], avail mem=17.64 GB",
+          "[2026-11-04 08:34:53] Capture draft extend CUDA graph end. elapsed=1.57 s, mem usage=0.10 GB, avail mem=17.54 GB.",
+          "[2026-11-04 08:34:53] Capture draft decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[2, 3, 4], avail mem=17.54 GB",
+          "[2026-11-04 08:34:56] Capture draft decode CUDA graph end. elapsed=2.60 s, mem usage=0.03 GB, avail mem=17.51 GB.",
+          "[2026-11-04 08:34:56] Capture draft extend CUDA graph begin. backend=full, num_tokens_per_req=4, bs=[2, 3, 4], avail mem=17.51 GB",
+          "[2026-11-04 08:34:58] Capture draft extend CUDA graph end. elapsed=2.72 s, mem usage=0.10 GB, avail mem=17.41 GB."
+        ],
+        "last_lines": []
+      },
+      "warmup": {
+        "total_matching_lines": 3,
+        "first_lines": [
+          "[2026-11-04 08:35:20] Running warmup structured_output",
+          "[2026-11-04 08:35:34] Structured-output warmup completed for the built-in JSON schema.",
+          "[2026-11-04 08:35:34] Warmup ended"
+        ],
+        "last_lines": []
+      },
+      "api_ready": {
+        "total_matching_lines": 3,
+        "first_lines": [
+          "[2026-11-04 08:35:34] INFO:     Application startup complete.",
+          "[2026-11-04 08:35:34] INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)",
+          "[2026-11-04 08:35:49] The server is fired up and ready to roll!"
+        ],
+        "last_lines": []
+      },
+      "ple_backend": {
+        "total_matching_lines": 17,
+        "first_lines": [
+          "  PLE: host RAM | HiCache: true | Host tier: 8 GB",
+          "[2026-11-04 08:35:20] mamba match rid=a6f24e79bc1e43abbe59c1c16da2fd08 session=None prefix= input=10 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=0 mamba_total=63",
+          "[2026-11-04 08:35:34] mamba match rid=dd9e2bcbe76a4d2f91d04ce25bd6af9c session=None prefix= input=17 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=0 mamba_total=63",
+          "[2026-11-04 08:35:35] mamba match rid=16e2abdd2bea491b8056e0b5cfcea89d session=None prefix= input=20 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=0 mamba_total=63",
+          "[2026-11-04 08:35:35] mamba match rid=855c057f453344a5805e480de0ffc216 session=None prefix= input=80 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=0 mamba_total=63",
+          "[2026-11-04 08:35:49] mamba match rid=f639687c470a4a5e9489d0183c54a5cf session=None prefix= input=8454 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=2 mamba_total=63",
+          "[2026-11-04 08:35:57] mamba match rid=e11d5e575aa843f18f1a11d751172000 session=None prefix= input=35055 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=5 mamba_total=63",
+          "[2026-11-04 08:35:59] mamba match rid=6f1193b6974643d1a351afbaca2e86fa session=None prefix= input=46 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=15 mamba_total=63",
+          "[2026-11-04 08:36:00] mamba match rid=404723c7a3ac46c1a67ebce512cf36c4 session=None prefix= input=8103 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=16 mamba_total=63",
+          "[2026-11-04 08:36:01] mamba match rid=7efd01e11c9a4f33aa8896feb8498a48 session=None prefix= input=32253 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=19 mamba_total=63"
+        ],
+        "last_lines": [
+          "[2026-11-04 08:35:59] mamba match rid=6f1193b6974643d1a351afbaca2e86fa session=None prefix= input=46 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=15 mamba_total=63",
+          "[2026-11-04 08:36:00] mamba match rid=404723c7a3ac46c1a67ebce512cf36c4 session=None prefix= input=8103 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=16 mamba_total=63",
+          "[2026-11-04 08:36:01] mamba match rid=7efd01e11c9a4f33aa8896feb8498a48 session=None prefix= input=32253 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=19 mamba_total=63",
+          "[2026-11-04 08:36:04] mamba match rid=1cf3593d9f2c431988051977b3ec791c session=None prefix= input=59 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=28 mamba_total=63",
+          "[2026-11-04 08:36:05] mamba match rid=0bef50028f2e4c5cab019108554187ea session=None prefix= input=59 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=29 mamba_total=63",
+          "[2026-11-04 08:36:05] mamba match rid=8bb89708e5814db188266bcdf788946d session=None prefix= input=59 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=29 mamba_total=63",
+          "[2026-11-04 08:36:06] mamba match rid=f6591a820aa34d83853fc9f82e05f452 session=None prefix= input=59 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=31 mamba_total=63",
+          "[2026-11-04 08:36:06] mamba match rid=f33cb662085a43178ff9cc5f22f54724 session=None prefix= input=59 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=31 mamba_total=63",
+          "[2026-11-04 08:36:06] mamba match rid=01b33b1d17004e5e8674bd0511ea9dbf session=None prefix= input=59 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=31 mamba_total=63",
+          "[2026-11-04 08:36:06] mamba match rid=71f7055eb06e48febca29609bd1d45fa session=None prefix= input=59 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=31 mamba_total=63"
+        ]
+      },
+      "compilation": {
+        "total_matching_lines": 13,
+        "first_lines": [
+          "[2026-11-04 08:33:55] Running FlashInfer autotune with cache: /tmp/penny-cache/sglang/flashinfer/autotune/0.7.0.post1/sm120/9e402277b2a65968/rank_tp0_pp0_dp0.json",
+          "2026-11-04 08:34:22  [TileLang:tilelang.jit.kernel:INFO] (kernel.py:129): TileLang begins to compile kernel `kernel` with `out_idx=None`",
+          "2026-11-04 08:34:26  [TileLang:tilelang.jit.kernel:INFO] (kernel.py:137): TileLang completes to compile kernel `kernel`",
+          "[2026-11-04 08:34:40] FlashInfer autotune completed.",
+          "Capturing batches (bs=1 avail_mem=17.67 GB):   0%|          | 0/1 [00:00<?, ?it/s][2026-11-04 08:34:48] Running FlashInfer autotune with cache: /tmp/penny-cache/sglang/flashinfer/autotune/0.7.0.post1/sm120/a094a83d709974c3/rank_tp0_pp0_dp0.json",
+          "[2026-11-04 08:34:51] FlashInfer autotune completed.",
+          "Capturing batches (bs=1 avail_mem=17.64 GB):   0%|          | 0/1 [00:00<?, ?it/s][2026-11-04 08:34:52] Running FlashInfer autotune with cache: /tmp/penny-cache/sglang/flashinfer/autotune/0.7.0.post1/sm120/a094a83d709974c3/rank_tp0_pp0_dp0.json",
+          "[2026-11-04 08:34:52] FlashInfer autotune completed.",
+          "[2026-11-04 08:35:37] Triton kernel '_fwd_kernel' took 1.11 s to compile after serving started. Serving-time compilation can stall the engine; pre-compile it during engine init.",
+          "2026-11-04 08:35:49  [TileLang:tilelang.jit.kernel:INFO] (kernel.py:129): TileLang begins to compile kernel `kernel` with `out_idx=None`"
+        ],
+        "last_lines": [
+          "[2026-11-04 08:34:40] FlashInfer autotune completed.",
+          "Capturing batches (bs=1 avail_mem=17.67 GB):   0%|          | 0/1 [00:00<?, ?it/s][2026-11-04 08:34:48] Running FlashInfer autotune with cache: /tmp/penny-cache/sglang/flashinfer/autotune/0.7.0.post1/sm120/a094a83d709974c3/rank_tp0_pp0_dp0.json",
+          "[2026-11-04 08:34:51] FlashInfer autotune completed.",
+          "Capturing batches (bs=1 avail_mem=17.64 GB):   0%|          | 0/1 [00:00<?, ?it/s][2026-11-04 08:34:52] Running FlashInfer autotune with cache: /tmp/penny-cache/sglang/flashinfer/autotune/0.7.0.post1/sm120/a094a83d709974c3/rank_tp0_pp0_dp0.json",
+          "[2026-11-04 08:34:52] FlashInfer autotune completed.",
+          "[2026-11-04 08:35:37] Triton kernel '_fwd_kernel' took 1.11 s to compile after serving started. Serving-time compilation can stall the engine; pre-compile it during engine init.",
+          "2026-11-04 08:35:49  [TileLang:tilelang.jit.kernel:INFO] (kernel.py:129): TileLang begins to compile kernel `kernel` with `out_idx=None`",
+          "2026-11-04 08:35:53  [TileLang:tilelang.jit.kernel:INFO] (kernel.py:137): TileLang completes to compile kernel `kernel`",
+          "2026-11-04 08:35:53  [TileLang:tilelang.jit.kernel:INFO] (kernel.py:129): TileLang begins to compile kernel `kernel` with `out_idx=None`",
+          "2026-11-04 08:35:54  [TileLang:tilelang.jit.kernel:INFO] (kernel.py:137): TileLang completes to compile kernel `kernel`"
+        ]
+      }
+    },
+    "limits": {
+      "weight_segment_sum_may_overlap": "Use raw engine timing for official total; do not sum overlapping intervals",
+      "cuda_graph_and_warmup": "Only engine log evidence; absence is not proof no compilation occurred.",
+      "cpu_ple": "PLE availability and mamba log lines are proxies, not direct memory access latency."
+    },
+    "unmeasured": [
+      "direct PLE lookup latency (requires engine-level instrumentation)"
+    ],
+    "reported_weight_load_segments_s": [
+      92.37,
+      11.79
+    ],
+    "reported_weight_load_sum_s": 104.16,
+    "engine_timing_raw": "[2026-11-04 08:35:20] Engine startup timings (s): load_weight=104.17, kv_cache_allocation=2.10, scheduler_e2e=195.32, cuda_graph={prefill=0.00, decode=0.00, target_verify=15.05, draft_prefill=0.00, draft_decode=6.85, draft_extend=4.29}, tokenizer_e2e=213.75"
+  }
+}

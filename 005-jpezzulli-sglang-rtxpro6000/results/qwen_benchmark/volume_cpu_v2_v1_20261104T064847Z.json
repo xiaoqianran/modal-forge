@@ -1,0 +1,136 @@
+{
+  "order": "v2-v1",
+  "timestamp_utc": "2026-11-04T06:48:27.516820+00:00",
+  "results": [
+    {
+      "volume_version": 2,
+      "sha": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+      "file": "model-bf16-00011.safetensors",
+      "file_size_bytes": 10727387912,
+      "cpu_reserved": 4,
+      "ram_reserved_gib": 8,
+      "random": [
+        {
+          "block_bytes": 4096,
+          "ops": 256,
+          "bytes": 1048576,
+          "wall_s": 2.388354,
+          "mean_ms_per_op": 9.32951,
+          "ops_per_sec": 107.19,
+          "checksum": 0
+        },
+        {
+          "block_bytes": 65536,
+          "ops": 256,
+          "bytes": 16777216,
+          "wall_s": 0.084713,
+          "mean_ms_per_op": 0.33091,
+          "ops_per_sec": 3021.97,
+          "checksum": 153
+        }
+      ],
+      "sequential": [
+        {
+          "gib": 1,
+          "trial": 1,
+          "bytes": 1073741824,
+          "elapsed_s": 0.62948,
+          "mib_s": 1626.73,
+          "checksum": 3
+        },
+        {
+          "gib": 1,
+          "trial": 2,
+          "bytes": 1073741824,
+          "elapsed_s": 0.16988,
+          "mib_s": 6027.76,
+          "checksum": 3
+        },
+        {
+          "gib": 4,
+          "trial": 1,
+          "bytes": 4294967296,
+          "elapsed_s": 1.79268,
+          "mib_s": 2284.84,
+          "checksum": 147
+        },
+        {
+          "gib": 4,
+          "trial": 2,
+          "bytes": 4294967296,
+          "elapsed_s": 0.56967,
+          "mib_s": 7190.17,
+          "checksum": 147
+        }
+      ],
+      "elapsed_s": 5.636,
+      "warning": "OS page cache and Volume backend caching are uncontrolled; random reads are not O_DIRECT."
+    },
+    {
+      "volume_version": 1,
+      "sha": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+      "file": "model-bf16-00011.safetensors",
+      "file_size_bytes": 10727387912,
+      "cpu_reserved": 4,
+      "ram_reserved_gib": 8,
+      "random": [
+        {
+          "block_bytes": 4096,
+          "ops": 256,
+          "bytes": 1048576,
+          "wall_s": 2.989812,
+          "mean_ms_per_op": 11.67895,
+          "ops_per_sec": 85.62,
+          "checksum": 0
+        },
+        {
+          "block_bytes": 65536,
+          "ops": 256,
+          "bytes": 16777216,
+          "wall_s": 0.056251,
+          "mean_ms_per_op": 0.21973,
+          "ops_per_sec": 4551.01,
+          "checksum": 153
+        }
+      ],
+      "sequential": [
+        {
+          "gib": 1,
+          "trial": 1,
+          "bytes": 1073741824,
+          "elapsed_s": 0.49842,
+          "mib_s": 2054.47,
+          "checksum": 3
+        },
+        {
+          "gib": 1,
+          "trial": 2,
+          "bytes": 1073741824,
+          "elapsed_s": 0.12618,
+          "mib_s": 8115.18,
+          "checksum": 3
+        },
+        {
+          "gib": 4,
+          "trial": 1,
+          "bytes": 4294967296,
+          "elapsed_s": 1.59096,
+          "mib_s": 2574.55,
+          "checksum": 147
+        },
+        {
+          "gib": 4,
+          "trial": 2,
+          "bytes": 4294967296,
+          "elapsed_s": 0.49029,
+          "mib_s": 8354.2,
+          "checksum": 147
+        }
+      ],
+      "elapsed_s": 5.753,
+      "warning": "OS page cache and Volume backend caching are uncontrolled; random reads are not O_DIRECT."
+    }
+  ],
+  "errors": [],
+  "wall_s": 20.469
+}

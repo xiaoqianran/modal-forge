@@ -1,0 +1,8 @@
+{
+  "writer_path": "/compiler-vol/preflight/3c65fa18f2864f36bbf9cf279a8664fc.json",
+  "reader": {
+    "verified": true,
+    "path": "/compiler-vol/preflight/3c65fa18f2864f36bbf9cf279a8664fc.json",
+    "volume": "modal-forge-qwen38-compile-v2"
+  }
+}

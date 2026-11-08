@@ -1,0 +1,11 @@
+{
+  "stage": "cpu",
+  "order": "v1-v2",
+  "timestamp_utc": "2026-11-04T06:46:23.758346+00:00",
+  "results": [],
+  "errors": [
+    "v1: RemoteError: ",
+    "v2: ConflictError: function fu-9gBbZ9UpfsM1U0YSyD9A99 is stopped"
+  ],
+  "wall_s": 67.516
+}

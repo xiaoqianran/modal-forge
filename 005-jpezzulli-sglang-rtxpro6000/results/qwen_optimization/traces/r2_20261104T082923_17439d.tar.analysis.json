@@ -1,0 +1,803 @@
+{
+  "gpu_kernel_total_serial_ms": 233.315,
+  "top_ple_gpu_kernel_names": [
+    {
+      "name": "_gather_ple_embedding_from_pinned_kernel",
+      "count": 12,
+      "total_ms": 0.189
+    }
+  ],
+  "archive": "D:\\a_programming_list\\Ai-application\\A-modal\\modal-forge\\005-Default-GPU-Memory\\results\\qwen_optimization\\traces\\r2_20261104T082923_17439d.tar.gz",
+  "archive_sha256": "2682e5809370778c0388861a4240b44f2adb56031068affc71e93477686adeb3",
+  "trace_members": [
+    {
+      "name": "1793780963.361042-TP-0.trace.json.gz",
+      "raw_bytes": 112611550,
+      "events": 298199
+    }
+  ],
+  "events": 298199,
+  "categories": [
+    [
+      "python_function",
+      190916
+    ],
+    [
+      "ac2g",
+      41704
+    ],
+    [
+      "kernel",
+      30862
+    ],
+    [
+      "cpu_op",
+      23337
+    ],
+    [
+      "cuda_runtime",
+      9480
+    ],
+    [
+      "cuda_driver",
+      1161
+    ],
+    [
+      "gpu_user_annotation",
+      242
+    ],
+    [
+      "user_annotation",
+      213
+    ],
+    [
+      "gpu_memcpy",
+      189
+    ],
+    [
+      "",
+      76
+    ],
+    [
+      "gpu_memset",
+      12
+    ],
+    [
+      "overhead",
+      6
+    ],
+    [
+      "Trace",
+      1
+    ]
+  ],
+  "top_gpu_kernels_by_sum": [
+    {
+      "name": "_w8a16_gemv_kernel",
+      "count": 2785,
+      "total_ms": 50.972
+    },
+    {
+      "name": "_ZN7cutlass13device_kernelINS_4gemm6kernel13GemmUniversalINS1_17GroupProblemShapeIN4cute5tupleIJlllEEEEENS1_10collective13CollectiveMmaINS1_47MainloopSm120ArrayTmaWarpSpecializedBlockScaledILi3ELi3ENS6_IJNS5_1CILi1EEESD_SD_EEENS1_59KernelPtrArrayTmaW",
+      "count": 539,
+      "total_ms": 35.483
+    },
+    {
+      "name": "_ZN7cutlass13device_kernelINS_4gemm6kernel13GemmUniversalINS1_17GroupProblemShapeIN4cute5tupleIJlllEEEEENS1_10collective13CollectiveMmaINS1_47MainloopSm120ArrayTmaWarpSpecializedBlockScaledILi6ELi3ENS6_IJNS5_1CILi1EEESD_SD_EEENS1_59KernelPtrArrayTmaW",
+      "count": 539,
+      "total_ms": 20.419
+    },
+    {
+      "name": "_ZN7cutlass13device_kernelINS_4gemm6kernel13GemmUniversalINS1_17GroupProblemShapeIN4cute5tupleIJlllEEEEENS1_10collective13CollectiveMmaINS1_47MainloopSm120ArrayTmaWarpSpecializedBlockScaledILi2ELi3ENS6_IJNS5_1CILi1EEESD_SD_EEENS1_59KernelPtrArrayTmaW",
+      "count": 98,
+      "total_ms": 17.641
+    },
+    {
+      "name": "void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8>(cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8::Params)",
+      "count": 407,
+      "total_ms": 15.304
+    },
+    {
+      "name": "_hc_up_kernel",
+      "count": 1298,
+      "total_ms": 6.6
+    },
+    {
+      "name": "_ZN7cutlass13device_kernelINS_4gemm6kernel13GemmUniversalIN4cute5tupleIJiiiiEEENS1_10collective13CollectiveMmaINS1_31MainloopSm120TmaWarpSpecializedILi2ELi2ENS5_IJNS4_1CILi1EEESB_SB_EEENS1_40KernelTmaWarpSpecializedCooperativeSm120ILi2EEEEENS5_IJNSA_",
+      "count": 209,
+      "total_ms": 5.966
+    },
+    {
+      "name": "_hc_down_kernel",
+      "count": 1298,
+      "total_ms": 5.466
+    },
+    {
+      "name": "kernel_cutlass_gdn_decode_bf16state_mtp_ilp4_kernel_tensorptrbf16gmemalign32o48128128786432163841281_tensorptrbf16gmemalign32o111128786432163841281_4_8_16_tensorptrf32gmemalign32o481_tens_0",
+      "count": 468,
+      "total_ms": 5.11
+    },
+    {
+      "name": "void tensorrt_llm::kernels::cutlass_kernels::fusedBuildExpertMapsSortFirstTokenAndExpandKernel<__nv_fp4_e2m1, __nv_bfloat16, 32, 10, 10>(int const*, int*, int*, long*, long, int, int, int, __nv_bfloat16 const*, __nv_fp4_e2m1*, float const*, float*, u",
+      "count": 539,
+      "total_ms": 3.394
+    },
+    {
+      "name": "_causal_conv1d_update_kernel",
+      "count": 396,
+      "total_ms": 2.989
+    },
+    {
+      "name": "void cutlass::Kernel2<cutlass_80_wmma_tensorop_s161616gemm_bf16_32x32_128x1_tn_align8>(cutlass_80_wmma_tensorop_s161616gemm_bf16_32x32_128x1_tn_align8::Params)",
+      "count": 539,
+      "total_ms": 2.537
+    },
+    {
+      "name": "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1}>(at::TensorIte",
+      "count": 1333,
+      "total_ms": 2.505
+    },
+    {
+      "name": "void sglang::hc_combine_gate_kernel<4l, 2560l, true, __nv_bfloat16>(sglang::HcCombineSplitParams)",
+      "count": 1210,
+      "total_ms": 2.491
+    },
+    {
+      "name": "void tensorrt_llm::kernels::cutlass_kernels::computeStridesTmaWarpSpecializedKernel<__nv_fp4_e2m1, __nv_fp4_e2m1, __nv_bfloat16, __nv_bfloat16>(long const*, tensorrt_llm::kernels::cutlass_kernels::TmaWarpSpecializedGroupedGemmInput, tensorrt_llm::ker",
+      "count": 588,
+      "total_ms": 2.45
+    },
+    {
+      "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, un",
+      "count": 326,
+      "total_ms": 2.423
+    },
+    {
+      "name": "_qsa_graph_row_metadata_kernel",
+      "count": 88,
+      "total_ms": 2.387
+    },
+    {
+      "name": "kernel_mha(unsigned int, float, float const*, Vec<__nv_bfloat16, 256u>*, Vec<__nv_bfloat16, 256u> const*, float const*, KVCacheList<true>, unsigned int, float, float const*, unsigned int, unsigned int, unsigned int, unsigned int*, void*)",
+      "count": 209,
+      "total_ms": 2.381
+    },
+    {
+      "name": "void tensorrt_llm::kernels::cutlass_kernels::doActivationKernel<__nv_fp4_e2m1, __nv_bfloat16, __nv_bfloat16, tensorrt_llm::kernels::cutlass_kernels::GLUAdaptor<cutlass::epilogue::thread::SiLu>, (tensorrt_llm::kernels::cutlass_kernels::TmaWarpSpeciali",
+      "count": 588,
+      "total_ms": 2.371
+    },
+    {
+      "name": "_hc_branch_stats_kernel",
+      "count": 1298,
+      "total_ms": 2.076
+    },
+    {
+      "name": "memcpy32_post",
+      "count": 1815,
+      "total_ms": 1.983
+    },
+    {
+      "name": "void cublasLt::splitKreduce_kernel<32, 16, int, float, __nv_bfloat16, float, __nv_bfloat16, false, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, __nv_bfloat16 const*, __nv_b",
+      "count": 710,
+      "total_ms": 1.955
+    },
+    {
+      "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, a",
+      "count": 200,
+      "total_ms": 1.889
+    },
+    {
+      "name": "void at::native::index_elementwise_kernel<128, 4, at::native::gpu_index_kernel<at::native::index_kernel_impl<at::native::OpaqueType<4> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1}>(at::Ten",
+      "count": 185,
+      "total_ms": 1.831
+    },
+    {
+      "name": "_router_softmax_fast32_kernel",
+      "count": 654,
+      "total_ms": 1.687
+    },
+    {
+      "name": "kernel_cutlass_kernel_flashinfergdn_kernelsgdn_decode_bf16_wy_output_onlyGdnDecodeKernel_object_at__tensorptrbf16gmemalign16o8161281638420481281_tensorptrbf16gmemalign16o81612816384204812_0",
+      "count": 396,
+      "total_ms": 1.665
+    },
+    {
+      "name": "void sglang::qsa_index_q_prep_kernel<__nv_bfloat16, 128, true, true>(sglang::QsaIndexQPrepParams)",
+      "count": 156,
+      "total_ms": 1.586
+    },
+    {
+      "name": "void sglang::hc_combine_apply_kernel<4l, 2560l, true, __nv_bfloat16>(sglang::HcCombineSplitParams)",
+      "count": 1210,
+      "total_ms": 1.549
+    },
+    {
+      "name": "_fused_gate_sigmoid_mul_add_kernel",
+      "count": 654,
+      "total_ms": 1.512
+    },
+    {
+      "name": "void sglang::act_and_mul_kernel<__nv_bfloat16, (sglang::ActivationKind)0, true, false, false, false>(sglang::ActivationParams)",
+      "count": 654,
+      "total_ms": 1.481
+    }
+  ],
+  "name_keywords": {
+    "gather": {
+      "count": 378,
+      "sum_ms": 3.802
+    },
+    "ngram": {
+      "count": 89,
+      "sum_ms": 0.199
+    },
+    "host": {
+      "count": 728,
+      "sum_ms": 1.407
+    },
+    "ple": {
+      "count": 38,
+      "sum_ms": 4.829
+    },
+    "transfer": {
+      "count": 52,
+      "sum_ms": 0.02
+    },
+    "cudaMemcpy": {
+      "count": 189,
+      "sum_ms": 1.572
+    }
+  },
+  "focus_by_category": {
+    "gather": {
+      "cpu_op": {
+        "count": 15,
+        "sum_ms": 0.252
+      },
+      "python_function": {
+        "count": 259,
+        "sum_ms": 3.236
+      },
+      "kernel": {
+        "count": 104,
+        "sum_ms": 0.314
+      }
+    },
+    "ngram": {
+      "python_function": {
+        "count": 78,
+        "sum_ms": 0.182
+      },
+      "kernel": {
+        "count": 11,
+        "sum_ms": 0.017
+      }
+    },
+    "host": {
+      "python_function": {
+        "count": 728,
+        "sum_ms": 1.407
+      }
+    },
+    "ple": {
+      "python_function": {
+        "count": 26,
+        "sum_ms": 4.64
+      },
+      "kernel": {
+        "count": 12,
+        "sum_ms": 0.189
+      }
+    },
+    "transfer": {
+      "python_function": {
+        "count": 52,
+        "sum_ms": 0.02
+      }
+    },
+    "cudaMemcpy": {
+      "cuda_runtime": {
+        "count": 189,
+        "sum_ms": 1.572
+      }
+    }
+  },
+  "focus_examples": [
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 19.678,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 21.917,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 13.945,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 8.276,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 27.498,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 13.269,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 19.611,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 13.223,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 19.527,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 14.299,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 13.903,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 16.858,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 13.776,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 18.079,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "aten::gather",
+      "cat": "cpu_op",
+      "dur_us": 17.687,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/model_executor/model_runner_components/ngram_embedding_manager.py(88): prepare_for_forward",
+      "cat": "python_function",
+      "dur_us": 0.178,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.907,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.712,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.617,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.297,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.402,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.167,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.395,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.15,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.349,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.154,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.424,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.167,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.407,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.167,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.428,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.186,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.442,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.177,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.395,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.159,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.443,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.173,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.508,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.178,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.395,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.171,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.605,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.253,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.46,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.209,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.405,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.325,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.435,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.196,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.395,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.181,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 6.791,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.23,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 3.713,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.156,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.509,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.256,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.502,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.293,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.369,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.154,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.506,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.155,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.406,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.156,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.471,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.153,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1731): _is_host_leaf",
+      "cat": "python_function",
+      "dur_us": 0.383,
+      "pid": 195,
+      "tid": 195
+    },
+    {
+      "name": "/opt/pennyroyal/python/sglang/srt/mem_cache/unified_cache/unified_tree_core.py(1199): _is_settled_full_host_duplicate",
+      "cat": "python_function",
+      "dur_us": 0.238,
+      "pid": 195,
+      "tid": 195
+    }
+  ],
+  "limits": [
+    "GPU kernel total durations can overlap across streams and are not the GPU critical path.",
+    "Chrome trace may not expose explicit PLE wait edges, especially inside CUDA graphs.",
+    "Torch profiler changes runtime timings; never treat trace workload as serving throughput."
+  ]
+}

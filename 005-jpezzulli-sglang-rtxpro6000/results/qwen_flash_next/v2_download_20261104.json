@@ -1,0 +1,31 @@
+{
+  "stage": "download",
+  "schema_version": 1,
+  "storage": "Modal Volume v2",
+  "volume": "modal-forge-qwen38-flashnext-model-v2",
+  "model": "RadixArk/Qwen3.8-Flash-Next-NVFP4",
+  "revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+  "files": 419,
+  "bytes": 135253622894,
+  "wall_seconds": 260.2,
+  "shard_target_gb": 16,
+  "max_shards": 8,
+  "workers_per_shard": 2,
+  "gpu_used": false,
+  "preemption_reported": true,
+  "ready": true,
+  "modal_app_run": "ap-86cS1umKd0GHKvP78bAQpz",
+  "billing_source": "modal billing report --for today --resolution h --show-resources --json",
+  "actual_billing_usd": {
+    "cpu": 0.09775746,
+    "memory": 0.01876459,
+    "network_egress": 0.07153481,
+    "total": 0.18805686
+  },
+  "comparison_old": {
+    "method": "single-container snapshot_download, Volume v1",
+    "wall_seconds": 530.45,
+    "ratio_old_over_new": 2.0386
+  },
+  "notes": "Billing report may be revised by provider; CPU-only downloader succeeded despite preemption. Model later successfully loaded by GPU v2 run."
+}

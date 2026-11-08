@@ -1,0 +1,229 @@
+{
+  "startup_s": 273.78,
+  "traffic_ready_s": 288.648,
+  "first_useful_answer_s": 289.493,
+  "elapsed_s": 314.12,
+  "phase_marks": [
+    {
+      "phase": "hardware_recorded",
+      "elapsed_s": 0.323,
+      "timestamp_utc": "2026-11-04T08:24:25.803168+00:00"
+    },
+    {
+      "phase": "volume_manifest_checked",
+      "elapsed_s": 3.158,
+      "timestamp_utc": "2026-11-04T08:24:28.638437+00:00"
+    },
+    {
+      "phase": "compiler_cache_restore_begin",
+      "elapsed_s": 3.816,
+      "timestamp_utc": "2026-11-04T08:24:29.296723+00:00"
+    },
+    {
+      "phase": "compiler_cache_restore_done",
+      "elapsed_s": 5.565,
+      "timestamp_utc": "2026-11-04T08:24:31.045725+00:00"
+    },
+    {
+      "phase": "pennyroyal_process_start",
+      "elapsed_s": 5.567,
+      "timestamp_utc": "2026-11-04T08:24:31.047677+00:00"
+    },
+    {
+      "phase": "api_models_ready",
+      "elapsed_s": 273.782,
+      "timestamp_utc": "2026-11-04T08:28:59.262949+00:00"
+    },
+    {
+      "phase": "smoke_warmup",
+      "elapsed_s": 273.782,
+      "timestamp_utc": "2026-11-04T08:28:59.262961+00:00"
+    },
+    {
+      "phase": "shape_warmup_begin",
+      "elapsed_s": 284.766,
+      "timestamp_utc": "2026-11-04T08:29:10.246733+00:00"
+    },
+    {
+      "phase": "shape_warmup_complete",
+      "elapsed_s": 288.648,
+      "timestamp_utc": "2026-11-04T08:29:14.128626+00:00"
+    },
+    {
+      "phase": "profile_suite_start",
+      "elapsed_s": 288.648,
+      "timestamp_utc": "2026-11-04T08:29:14.128641+00:00"
+    },
+    {
+      "phase": "single_short",
+      "elapsed_s": 288.649,
+      "timestamp_utc": "2026-11-04T08:29:14.128981+00:00"
+    },
+    {
+      "phase": "single_medium",
+      "elapsed_s": 289.493,
+      "timestamp_utc": "2026-11-04T08:29:14.973925+00:00"
+    },
+    {
+      "phase": "single_long",
+      "elapsed_s": 290.485,
+      "timestamp_utc": "2026-11-04T08:29:15.965353+00:00"
+    },
+    {
+      "phase": "concurrency_1",
+      "elapsed_s": 293.117,
+      "timestamp_utc": "2026-11-04T08:29:18.596999+00:00"
+    },
+    {
+      "phase": "concurrency_2",
+      "elapsed_s": 293.975,
+      "timestamp_utc": "2026-11-04T08:29:19.455768+00:00"
+    },
+    {
+      "phase": "concurrency_4",
+      "elapsed_s": 295.333,
+      "timestamp_utc": "2026-11-04T08:29:20.813202+00:00"
+    },
+    {
+      "phase": "suite_complete",
+      "elapsed_s": 297.879,
+      "timestamp_utc": "2026-11-04T08:29:23.359147+00:00"
+    },
+    {
+      "phase": "ple_native_profile_begin",
+      "elapsed_s": 297.879,
+      "timestamp_utc": "2026-11-04T08:29:23.359216+00:00"
+    },
+    {
+      "phase": "ple_native_profile_done",
+      "elapsed_s": 308.279,
+      "timestamp_utc": "2026-11-04T08:29:33.759515+00:00"
+    },
+    {
+      "phase": "shutdown_begin",
+      "elapsed_s": 308.279,
+      "timestamp_utc": "2026-11-04T08:29:33.759542+00:00"
+    }
+  ],
+  "compiler_event_counts": {
+    "tilelang_begin": 0,
+    "tilelang_end": 0,
+    "flashinfer_autotune": 3
+  },
+  "engine_running_max_observed": 2,
+  "log_phase_report": {
+    "log_line_count": 606,
+    "patterns": {
+      "weight_begin": {
+        "total_matching_lines": 2,
+        "first_lines": [
+          "[2026-11-04 08:25:49] Load weight begin. avail mem=94.18 GB",
+          "[2026-11-04 08:28:01] Load weight begin. avail mem=23.09 GB"
+        ],
+        "last_lines": []
+      },
+      "weight_end": {
+        "total_matching_lines": 2,
+        "first_lines": [
+          "[2026-11-04 08:28:00] Load weight end. elapsed=130.95 s, type=Qwen4ExpForConditionalGeneration, quant=modelopt_fp4, quant_algo=NVFP4, avail mem=23.20 GB, mem usage=70.97 GB.",
+          "[2026-11-04 08:28:16] Load weight end. elapsed=14.68 s, type=Qwen4ExpForCausalLMMTP, quant=modelopt_fp4, quant_algo=NVFP4, avail mem=19.24 GB, mem usage=3.85 GB."
+        ],
+        "last_lines": []
+      },
+      "engine_timings": {
+        "total_matching_lines": 1,
+        "first_lines": [
+          "[2026-11-04 08:28:43] Engine startup timings (s): load_weight=145.63, kv_cache_allocation=0.97, scheduler_e2e=178.33, cuda_graph={prefill=0.00, decode=0.00, target_verify=3.38, draft_prefill=0.00, draft_decode=3.62, draft_extend=1.63}, tokenizer_e2e=200.27"
+        ],
+        "last_lines": []
+      },
+      "cuda_graph": {
+        "total_matching_lines": 10,
+        "first_lines": [
+          "[2026-11-04 08:28:32] Capture target verify CUDA graph begin. backend=full, num_tokens_per_req=8, bs=[1], avail mem=18.60 GB",
+          "[2026-11-04 08:28:34] Capture target verify CUDA graph end. elapsed=1.37 s, mem usage=0.13 GB, avail mem=18.47 GB.",
+          "[2026-11-04 08:28:34] Capture draft decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1], avail mem=18.47 GB",
+          "[2026-11-04 08:28:36] Capture draft decode CUDA graph end. elapsed=2.07 s, mem usage=0.03 GB, avail mem=18.44 GB.",
+          "[2026-11-04 08:28:36] Capture draft extend CUDA graph begin. backend=full, num_tokens_per_req=8, bs=[1], avail mem=18.44 GB",
+          "[2026-11-04 08:28:36] Capture draft extend CUDA graph end. elapsed=0.57 s, mem usage=0.10 GB, avail mem=18.34 GB.",
+          "[2026-11-04 08:28:36] Capture draft decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[2], avail mem=18.34 GB",
+          "[2026-11-04 08:28:38] Capture draft decode CUDA graph end. elapsed=1.55 s, mem usage=0.02 GB, avail mem=18.31 GB.",
+          "[2026-11-04 08:28:38] Capture draft extend CUDA graph begin. backend=full, num_tokens_per_req=4, bs=[2], avail mem=18.31 GB",
+          "[2026-11-04 08:28:39] Capture draft extend CUDA graph end. elapsed=1.07 s, mem usage=0.06 GB, avail mem=18.25 GB."
+        ],
+        "last_lines": []
+      },
+      "warmup": {
+        "total_matching_lines": 3,
+        "first_lines": [
+          "[2026-11-04 08:28:43] Running warmup structured_output",
+          "[2026-11-04 08:28:58] Structured-output warmup completed for the built-in JSON schema.",
+          "[2026-11-04 08:28:58] Warmup ended"
+        ],
+        "last_lines": []
+      },
+      "api_ready": {
+        "total_matching_lines": 3,
+        "first_lines": [
+          "[2026-11-04 08:28:58] INFO:     Application startup complete.",
+          "[2026-11-04 08:28:58] INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)",
+          "[2026-11-04 08:29:09] The server is fired up and ready to roll!"
+        ],
+        "last_lines": []
+      },
+      "ple_backend": {
+        "total_matching_lines": 20,
+        "first_lines": [
+          "  PLE: host RAM | HiCache: true | Host tier: 8 GB",
+          "[2026-11-04 08:28:43] mamba match rid=98155ad2b2e3488f851640cd1b03a040 session=None prefix= input=10 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=0 mamba_total=42",
+          "[2026-11-04 08:28:59] mamba match rid=d0ea580265d647e59e8dfaacaf0a555b session=None prefix= input=17 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=0 mamba_total=42",
+          "[2026-11-04 08:28:59] mamba match rid=6e43203851e14afb8bf43102e899308f session=None prefix= input=80 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=0 mamba_total=42",
+          "[2026-11-04 08:29:09] mamba match rid=f28b711e21c1454fb9efca18e2fb634d session=None prefix= input=20 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=1 mamba_total=42",
+          "[2026-11-04 08:29:10] mamba match rid=3a4fc1a8b5f6487abba96c3766813a81 session=None prefix= input=8454 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=2 mamba_total=42",
+          "[2026-11-04 08:29:11] mamba match rid=68e59f2859374b60bc17a42e7355f0ec session=None prefix= input=35055 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=5 mamba_total=42",
+          "[2026-11-04 08:29:14] mamba match rid=e5bf2d83742f4a86a5a53961eaad2f46 session=None prefix= input=46 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=15 mamba_total=42",
+          "[2026-11-04 08:29:15] mamba match rid=d33c362fcf1e4ccbaf8ed972ec89dcad session=None prefix= input=8103 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=16 mamba_total=42",
+          "[2026-11-04 08:29:16] mamba match rid=3bea2194c6b744f188ad1a8ccb3cfc4a session=None prefix= input=32253 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=19 mamba_total=42"
+        ],
+        "last_lines": [
+          "[2026-11-04 08:29:18] mamba match rid=6834f92c9949407485cb3767f5ed29c6 session=None prefix= input=59 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=28 mamba_total=42",
+          "[2026-11-04 08:29:19] mamba match rid=b0168441cde04618ad4bc9efd936388d session=None prefix= input=59 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=29 mamba_total=42",
+          "[2026-11-04 08:29:19] mamba match rid=25cd7318be7247979b110445d0938749 session=None prefix= input=59 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=29 mamba_total=42",
+          "[2026-11-04 08:29:20] mamba match rid=a8f06aa0660840a5949bb7194325df9f session=None prefix= input=59 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=31 mamba_total=42",
+          "[2026-11-04 08:29:20] mamba match rid=f7613d10c7a24753a7ca52918748d872 session=None prefix= input=59 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=31 mamba_total=42",
+          "[2026-11-04 08:29:22] mamba match rid=5e198af8e50c4c0f8ecd2515b62bfa4e session=None prefix= input=59 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=32 mamba_total=42",
+          "[2026-11-04 08:29:22] mamba match rid=f2b33ecaa0aa430999acd1b35acd2f45 session=None prefix= input=59 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=33 mamba_total=42",
+          "[2026-11-04 08:29:23] Profiling starts. Traces will be saved to: /tmp/qwen-opt-ple-profile/r2_20261104T082923_17439d (with profile id: 1793780963.361042)",
+          "[2026-11-04 08:29:23] mamba match rid=d8a0e8395d104094addae0b44eecb3b9 session=None prefix= input=44 full_kv=0 device=0 host_hit=0 mamba_host=0 branching=None node=9 mamba_used=35 mamba_total=42",
+          "[2026-11-04 08:29:29] Profiling done. Traces are saved to: /tmp/qwen-opt-ple-profile/r2_20261104T082923_17439d"
+        ]
+      },
+      "compilation": {
+        "total_matching_lines": 6,
+        "first_lines": [
+          "[2026-11-04 08:28:17] Running FlashInfer autotune with cache: /tmp/penny-cache/sglang/flashinfer/autotune/0.7.0.post1/sm120/9e402277b2a65968/rank_tp0_pp0_dp0.json",
+          "[2026-11-04 08:28:32] FlashInfer autotune completed.",
+          "Capturing batches (bs=1 avail_mem=18.47 GB):   0%|          | 0/1 [00:00<?, ?it/s][2026-11-04 08:28:34] Running FlashInfer autotune with cache: /tmp/penny-cache/sglang/flashinfer/autotune/0.7.0.post1/sm120/a094a83d709974c3/rank_tp0_pp0_dp0.json",
+          "[2026-11-04 08:28:35] FlashInfer autotune completed.",
+          "Capturing batches (bs=1 avail_mem=18.44 GB):   0%|          | 0/1 [00:00<?, ?it/s][2026-11-04 08:28:36] Running FlashInfer autotune with cache: /tmp/penny-cache/sglang/flashinfer/autotune/0.7.0.post1/sm120/a094a83d709974c3/rank_tp0_pp0_dp0.json",
+          "[2026-11-04 08:28:36] FlashInfer autotune completed."
+        ],
+        "last_lines": []
+      }
+    },
+    "limits": {
+      "weight_segment_sum_may_overlap": "Use raw engine timing for official total; do not sum overlapping intervals",
+      "cuda_graph_and_warmup": "Only engine log evidence; absence is not proof no compilation occurred.",
+      "cpu_ple": "PLE availability and mamba log lines are proxies, not direct memory access latency."
+    },
+    "unmeasured": [
+      "direct PLE lookup latency (requires engine-level instrumentation)"
+    ],
+    "reported_weight_load_segments_s": [
+      130.95,
+      14.68
+    ],
+    "reported_weight_load_sum_s": 145.63,
+    "engine_timing_raw": "[2026-11-04 08:28:43] Engine startup timings (s): load_weight=145.63, kv_cache_allocation=0.97, scheduler_e2e=178.33, cuda_graph={prefill=0.00, decode=0.00, target_verify=3.38, draft_prefill=0.00, draft_decode=3.62, draft_extend=1.63}, tokenizer_e2e=200.27"
+  }
+}

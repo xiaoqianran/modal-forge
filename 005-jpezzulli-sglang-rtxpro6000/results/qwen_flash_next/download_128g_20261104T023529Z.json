@@ -1,0 +1,10 @@
+{
+  "stage": "download",
+  "model": "RadixArk/Qwen3.8-Flash-Next-NVFP4",
+  "file_count": 419,
+  "bytes": 135253622894,
+  "elapsed_s": 530.45,
+  "local_wall_s": 546.01,
+  "estimated_usd": 0.04801,
+  "cost_note": "Planning estimate, not an actual invoice; cold starts and memory/CPU metering can differ."
+}

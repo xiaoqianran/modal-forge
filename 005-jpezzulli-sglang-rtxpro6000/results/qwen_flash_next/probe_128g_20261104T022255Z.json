@@ -1,0 +1,39 @@
+{
+  "stage": "probe",
+  "before": {
+    "gpu": {
+      "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "total_mib": "97887",
+      "used_mib": "5",
+      "utilization_pct": "0",
+      "power_w": "31.50",
+      "compute_capability": "12.0"
+    },
+    "memory": {
+      "current_bytes": null,
+      "peak_bytes": null,
+      "limit": null,
+      "cpu_quota": null,
+      "events": null,
+      "breakdown": {}
+    },
+    "cpu_count": 24,
+    "cpu_model": "unknown",
+    "pinned_memlock_limit_bytes": {
+      "soft": 42949672960,
+      "hard": 42949672960
+    },
+    "timestamp_utc": "2026-11-04T02:22:55.658565+00:00"
+  },
+  "during": {
+    "current_bytes": null,
+    "peak_bytes": null,
+    "limit": null,
+    "cpu_quota": null,
+    "events": null,
+    "breakdown": {}
+  },
+  "local_wall_s": 3.3,
+  "estimated_usd": 0.00406,
+  "cost_note": "Planning estimate, not an actual invoice; cold starts and memory/CPU metering can differ."
+}

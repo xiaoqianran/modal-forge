@@ -1,0 +1,273 @@
+{
+  "gpu_requested": "A100-40GB",
+  "timestamp_utc": "2026-11-04T06:50:00.223722+00:00",
+  "cpu_cores_reserved": 4,
+  "ram_gib_reserved": 8,
+  "image": "nvidia/cuda:12.8.1-runtime-ubuntu22.04",
+  "hardware": {
+    "timestamp_utc": "2026-11-04T06:50:00.223739+00:00",
+    "container_hostname": "modal",
+    "commands": {
+      "lscpu": {
+        "exit_code": 0,
+        "stdout": "Architecture:        x86_64\nCPU op-mode(s):      32-bit, 64-bit\nAddress sizes:       46 bits physical, 48 bits virtual\nByte Order:          Little Endian\nCPU(s):              20\nOn-line CPU(s) list: 0-19\nVendor ID:           GenuineIntel\nModel name:          unknown\nCPU family:          6\nModel:               143\nThread(s) per core:  1\nCore(s) per socket:  20\nSocket(s):           1\nStepping:            unknown\nBogoMIPS:            2646.43\nFlags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nVirtualization:      VT-x\nNUMA node(s):        1\nNUMA node0 CPU(s):   0-19\n",
+        "stderr": "",
+        "truncated": false
+      },
+      "numactl --hardware": {
+        "exit_code": 0,
+        "stdout": "available: 1 nodes (0)\nnode 0 cpus: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19\nnode 0 size: <not available>\nnode 0 free: <not available>\nnode distances:\nnode   0 \n  0:  10 \n",
+        "stderr": "",
+        "truncated": false
+      },
+      "nvidia-smi -q": {
+        "exit_code": 0,
+        "stdout": "\n==============NVSMI LOG==============\n\nTimestamp                                              : Wed Nov  4 06:50:00 2026\nDriver Version                                         : 610.57.04 [Deprecated; will be removed in CUDA 14.0. Use KMD Version instead]\nCUDA Version                                           : 13.3 [Deprecated; will be removed in CUDA 14.0. Use CUDA UMD Version instead]\nKMD Version                                            : 610.57.04\nCUDA UMD Version                                       : 13.3\n\nAttached GPUs                                          : 1\nGPU 00000000:4E:00.0\n    Product Name                                       : NVIDIA A100-SXM4-80GB\n    Product Brand                                      : NVIDIA\n    Product Architecture                               : Ampere\n    Display Mode                                       : Requested functionality has been deprecated\n    Display Attached                                   : Yes\n    Display Active                                     : Disabled\n    Persistence Mode                                   : Enabled\n    Addressing Mode                                    : None\n    MIG Mode\n        Current                                        : Disabled\n        Pending                                        : Disabled\n    Accounting Mode                                    : Disabled\n    Accounting Mode Buffer Size                        : 4000\n    Driver Model\n        Current                                        : N/A\n        Pending                                        : N/A\n    Serial Number                                      : 1652723035371\n    GPU UUID                                           : GPU-124c8484-4d96-36cf-c127-8eff46bd45d2\n    GPU PDI                                            : 0x5d45325819c77ff3\n    Minor Number                                       : 2\n    VBIOS Version                                      : 92.00.9E.00.02\n    MultiGPU Board                                     : No\n    Board ID                                           : 0x4e00\n    Board Part Number                                  : 692-2G506-0212-005\n    GPU Part Number                                    : 20B2-896-A1\n    FRU Part Number                                    : N/A\n    Platform Info\n        Chassis Serial Number                          : N/A\n        Slot Number                                    : N/A\n        Tray Index                                     : N/A\n        Host ID                                        : N/A\n        Peer Type                                      : N/A\n        Module Id                                      : 1\n        GPU Fabric GUID                                : N/A\n    Inforom Version\n        Image Version                                  : G506.0212.00.01\n        OEM Object                                     : 2.0\n        ECC Object                                     : 6.16\n        Power Management Object                        : N/A\n    Inforom BBX Object Flush\n        Latest Timestamp                               : N/A\n        Latest Duration                                : N/A\n    Inforom Time Data\n        Time Run                                       : 8590554 seconds\n    GPU Operation Mode\n        Current                                        : N/A\n        Pending                                        : N/A\n    GPU C2C Mode                                       : N/A\n    GPU Virtualization Mode\n        Virtualization Mode                            : None\n        Host VGPU Mode                                 : N/A\n        vGPU Heterogeneous Mode                        : N/A\n    GPU Recovery Action                                : None\n    GSP Firmware Version                               : 610.57.04\n    IBMNPU\n        Relaxed Ordering Mode                          : N/A\n    PCI\n        Bus                                            : Unknown Error\n        Device                                         : Unknown Error\n        Domain                                         : Unknown Error\n        Base Classcode                                 : Unknown Error\n        Sub Classcode                                  : Unknown Error\n        Device Id                                      : Unknown Error\n        Bus Id                                         : Unknown Error\n        Sub System Id                                  : Unknown Error\n        GPU Link Info\n            PCIe Generation\n                Max                                    : 4\n                Current                                : 4\n                Device Current                         : 4\n                Device Max                             : 4\n                Host Max                               : 5\n            Link Width\n                Max                                    : 16x\n                Current                                : 16x\n        Bridge Chip\n            Type                                       : N/A\n            Firmware                                   : N/A\n        Replays Since Reset                            : 0\n        Replay Number Rollovers                        : 0\n        Tx Throughput                                  : 390 KB/s\n        Rx Throughput                                  : 244 KB/s\n        Atomic Caps Outbound                           : N/A\n        Atomic Caps Inbound                            : N/A\n    Fan Speed                                          : N/A\n    Performance State                                  : P0\n    Clocks Event Reasons\n        Idle                                           : Active\n        Applications Clocks Setting                    : Not Active\n        SW Power Cap                                   : Not Active\n        HW Slowdown                                    : Not Active\n            HW Thermal Slowdown                        : Not Active\n            HW Power Brake Slowdown                    : Not Active\n        Sync Boost                                     : Not Active\n        SW Thermal Slowdown                            : Not Active\n        Display Clock Setting                          : Not Active\n    Clocks Event Reasons Counters\n        SW Power Capping                               : 0 us\n        Sync Boost                                     : 0 us\n        SW Thermal Slowdown                            : 0 us\n        HW Thermal Slowdown                            : 0 us\n        HW Power Braking                               : 0 us\n    Sparse Operation Mode                              : N/A\n    FB Memory Usage\n        Total                                          : 81920 MiB\n        Reserved                                       : 745 MiB\n        Used                                           : 4 MiB\n        Free                                           : 81172 MiB\n    BAR1 Memory Usage\n        Total                                          : 131072 MiB\n        Used                                           : 3 MiB\n        Free                                           : 131069 MiB\n    Conf Compute Protected Memory Usage\n        Total                                          : 0 MiB\n        Used                                           : 0 MiB\n        Free                                           : 0 MiB\n    Compute Mode                                       : Default\n    Utilization\n        GPU                                            : 0 %\n        Memory                                         : 0 %\n        Encoder                                        : 0 %\n        Decoder                                        : 0 %\n        JPEG                                           : 0 %\n        OFA                                            : 0 %\n    Encoder Stats\n        Active Sessions                                : 0\n        Average FPS                                    : 0\n        Average Latency                                : 0\n    FBC Stats\n        Active Sessions                                : 0\n        Average FPS                                    : 0\n        Average Latency                                : 0\n    DRAM Encryption Mode\n        Current                                        : N/A\n        Pending                                        : N/A\n    ECC Mode\n        Current                                        : Enabled\n        Pending                                        : Enabled\n    ECC Errors\n        Volatile\n            SRAM Correctable                           : 0\n            SRAM Uncorrectable Parity                  : 0\n            SRAM Uncorrectable SEC-DED                 : 0\n            DRAM Correctable                           : 0\n            DRAM Uncorrectable                         : 0\n        Aggregate\n            SRAM Correctable                           : 0\n            SRAM Uncorrectable Parity                  : 0\n            SRAM Uncorrectable SEC-DED                 : 0\n            DRAM Correctable                           : 0\n            DRAM Uncorrectable                         : 0\n            SRAM Threshold Exceeded                    : No\n        Aggregate Uncorrectable SRAM Sources\n            SRAM L2                                    : 0\n            SRAM SM                                    : 0\n            SRAM Microcontroller                       : 0\n            SRAM PCIE                                  : 0\n            SRAM Other                                 : 0\n        Channel Repair Pending                         : No\n        TPC Repair Pending                             : No\n        Unrepairable Memory                            : N/A\n    Retired Pages\n        Single Bit ECC                                 : N/A\n        Double Bit ECC                                 : N/A\n        Pending Page Blacklist                         : N/A\n    Remapped Rows\n        Correctable Error                              : 0\n        Inactive Correctable Error                     : 0\n        Uncorrectable Error                            : 0\n        Inactive Uncorrectable Error                   : 0\n        Pending                                        : No\n        Remapping Failure Occurred                     : No\n        Bank Remap Availability Histogram\n            Max                                        : 640 bank(s)\n            High                                       : 0 bank(s)\n            Partial                                    : 0 bank(s)\n            Low                                        : 0 bank(s)\n            None                                       : 0 bank(s)\n    Temperature\n        GPU Current Temp                               : 33 C\n        GPU Current T.Limit Temp                       : N/A\n        GPU Shutdown Temp                              : 92 C\n        GPU Slowdown Temp                              : 89 C\n        GPU Max Operating Temp                         : 85 C\n        GPU Target Temperature Specification           : N/A\n        Memory Current Temp                            : 50 C\n        Memory Max Operating Temp                      : 95 C\n    GPU Power Readings\n        Average Power Draw                             : N/A\n        Instantaneous Power Draw                       : 65.72 W\n        GPU Ceiling Power Limit\n            Current Power Limit                        : 500.00 W\n            Requested Power Limit                      : 500.00 W\n            Default Power Limit                        : 500.00 W\n        GPU Base Power\n            Current Base Power                         : N/A\n            Requested Base Power                       : N/A\n            Default Base Power                         : N/A\n        Min Power Limit                                : 100.00 W\n        Max Power Limit                                : 500.00 W\n    GPU Memory Power Readings \n        Average Power Draw                             : N/A\n        Instantaneous Power Draw                       : N/A\n    Module Power Readings\n        Average Power Draw                             : N/A\n        Instantaneous Power Draw                       : N/A\n        Current Power Limit                            : N/A\n        Requested Power Limit                          : N/A\n        Default Power Limit                            : N/A\n        Min Power Limit                                : N/A\n        Max Power Limit                                : N/A\n    Power Smoothing                                    : N/A\n    Workload Power Profiles\n        Requested Profiles                             : N/A\n        Enforced Profiles                              : N/A\n    EDPp Multiplier                                    : N/A\n    Clocks\n        Graphics                                       : 210 MHz\n        SM                                             : 210 MHz\n        Memory                                         : 1593 MHz\n        Video                                          : 585 MHz\n    Applications Clocks\n        Graphics                                       : Requested functionality has been deprecated\n        Memory                                         : Requested functionality has been deprecated\n    Default Applications Clocks\n        Graphics                                       : Requested functionality has been deprecated\n        Memory                                         : Requested functionality has been deprecated\n    Deferred Clocks\n        Memory                                         : N/A\n    Max Clocks\n        Graphics                                       : 1410 MHz\n        SM                                             : 1410 MHz\n        Memory                                         : 1593 MHz\n        Video                                          : 1290 MHz\n    Max Customer Boost Clocks\n        Graphics                                       : 1410 MHz\n    Clock Policy\n        Auto Boost                                     : N/A\n        Auto Boost Default                             : N/A\n    Fabric\n        State                                          : N/A\n        Status                                         : N/A\n        CliqueId                                       : N/A\n        ClusterUUID                                    : N/A\n        Health\n            Summary                                    : N/A\n            Bandwidth                                  : N/A\n            Route Recovery in progress                 : N/A\n            Route Unhealthy                            : N/A\n            Access Timeout Recovery                    : N/A\n            Incorrect Configuration                    : N/A\n            Partition Assigned                         : N/A\n    Processes                                          : None\n    Capabilities\n        EGM                                            : disabled\n\n",
+        "stderr": "",
+        "truncated": false
+      },
+      "cat /proc/cpuinfo": {
+        "exit_code": 0,
+        "stdout": "processor\t: 0\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 0\ncpu cores\t: 20\napicid\t\t: 0\ninitial apicid\t: 0\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 1\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 1\ncpu cores\t: 20\napicid\t\t: 1\ninitial apicid\t: 1\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 2\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 2\ncpu cores\t: 20\napicid\t\t: 2\ninitial apicid\t: 2\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 3\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 3\ncpu cores\t: 20\napicid\t\t: 3\ninitial apicid\t: 3\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 4\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 4\ncpu cores\t: 20\napicid\t\t: 4\ninitial apicid\t: 4\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 5\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 5\ncpu cores\t: 20\napicid\t\t: 5\ninitial apicid\t: 5\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 6\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 6\ncpu cores\t: 20\napicid\t\t: 6\ninitial apicid\t: 6\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 7\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 7\ncpu cores\t: 20\napicid\t\t: 7\ninitial apicid\t: 7\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 8\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 8\ncpu cores\t: 20\napicid\t\t: 8\ninitial apicid\t: 8\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 9\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 9\ncpu cores\t: 20\napicid\t\t: 9\ninitial apicid\t: 9\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 10\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 10\ncpu cores\t: 20\napicid\t\t: 10\ninitial apicid\t: 10\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 11\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 11\ncpu cores\t: 20\napicid\t\t: 11\ninitial apicid\t: 11\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 12\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 12\ncpu cores\t: 20\napicid\t\t: 12\ninitial apicid\t: 12\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 13\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 13\ncpu cores\t: 20\napicid\t\t: 13\ninitial apicid\t: 13\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 14\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 14\ncpu cores\t: 20\napicid\t\t: 14\ninitial apicid\t: 14\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 15\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 15\ncpu cores\t: 20\napicid\t\t: 15\ninitial apicid\t: 15\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 16\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 16\ncpu cores\t: 20\napicid\t\t: 16\ninitial apicid\t: 16\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 17\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 17\ncpu cores\t: 20\napicid\t\t: 17\ninitial apicid\t: 17\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 18\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 18\ncpu cores\t: 20\napicid\t\t: 18\ninitial apicid\t: 18\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 19\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 143\nmodel name\t: unknown\nstepping\t: unknown\ncpu MHz\t\t: 2646.428\ncache size\t: 8192 KB\nphysical id\t: 0\nsiblings\t: 20\ncore id\t\t: 19\ncpu cores\t: 20\napicid\t\t: 19\ninitial apicid\t: 19\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 13\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt avx512_fp16 flush_l1d arch_capabilities\nbogomips\t: 2646.43\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\n",
+        "stderr": "",
+        "truncated": false
+      }
+    },
+    "numa_sysfs": {
+      "/sys/devices/system/node/online": "0\n",
+      "/sys/devices/system/cpu/online": "0-19\n"
+    },
+    "ddr_generation": "unknown (host SMBIOS not exposed / not queried)",
+    "cpu_model": "unknown"
+  },
+  "cpu_ram": {
+    "stream": {
+      "1": {
+        "exit_code": 0,
+        "elapsed_s": 2.18,
+        "stdout": "-------------------------------------------------------------\nSTREAM version $Revision: 5.10 $\n-------------------------------------------------------------\nThis system uses 8 bytes per array element.\n-------------------------------------------------------------\nArray size = 50000000 (elements), Offset = 0 (elements)\nMemory per array = 381.5 MiB (= 0.4 GiB).\nTotal memory required = 1144.4 MiB (= 1.1 GiB).\nEach kernel will be executed 8 times.\n The *best* time for each kernel (excluding the first iteration)\n will be used to compute the reported bandwidth.\n-------------------------------------------------------------\nNumber of Threads requested = 1\nNumber of Threads counted = 1\n-------------------------------------------------------------\nYour clock granularity/precision appears to be 1 microseconds.\nEach test below will take on the order of 33452 microseconds.\n   (= 33452 clock ticks)\nIncrease the size of the arrays if this shows that\nyou are not getting at least 20 clock ticks per test.\n-------------------------------------------------------------\nWARNING -- The above is only a rough guideline.\nFor best results, please be sure you know the\nprecision of your system timer.\n-------------------------------------------------------------\nFunction    Best Rate MB/s  Avg time     Min time     Max time\nCopy:           23628.9     0.034962     0.033857     0.039551\nScale:          14734.0     0.054944     0.054296     0.056124\nAdd:            17203.3     0.070422     0.069754     0.070984\nTriad:          17768.6     0.068271     0.067535     0.069876\n-------------------------------------------------------------\nSolution Validates: avg error less than 1.000000e-13 on all three arrays\n-------------------------------------------------------------\n",
+        "stderr": "\nlibgomp: Error reading core/socket topology\n",
+        "best_mb_s": {
+          "Copy": 23628.9,
+          "Scale": 14734.0,
+          "Add": 17203.3,
+          "Triad": 17768.6
+        }
+      },
+      "4": {
+        "exit_code": 0,
+        "elapsed_s": 0.801,
+        "stdout": "-------------------------------------------------------------\nSTREAM version $Revision: 5.10 $\n-------------------------------------------------------------\nThis system uses 8 bytes per array element.\n-------------------------------------------------------------\nArray size = 50000000 (elements), Offset = 0 (elements)\nMemory per array = 381.5 MiB (= 0.4 GiB).\nTotal memory required = 1144.4 MiB (= 1.1 GiB).\nEach kernel will be executed 8 times.\n The *best* time for each kernel (excluding the first iteration)\n will be used to compute the reported bandwidth.\n-------------------------------------------------------------\nNumber of Threads requested = 4\nNumber of Threads counted = 4\n-------------------------------------------------------------\nYour clock granularity/precision appears to be 1 microseconds.\nEach test below will take on the order of 10874 microseconds.\n   (= 10874 clock ticks)\nIncrease the size of the arrays if this shows that\nyou are not getting at least 20 clock ticks per test.\n-------------------------------------------------------------\nWARNING -- The above is only a rough guideline.\nFor best results, please be sure you know the\nprecision of your system timer.\n-------------------------------------------------------------\nFunction    Best Rate MB/s  Avg time     Min time     Max time\nCopy:           78246.5     0.010699     0.010224     0.011043\nScale:          41612.2     0.020001     0.019225     0.020462\nAdd:            49993.7     0.024191     0.024003     0.024669\nTriad:          51899.0     0.023900     0.023122     0.025020\n-------------------------------------------------------------\nSolution Validates: avg error less than 1.000000e-13 on all three arrays\n-------------------------------------------------------------\n",
+        "stderr": "\nlibgomp: Error reading core/socket topology\n",
+        "best_mb_s": {
+          "Copy": 78246.5,
+          "Scale": 41612.2,
+          "Add": 49993.7,
+          "Triad": 51899.0
+        }
+      }
+    },
+    "pointer_chase": [
+      {
+        "exit_code": 0,
+        "elapsed_s": 0.087,
+        "stdout": "{\"working_set_mib\":8,\"steps\":2000000,\"elapsed_s\":0.0555867,\"ns_per_access\":27.793,\"checksum\":660012}\n",
+        "stderr": "",
+        "working_set_mib": 8,
+        "measurement": {
+          "working_set_mib": 8,
+          "steps": 2000000,
+          "elapsed_s": 0.0555867,
+          "ns_per_access": 27.793,
+          "checksum": 660012
+        }
+      },
+      {
+        "exit_code": 0,
+        "elapsed_s": 0.35,
+        "stdout": "{\"working_set_mib\":64,\"steps\":2000000,\"elapsed_s\":0.0849597,\"ns_per_access\":42.480,\"checksum\":10004909}\n",
+        "stderr": "",
+        "working_set_mib": 64,
+        "measurement": {
+          "working_set_mib": 64,
+          "steps": 2000000,
+          "elapsed_s": 0.0849597,
+          "ns_per_access": 42.48,
+          "checksum": 10004909
+        }
+      },
+      {
+        "exit_code": 0,
+        "elapsed_s": 2.341,
+        "stdout": "{\"working_set_mib\":256,\"steps\":2000000,\"elapsed_s\":0.2325229,\"ns_per_access\":116.261,\"checksum\":44630794}\n",
+        "stderr": "",
+        "working_set_mib": 256,
+        "measurement": {
+          "working_set_mib": 256,
+          "steps": 2000000,
+          "elapsed_s": 0.2325229,
+          "ns_per_access": 116.261,
+          "checksum": 44630794
+        }
+      }
+    ],
+    "limitations": [],
+    "elapsed_s": 5.758,
+    "interpretation": "STREAM is effective bandwidth for requested CPU quota, not host theoretical DDR bandwidth; pointer chasing includes cache/TLB effects and virtualized NUMA, not pure DRAM latency."
+  },
+  "pcie": {
+    "samples": [
+      {
+        "host_memory": "pageable",
+        "direction": "H2D",
+        "size_mib": 1,
+        "trials_s": [
+          0.00011491099999982879,
+          0.00011113100000059717,
+          0.0001105370000002992
+        ],
+        "median_s": 0.000111,
+        "effective_mib_s": 8998.39
+      },
+      {
+        "host_memory": "pageable",
+        "direction": "D2H",
+        "size_mib": 1,
+        "trials_s": [
+          0.00012712299999950716,
+          0.00012412700000030696,
+          0.00012222700000030784
+        ],
+        "median_s": 0.000124,
+        "effective_mib_s": 8056.26
+      },
+      {
+        "host_memory": "pinned",
+        "direction": "H2D",
+        "size_mib": 1,
+        "trials_s": [
+          5.370299999984951e-05,
+          5.374599999985463e-05,
+          5.381800000048287e-05
+        ],
+        "median_s": 5.4e-05,
+        "effective_mib_s": 18606.04
+      },
+      {
+        "host_memory": "pinned",
+        "direction": "D2H",
+        "size_mib": 1,
+        "trials_s": [
+          5.5699999999880845e-05,
+          5.576900000026086e-05,
+          5.592599999992842e-05
+        ],
+        "median_s": 5.6e-05,
+        "effective_mib_s": 17931.11
+      },
+      {
+        "host_memory": "pageable",
+        "direction": "H2D",
+        "size_mib": 32,
+        "trials_s": [
+          0.0027755599999998992,
+          0.0022176040000001507,
+          0.0021860800000004232
+        ],
+        "median_s": 0.002218,
+        "effective_mib_s": 14429.99
+      },
+      {
+        "host_memory": "pageable",
+        "direction": "D2H",
+        "size_mib": 32,
+        "trials_s": [
+          0.0036262439999994456,
+          0.003624960999999871,
+          0.003619694000000173
+        ],
+        "median_s": 0.003625,
+        "effective_mib_s": 8827.68
+      },
+      {
+        "host_memory": "pinned",
+        "direction": "H2D",
+        "size_mib": 32,
+        "trials_s": [
+          0.001297019999999982,
+          0.0012816909999999737,
+          0.0012780499999998085
+        ],
+        "median_s": 0.001282,
+        "effective_mib_s": 24967.02
+      },
+      {
+        "host_memory": "pinned",
+        "direction": "D2H",
+        "size_mib": 32,
+        "trials_s": [
+          0.0014030379999994125,
+          0.001403250000000078,
+          0.0014030930000004105
+        ],
+        "median_s": 0.001403,
+        "effective_mib_s": 22806.76
+      },
+      {
+        "host_memory": "pageable",
+        "direction": "H2D",
+        "size_mib": 128,
+        "trials_s": [
+          0.011946446000000499,
+          0.011867445000000032,
+          0.011561477999999958
+        ],
+        "median_s": 0.011867,
+        "effective_mib_s": 10785.81
+      },
+      {
+        "host_memory": "pageable",
+        "direction": "D2H",
+        "size_mib": 128,
+        "trials_s": [
+          0.014280957000000427,
+          0.014263216999999884,
+          0.01426034700000045
+        ],
+        "median_s": 0.014263,
+        "effective_mib_s": 8974.13
+      },
+      {
+        "host_memory": "pinned",
+        "direction": "H2D",
+        "size_mib": 128,
+        "trials_s": [
+          0.005167496999999521,
+          0.005130934000000309,
+          0.005135227999999437
+        ],
+        "median_s": 0.005135,
+        "effective_mib_s": 24925.87
+      },
+      {
+        "host_memory": "pinned",
+        "direction": "D2H",
+        "size_mib": 128,
+        "trials_s": [
+          0.005574363000000027,
+          0.005573822999999756,
+          0.00557489299999947
+        ],
+        "median_s": 0.005574,
+        "effective_mib_s": 22962.26
+      }
+    ],
+    "errors": [],
+    "measurement": "sync cudaMemcpy + device sync wall time; pageable/pinned H2D and D2H",
+    "unit": "MiB/s (payload bytes / wall seconds)",
+    "elapsed_s": 0.641
+  },
+  "elapsed_s": 6.542,
+  "success": true,
+  "wall_seconds": 11.39
+}

@@ -1,0 +1,76 @@
+{
+  "targets": {
+    "/opt/pennyroyal/configs/pennyroyal/serve-flash-next-frspec.sh": {
+      "lines": 282,
+      "relevant_lines": [
+        "30: export FLASHINFER_GDN_FP16_ACCUM_MMA=\"${FLASHINFER_GDN_FP16_ACCUM_MMA:-1}\"",
+        "36: if [[ \"$FLASHINFER_GDN_FP16_ACCUM_MMA\" == 1 ]]; then GDN_FP16_ACCUM_MMA=on; fi",
+        "41: PYTHON=\"${PYTHON:-$(dirname \"$SGLANG_EXE\")/python}\"",
+        "43: CACHE_BASE=\"${CACHE_BASE:?Set CACHE_BASE to the durable compiler-cache root}\"",
+        "98: for path in \"$SGLANG_EXE\" \"$PYTHON\"; do",
+        "116: mkdir -p \"$CACHE_BASE\"/{huggingface,torch,torchinductor,triton,cuda,flashinfer,sglang/jit}",
+        "134: export FLASHINFER_NINJA_JOBS=\"${FLASHINFER_NINJA_JOBS:-$PENNY_BUILD_JOBS}\" FLASHINFER_NVCC_THREADS=\"${FLASHINFER_NVCC_THREADS:-1}\"",
+        "135: export TORCHINDUCTOR_COMPILE_THREADS=\"${TORCHINDUCTOR_COMPILE_THREADS:-$PENNY_BUILD_JOBS}\"",
+        "138: export HF_HOME=\"$CACHE_BASE/huggingface\" XDG_CACHE_HOME=\"$CACHE_BASE\"",
+        "139: export TORCH_HOME=\"$CACHE_BASE/torch\" TORCHINDUCTOR_CACHE_DIR=\"$CACHE_BASE/torchinductor\"",
+        "140: export TRITON_CACHE_DIR=\"$CACHE_BASE/triton\" CUDA_CACHE_PATH=\"$CACHE_BASE/cuda\"",
+        "141: export FLASHINFER_WORKSPACE_BASE=\"$CACHE_BASE/flashinfer\"",
+        "142: export SGLANG_CACHE_DIR=\"$CACHE_BASE/sglang\" SGLANG_JIT_CACHE_DIR=\"$CACHE_BASE/sglang/jit\"",
+        "146: export TILELANG_CACHE_DIR=\"${TILELANG_CACHE_DIR:-$CACHE_BASE/tilelang}\"",
+        "147: mkdir -p \"$TILELANG_CACHE_DIR\"",
+        "157: # after the durable cache environment so its $PYTHON probe sees the same",
+        "173:   \"$SGLANG_EXE\" \"$TARGET_MODEL\" \"$TOKEN_MAP\" \"$CACHE_BASE\" \"${NIXL_STORAGE_BASE:-none}\"",
+        "184: PENNY_IDENTITY_PROBE=\"$(\"$PYTHON\" -c 'import sys; import torch; from sglang.srt.utils import resolve_mm_preprocess_device; resolve_mm_preprocess_device(); from sglang.kernels.ops.gemm.sm120_online_fp8 import launch_precision; print(torch.__version__); print(launch_precision(sys.argv[1]))' \"$TARGET_MODEL\")\"",
+        "230:       --field \"max_mamba_cache_size=$MAX_MAMBA_CACHE_SIZE\" \\",
+        "231:       --field \"max_running_requests=$MAX_RUNNING_REQUESTS\" \\",
+        "262:   --page-size \"$PAGE_SIZE\" --max-running-requests \"$MAX_RUNNING_REQUESTS\" --sleep-on-idle \\",
+        "265:   --max-mamba-cache-size \"$MAX_MAMBA_CACHE_SIZE\" --gdn-mtp-cache-mode none \\"
+      ]
+    },
+    "/opt/pennyroyal/configs/pennyroyal/request-capacity.sh": {
+      "lines": 10,
+      "relevant_lines": [
+        "3: MAX_RUNNING_REQUESTS=\"${MAX_RUNNING_REQUESTS:-4}\"",
+        "4: MAX_MAMBA_CACHE_SIZE=\"${MAX_MAMBA_CACHE_SIZE:-24}\"",
+        "5: for capacity_name in MAX_RUNNING_REQUESTS MAX_MAMBA_CACHE_SIZE; do"
+      ]
+    }
+  },
+  "env": {
+    "PATH": "/opt/pennyroyal/.venv/bin:/usr/local/cuda-13.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "PYTHONPATH": "/pkg/:/root/",
+    "HOME": "/root",
+    "CUDA_HOME": "/usr/local/cuda-13.3",
+    "TILELANG_CACHE_DIR": null,
+    "TRITON_CACHE_DIR": null,
+    "CACHE_BASE": "/cache",
+    "PYTHONHOME": null
+  },
+  "python_versions": {
+    "/opt/pennyroyal/.venv/bin/python": {
+      "code": 0,
+      "stdout": "{\"executable\": \"/opt/pennyroyal/.venv/bin/python\", \"versions\": {\"torch\": \"2.13.0+cu130\", \"tilelang\": \"0.1.12\", \"triton\": \"3.7.1\", \"flashinfer-python\": \"0.7.0.post1\", \"sglang\": \"0.5.19+g6825003f7958\"}}\n",
+      "stderr": ""
+    },
+    "/opt/pennyroyal/.venv/bin/python3": {
+      "code": 0,
+      "stdout": "{\"executable\": \"/opt/pennyroyal/.venv/bin/python3\", \"versions\": {\"torch\": \"2.13.0+cu130\", \"tilelang\": \"0.1.12\", \"triton\": \"3.7.1\", \"flashinfer-python\": \"0.7.0.post1\", \"sglang\": \"0.5.19+g6825003f7958\"}}\n",
+      "stderr": ""
+    },
+    "/usr/bin/python3": {
+      "code": 0,
+      "stdout": "{\"executable\": \"/usr/bin/python3\", \"versions\": {\"torch\": null, \"tilelang\": null, \"triton\": null, \"flashinfer-python\": null, \"sglang\": null}}\n",
+      "stderr": ""
+    },
+    "python": {
+      "code": 0,
+      "stdout": "{\"executable\": \"/opt/pennyroyal/.venv/bin/python\", \"versions\": {\"torch\": \"2.13.0+cu130\", \"tilelang\": \"0.1.12\", \"triton\": \"3.7.1\", \"flashinfer-python\": \"0.7.0.post1\", \"sglang\": \"0.5.19+g6825003f7958\"}}\n",
+      "stderr": ""
+    }
+  },
+  "system": {
+    "uid": 0,
+    "cwd": "/opt/pennyroyal",
+    "python": "3.12.13"
+  }
+}

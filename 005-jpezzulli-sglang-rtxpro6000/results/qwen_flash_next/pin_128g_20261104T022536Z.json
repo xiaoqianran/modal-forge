@@ -1,0 +1,275 @@
+{
+  "stage": "pin",
+  "before": {
+    "gpu": {
+      "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "total_mib": "97887",
+      "used_mib": "6",
+      "utilization_pct": "0",
+      "power_w": "30.67",
+      "compute_capability": "12.0"
+    },
+    "memory": {
+      "current_bytes": 73453568,
+      "peak_bytes": null,
+      "limit": "1374389534720",
+      "cpu_quota": "24000000",
+      "events": null,
+      "breakdown": {},
+      "process_memory": {
+        "VmSize": "148516 kB",
+        "VmRSS": "76396 kB"
+      },
+      "cgroup_self": "7:pids:/ta-01M6J609KG8J53BSMXXF1DR4CR\n6:memory:/ta-01M6J609KG8J53BSMXXF1DR4CR\n5:job:/ta-01M6J609KG8J53BSMXXF1DR4CR\n4:devices:/ta-01M6J609KG8J53BSMXXF1DR4CR\n3:cpuset:/ta-01M6J609KG8J53BSMXXF1DR4CR\n2:cpuacct:/ta-01M6J609KG8J53BSMXXF1DR4CR\n1:cpu:/ta-01M6J609KG8J53BSMXXF1DR4CR"
+    },
+    "cpu_count": 24,
+    "cpu_model": "unknown",
+    "pinned_memlock_limit_bytes": {
+      "soft": 42949672960,
+      "hard": 42949672960
+    },
+    "timestamp_utc": "2026-11-04T02:25:32.907782+00:00"
+  },
+  "allocations": [
+    {
+      "allocated_gib": 4,
+      "elapsed_s": 0.43,
+      "memory": {
+        "current_bytes": 4659240960,
+        "peak_bytes": null,
+        "limit": "1374389534720",
+        "cpu_quota": "24000000",
+        "events": null,
+        "breakdown": {},
+        "process_memory": {
+          "VmSize": "18177188 kB",
+          "VmRSS": "4625132 kB"
+        },
+        "cgroup_self": "7:pids:/ta-01M6J609KG8J53BSMXXF1DR4CR\n6:memory:/ta-01M6J609KG8J53BSMXXF1DR4CR\n5:job:/ta-01M6J609KG8J53BSMXXF1DR4CR\n4:devices:/ta-01M6J609KG8J53BSMXXF1DR4CR\n3:cpuset:/ta-01M6J609KG8J53BSMXXF1DR4CR\n2:cpuacct:/ta-01M6J609KG8J53BSMXXF1DR4CR\n1:cpu:/ta-01M6J609KG8J53BSMXXF1DR4CR"
+      }
+    },
+    {
+      "allocated_gib": 8,
+      "elapsed_s": 0.69,
+      "memory": {
+        "current_bytes": 8954208256,
+        "peak_bytes": null,
+        "limit": "1374389534720",
+        "cpu_quota": "24000000",
+        "events": null,
+        "breakdown": {},
+        "process_memory": {
+          "VmSize": "22371492 kB",
+          "VmRSS": "8819436 kB"
+        },
+        "cgroup_self": "7:pids:/ta-01M6J609KG8J53BSMXXF1DR4CR\n6:memory:/ta-01M6J609KG8J53BSMXXF1DR4CR\n5:job:/ta-01M6J609KG8J53BSMXXF1DR4CR\n4:devices:/ta-01M6J609KG8J53BSMXXF1DR4CR\n3:cpuset:/ta-01M6J609KG8J53BSMXXF1DR4CR\n2:cpuacct:/ta-01M6J609KG8J53BSMXXF1DR4CR\n1:cpu:/ta-01M6J609KG8J53BSMXXF1DR4CR"
+      }
+    },
+    {
+      "allocated_gib": 12,
+      "elapsed_s": 0.96,
+      "memory": {
+        "current_bytes": 13249175552,
+        "peak_bytes": null,
+        "limit": "1374389534720",
+        "cpu_quota": "24000000",
+        "events": null,
+        "breakdown": {},
+        "process_memory": {
+          "VmSize": "26565796 kB",
+          "VmRSS": "13013740 kB"
+        },
+        "cgroup_self": "7:pids:/ta-01M6J609KG8J53BSMXXF1DR4CR\n6:memory:/ta-01M6J609KG8J53BSMXXF1DR4CR\n5:job:/ta-01M6J609KG8J53BSMXXF1DR4CR\n4:devices:/ta-01M6J609KG8J53BSMXXF1DR4CR\n3:cpuset:/ta-01M6J609KG8J53BSMXXF1DR4CR\n2:cpuacct:/ta-01M6J609KG8J53BSMXXF1DR4CR\n1:cpu:/ta-01M6J609KG8J53BSMXXF1DR4CR"
+      }
+    },
+    {
+      "allocated_gib": 16,
+      "elapsed_s": 1.22,
+      "memory": {
+        "current_bytes": 17544142848,
+        "peak_bytes": null,
+        "limit": "1374389534720",
+        "cpu_quota": "24000000",
+        "events": null,
+        "breakdown": {},
+        "process_memory": {
+          "VmSize": "30760100 kB",
+          "VmRSS": "17208044 kB"
+        },
+        "cgroup_self": "7:pids:/ta-01M6J609KG8J53BSMXXF1DR4CR\n6:memory:/ta-01M6J609KG8J53BSMXXF1DR4CR\n5:job:/ta-01M6J609KG8J53BSMXXF1DR4CR\n4:devices:/ta-01M6J609KG8J53BSMXXF1DR4CR\n3:cpuset:/ta-01M6J609KG8J53BSMXXF1DR4CR\n2:cpuacct:/ta-01M6J609KG8J53BSMXXF1DR4CR\n1:cpu:/ta-01M6J609KG8J53BSMXXF1DR4CR"
+      }
+    },
+    {
+      "allocated_gib": 20,
+      "elapsed_s": 1.5,
+      "memory": {
+        "current_bytes": 21839110144,
+        "peak_bytes": null,
+        "limit": "1374389534720",
+        "cpu_quota": "24000000",
+        "events": null,
+        "breakdown": {},
+        "process_memory": {
+          "VmSize": "34954404 kB",
+          "VmRSS": "21402348 kB"
+        },
+        "cgroup_self": "7:pids:/ta-01M6J609KG8J53BSMXXF1DR4CR\n6:memory:/ta-01M6J609KG8J53BSMXXF1DR4CR\n5:job:/ta-01M6J609KG8J53BSMXXF1DR4CR\n4:devices:/ta-01M6J609KG8J53BSMXXF1DR4CR\n3:cpuset:/ta-01M6J609KG8J53BSMXXF1DR4CR\n2:cpuacct:/ta-01M6J609KG8J53BSMXXF1DR4CR\n1:cpu:/ta-01M6J609KG8J53BSMXXF1DR4CR"
+      }
+    },
+    {
+      "allocated_gib": 24,
+      "elapsed_s": 1.75,
+      "memory": {
+        "current_bytes": 26134077440,
+        "peak_bytes": null,
+        "limit": "1374389534720",
+        "cpu_quota": "24000000",
+        "events": null,
+        "breakdown": {},
+        "process_memory": {
+          "VmSize": "39148708 kB",
+          "VmRSS": "25596652 kB"
+        },
+        "cgroup_self": "7:pids:/ta-01M6J609KG8J53BSMXXF1DR4CR\n6:memory:/ta-01M6J609KG8J53BSMXXF1DR4CR\n5:job:/ta-01M6J609KG8J53BSMXXF1DR4CR\n4:devices:/ta-01M6J609KG8J53BSMXXF1DR4CR\n3:cpuset:/ta-01M6J609KG8J53BSMXXF1DR4CR\n2:cpuacct:/ta-01M6J609KG8J53BSMXXF1DR4CR\n1:cpu:/ta-01M6J609KG8J53BSMXXF1DR4CR"
+      }
+    },
+    {
+      "allocated_gib": 28,
+      "elapsed_s": 2.02,
+      "memory": {
+        "current_bytes": 30429044736,
+        "peak_bytes": null,
+        "limit": "1374389534720",
+        "cpu_quota": "24000000",
+        "events": null,
+        "breakdown": {},
+        "process_memory": {
+          "VmSize": "43343012 kB",
+          "VmRSS": "29790956 kB"
+        },
+        "cgroup_self": "7:pids:/ta-01M6J609KG8J53BSMXXF1DR4CR\n6:memory:/ta-01M6J609KG8J53BSMXXF1DR4CR\n5:job:/ta-01M6J609KG8J53BSMXXF1DR4CR\n4:devices:/ta-01M6J609KG8J53BSMXXF1DR4CR\n3:cpuset:/ta-01M6J609KG8J53BSMXXF1DR4CR\n2:cpuacct:/ta-01M6J609KG8J53BSMXXF1DR4CR\n1:cpu:/ta-01M6J609KG8J53BSMXXF1DR4CR"
+      }
+    },
+    {
+      "allocated_gib": 32,
+      "elapsed_s": 2.28,
+      "memory": {
+        "current_bytes": 34724012032,
+        "peak_bytes": null,
+        "limit": "1374389534720",
+        "cpu_quota": "24000000",
+        "events": null,
+        "breakdown": {},
+        "process_memory": {
+          "VmSize": "47537316 kB",
+          "VmRSS": "33985260 kB"
+        },
+        "cgroup_self": "7:pids:/ta-01M6J609KG8J53BSMXXF1DR4CR\n6:memory:/ta-01M6J609KG8J53BSMXXF1DR4CR\n5:job:/ta-01M6J609KG8J53BSMXXF1DR4CR\n4:devices:/ta-01M6J609KG8J53BSMXXF1DR4CR\n3:cpuset:/ta-01M6J609KG8J53BSMXXF1DR4CR\n2:cpuacct:/ta-01M6J609KG8J53BSMXXF1DR4CR\n1:cpu:/ta-01M6J609KG8J53BSMXXF1DR4CR"
+      }
+    },
+    {
+      "allocated_gib": 36,
+      "elapsed_s": 2.55,
+      "memory": {
+        "current_bytes": 39018983424,
+        "peak_bytes": null,
+        "limit": "1374389534720",
+        "cpu_quota": "24000000",
+        "events": null,
+        "breakdown": {},
+        "process_memory": {
+          "VmSize": "51731620 kB",
+          "VmRSS": "38179564 kB"
+        },
+        "cgroup_self": "7:pids:/ta-01M6J609KG8J53BSMXXF1DR4CR\n6:memory:/ta-01M6J609KG8J53BSMXXF1DR4CR\n5:job:/ta-01M6J609KG8J53BSMXXF1DR4CR\n4:devices:/ta-01M6J609KG8J53BSMXXF1DR4CR\n3:cpuset:/ta-01M6J609KG8J53BSMXXF1DR4CR\n2:cpuacct:/ta-01M6J609KG8J53BSMXXF1DR4CR\n1:cpu:/ta-01M6J609KG8J53BSMXXF1DR4CR"
+      }
+    },
+    {
+      "allocated_gib": 40,
+      "elapsed_s": 2.82,
+      "memory": {
+        "current_bytes": 43313954816,
+        "peak_bytes": null,
+        "limit": "1374389534720",
+        "cpu_quota": "24000000",
+        "events": null,
+        "breakdown": {},
+        "process_memory": {
+          "VmSize": "55925924 kB",
+          "VmRSS": "42373868 kB"
+        },
+        "cgroup_self": "7:pids:/ta-01M6J609KG8J53BSMXXF1DR4CR\n6:memory:/ta-01M6J609KG8J53BSMXXF1DR4CR\n5:job:/ta-01M6J609KG8J53BSMXXF1DR4CR\n4:devices:/ta-01M6J609KG8J53BSMXXF1DR4CR\n3:cpuset:/ta-01M6J609KG8J53BSMXXF1DR4CR\n2:cpuacct:/ta-01M6J609KG8J53BSMXXF1DR4CR\n1:cpu:/ta-01M6J609KG8J53BSMXXF1DR4CR"
+      }
+    },
+    {
+      "allocated_gib": 44,
+      "elapsed_s": 3.08,
+      "memory": {
+        "current_bytes": 47608930304,
+        "peak_bytes": null,
+        "limit": "1374389534720",
+        "cpu_quota": "24000000",
+        "events": null,
+        "breakdown": {},
+        "process_memory": {
+          "VmSize": "60120228 kB",
+          "VmRSS": "46568172 kB"
+        },
+        "cgroup_self": "7:pids:/ta-01M6J609KG8J53BSMXXF1DR4CR\n6:memory:/ta-01M6J609KG8J53BSMXXF1DR4CR\n5:job:/ta-01M6J609KG8J53BSMXXF1DR4CR\n4:devices:/ta-01M6J609KG8J53BSMXXF1DR4CR\n3:cpuset:/ta-01M6J609KG8J53BSMXXF1DR4CR\n2:cpuacct:/ta-01M6J609KG8J53BSMXXF1DR4CR\n1:cpu:/ta-01M6J609KG8J53BSMXXF1DR4CR"
+      }
+    },
+    {
+      "allocated_gib": 48,
+      "elapsed_s": 3.35,
+      "memory": {
+        "current_bytes": 51903901696,
+        "peak_bytes": null,
+        "limit": "1374389534720",
+        "cpu_quota": "24000000",
+        "events": null,
+        "breakdown": {},
+        "process_memory": {
+          "VmSize": "64314532 kB",
+          "VmRSS": "50762476 kB"
+        },
+        "cgroup_self": "7:pids:/ta-01M6J609KG8J53BSMXXF1DR4CR\n6:memory:/ta-01M6J609KG8J53BSMXXF1DR4CR\n5:job:/ta-01M6J609KG8J53BSMXXF1DR4CR\n4:devices:/ta-01M6J609KG8J53BSMXXF1DR4CR\n3:cpuset:/ta-01M6J609KG8J53BSMXXF1DR4CR\n2:cpuacct:/ta-01M6J609KG8J53BSMXXF1DR4CR\n1:cpu:/ta-01M6J609KG8J53BSMXXF1DR4CR"
+      }
+    }
+  ],
+  "target_gib": 48,
+  "success": true,
+  "after": {
+    "gpu": {
+      "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "total_mib": "97887",
+      "used_mib": "561",
+      "utilization_pct": "6",
+      "power_w": "89.56",
+      "compute_capability": "12.0"
+    },
+    "memory": {
+      "current_bytes": 364351488,
+      "peak_bytes": null,
+      "limit": "1374389534720",
+      "cpu_quota": "24000000",
+      "events": null,
+      "breakdown": {},
+      "process_memory": {
+        "VmSize": "13982884 kB",
+        "VmRSS": "430828 kB"
+      },
+      "cgroup_self": "7:pids:/ta-01M6J609KG8J53BSMXXF1DR4CR\n6:memory:/ta-01M6J609KG8J53BSMXXF1DR4CR\n5:job:/ta-01M6J609KG8J53BSMXXF1DR4CR\n4:devices:/ta-01M6J609KG8J53BSMXXF1DR4CR\n3:cpuset:/ta-01M6J609KG8J53BSMXXF1DR4CR\n2:cpuacct:/ta-01M6J609KG8J53BSMXXF1DR4CR\n1:cpu:/ta-01M6J609KG8J53BSMXXF1DR4CR"
+    },
+    "cpu_count": 24,
+    "cpu_model": "unknown",
+    "pinned_memlock_limit_bytes": {
+      "soft": 42949672960,
+      "hard": 42949672960
+    },
+    "timestamp_utc": "2026-11-04T02:25:36.910932+00:00"
+  },
+  "elapsed_s": 4.0,
+  "local_wall_s": 27.56,
+  "estimated_usd": 0.03393,
+  "cost_note": "Planning estimate, not an actual invoice; cold starts and memory/CPU metering can differ."
+}

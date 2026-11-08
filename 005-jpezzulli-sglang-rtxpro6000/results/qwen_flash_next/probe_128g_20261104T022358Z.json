@@ -1,0 +1,49 @@
+{
+  "stage": "probe",
+  "before": {
+    "gpu": {
+      "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "total_mib": "97887",
+      "used_mib": "4",
+      "utilization_pct": "0",
+      "power_w": "54.86",
+      "compute_capability": "12.0"
+    },
+    "memory": {
+      "current_bytes": 60768256,
+      "peak_bytes": null,
+      "limit": "1374389534720",
+      "cpu_quota": "24000000",
+      "events": null,
+      "breakdown": {},
+      "process_memory": {
+        "VmSize": "136592 kB",
+        "VmRSS": "63468 kB"
+      },
+      "cgroup_self": "7:pids:/ta-01M6J5XHSMWZRDGF7252YFPQ9R\n6:memory:/ta-01M6J5XHSMWZRDGF7252YFPQ9R\n5:job:/ta-01M6J5XHSMWZRDGF7252YFPQ9R\n4:devices:/ta-01M6J5XHSMWZRDGF7252YFPQ9R\n3:cpuset:/ta-01M6J5XHSMWZRDGF7252YFPQ9R\n2:cpuacct:/ta-01M6J5XHSMWZRDGF7252YFPQ9R\n1:cpu:/ta-01M6J5XHSMWZRDGF7252YFPQ9R"
+    },
+    "cpu_count": 24,
+    "cpu_model": "unknown",
+    "pinned_memlock_limit_bytes": {
+      "soft": 42949672960,
+      "hard": 42949672960
+    },
+    "timestamp_utc": "2026-11-04T02:23:58.568237+00:00"
+  },
+  "during": {
+    "current_bytes": 194990080,
+    "peak_bytes": null,
+    "limit": "1374389534720",
+    "cpu_quota": "24000000",
+    "events": null,
+    "breakdown": {},
+    "process_memory": {
+      "VmSize": "267668 kB",
+      "VmRSS": "194544 kB"
+    },
+    "cgroup_self": "7:pids:/ta-01M6J5XHSMWZRDGF7252YFPQ9R\n6:memory:/ta-01M6J5XHSMWZRDGF7252YFPQ9R\n5:job:/ta-01M6J5XHSMWZRDGF7252YFPQ9R\n4:devices:/ta-01M6J5XHSMWZRDGF7252YFPQ9R\n3:cpuset:/ta-01M6J5XHSMWZRDGF7252YFPQ9R\n2:cpuacct:/ta-01M6J5XHSMWZRDGF7252YFPQ9R\n1:cpu:/ta-01M6J5XHSMWZRDGF7252YFPQ9R"
+  },
+  "local_wall_s": 16.62,
+  "estimated_usd": 0.02046,
+  "cost_note": "Planning estimate, not an actual invoice; cold starts and memory/CPU metering can differ."
+}

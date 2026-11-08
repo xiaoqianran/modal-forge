@@ -1,0 +1,62 @@
+{
+  "model": "RadixArk/Qwen3.8-Flash-Next-NVFP4",
+  "image": "ghcr.io/jpezzulli/sglang-rtxpro6000:v3.1.5",
+  "opt_run": "r1",
+  "capacity": "c2",
+  "ram_gib": 80,
+  "cpu_cores": 4,
+  "hicache_gb_decimal": 8,
+  "profile_constraints": {
+    "max_running_requests": 2,
+    "max_mamba_cache_size": 12,
+    "gpu_count": 1,
+    "ram_requested_gib": 80,
+    "cpu_cores_requested": 4,
+    "note": "4 clients are submitted; check #running-req logs for actual concurrency"
+  },
+  "model_cache": {
+    "volume_version": 2,
+    "revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+    "verified_files": 419,
+    "model_path": "/tmp/pennyroyal-model"
+  },
+  "compiler_cache": {
+    "mode": "publish",
+    "identity": {
+      "schema": 1,
+      "model_revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+      "image_tag": "ghcr.io/jpezzulli/sglang-rtxpro6000:v3.1.5",
+      "architecture": "sm120",
+      "capacity": "c2",
+      "max_running_requests": 2,
+      "max_mamba_cache_size": 12,
+      "hicache_gb": 8,
+      "mtp_policy": "tiered",
+      "nixl": "off",
+      "ple_backend": "ram",
+      "cache_root": "/tmp/penny-cache",
+      "torch_and_compilers": {
+        "torch": "2.13.0+cu130",
+        "tilelang": "0.1.12",
+        "triton": "3.7.1",
+        "flashinfer-python": "0.7.0.post1",
+        "sglang": "0.5.19+g6825003f7958"
+      },
+      "script_sha256": {
+        "serve-flash-next-frspec.sh": "c6caf472ed20f9730d6b4fe7ca37cd0daf3b6079e67781619c3604385956c09a",
+        "request-capacity.sh": "3c933cff4da6cdb9148f6ea1d2ca6df479699e042ec2ae57e094aac23c703171"
+      }
+    },
+    "fingerprint": "a0ad50b34806e2cb25cca621f8f33907aa472fdba75b03d4514f80dd127e2243",
+    "fresh": true,
+    "publication": {
+      "published": true,
+      "fingerprint": "a0ad50b34806e2cb25cca621f8f33907aa472fdba75b03d4514f80dd127e2243",
+      "file_count": 1277,
+      "payload_bytes": 33391571,
+      "archive_bytes": 35696640,
+      "archive_sha256": "bc3ceeb24a1deefb025d373ada797b11a4d0981c2d29d678a38b2ff86f7dab9c",
+      "publish_s": 1.216
+    }
+  }
+}

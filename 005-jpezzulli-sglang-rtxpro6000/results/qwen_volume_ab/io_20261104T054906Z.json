@@ -1,0 +1,71 @@
+{
+  "timestamp_utc": "2026-11-04T05:48:37.289571+00:00",
+  "read_gib": 4,
+  "order": "v2-v1",
+  "results": [
+    {
+      "version": 2,
+      "revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+      "read_bytes": 4294967296,
+      "elapsed_s": 3.9727619960000005,
+      "throughput_mib_s": 1031.0207367378368,
+      "files": [
+        {
+          "filename": "model-bf16-00011.safetensors",
+          "bytes": 4294967296
+        }
+      ],
+      "cpu_reserved": 4,
+      "ram_reserved_gib": 8,
+      "cache_warning": "Sequential read may benefit from storage/host caching; compare repeated trials."
+    },
+    {
+      "version": 1,
+      "revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+      "read_bytes": 4294967296,
+      "elapsed_s": 2.7574495050000003,
+      "throughput_mib_s": 1485.430646172431,
+      "files": [
+        {
+          "filename": "model-bf16-00011.safetensors",
+          "bytes": 4294967296
+        }
+      ],
+      "cpu_reserved": 4,
+      "ram_reserved_gib": 8,
+      "cache_warning": "Sequential read may benefit from storage/host caching; compare repeated trials."
+    },
+    {
+      "version": 2,
+      "revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+      "read_bytes": 4294967296,
+      "elapsed_s": 2.748278338000002,
+      "throughput_mib_s": 1490.387615899477,
+      "files": [
+        {
+          "filename": "model-bf16-00011.safetensors",
+          "bytes": 4294967296
+        }
+      ],
+      "cpu_reserved": 4,
+      "ram_reserved_gib": 8,
+      "cache_warning": "Sequential read may benefit from storage/host caching; compare repeated trials."
+    },
+    {
+      "version": 1,
+      "revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+      "read_bytes": 4294967296,
+      "elapsed_s": 2.5229049770000014,
+      "throughput_mib_s": 1623.525276354472,
+      "files": [
+        {
+          "filename": "model-bf16-00011.safetensors",
+          "bytes": 4294967296
+        }
+      ],
+      "cpu_reserved": 4,
+      "ram_reserved_gib": 8,
+      "cache_warning": "Sequential read may benefit from storage/host caching; compare repeated trials."
+    }
+  ]
+}

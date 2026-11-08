@@ -1,0 +1,13 @@
+{
+  "app_id": "ap-h0cjfHhBlltfgkCCClPWLt",
+  "source": "Modal billing report --for today --resolution h --show-resources --json",
+  "date_utc": "2026-11-04",
+  "items_usd": {
+    "RTX-PRO-6000": 0.26616324,
+    "Memory": 0.0562193,
+    "CPU": 0.01661983,
+    "Network Egress": 0
+  },
+  "total_usd": 0.33900237,
+  "note": "Actual visible billing report at query time; later revisions are possible. Excludes persistent Volume storage."
+}

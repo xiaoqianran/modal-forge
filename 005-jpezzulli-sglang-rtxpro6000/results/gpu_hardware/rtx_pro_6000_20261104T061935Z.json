@@ -1,0 +1,7 @@
+{
+  "requested_gpu": "RTX-PRO-6000",
+  "success": false,
+  "error": "ConflictError('function fu-nMP3r2uyuNF5tAS6tYVYiS is stopped')",
+  "timestamp_utc": "2026-11-04T06:19:35.397665+00:00",
+  "wall_seconds": 0.25
+}

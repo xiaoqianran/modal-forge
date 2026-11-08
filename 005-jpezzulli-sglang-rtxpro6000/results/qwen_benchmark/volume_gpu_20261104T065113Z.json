@@ -1,0 +1,101 @@
+{
+  "stage": "gpu",
+  "timestamp_utc": "2026-11-04T06:51:05.112732+00:00",
+  "results": [
+    {
+      "timestamp_utc": "2026-11-04T06:51:14.404931+00:00",
+      "gpu": "RTX-PRO-6000",
+      "cpu_reserved": 4,
+      "ram_reserved_gib": 8,
+      "revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+      "weights": {
+        "1": 1,
+        "2": 2
+      },
+      "direct": [
+        {
+          "size_mib": 256,
+          "read_s": 1.155841,
+          "cpu_to_pinned_copy_s": 0.088606,
+          "pinned_to_gpu_s": 0.004984,
+          "total_s": 1.249902,
+          "note": "Includes pinning and cudaMalloc overhead in total_s, not in transfer_s.",
+          "volume_version": 1,
+          "trial": 1,
+          "mode": "volume_direct_staged"
+        },
+        {
+          "size_mib": 256,
+          "read_s": 0.639293,
+          "cpu_to_pinned_copy_s": 0.075607,
+          "pinned_to_gpu_s": 0.00495,
+          "total_s": 0.72523,
+          "note": "Includes pinning and cudaMalloc overhead in total_s, not in transfer_s.",
+          "volume_version": 2,
+          "trial": 1,
+          "mode": "volume_direct_staged"
+        },
+        {
+          "size_mib": 256,
+          "read_s": 0.094075,
+          "cpu_to_pinned_copy_s": 0.075143,
+          "pinned_to_gpu_s": 0.00494,
+          "total_s": 0.174688,
+          "note": "Includes pinning and cudaMalloc overhead in total_s, not in transfer_s.",
+          "volume_version": 2,
+          "trial": 2,
+          "mode": "volume_direct_staged"
+        },
+        {
+          "size_mib": 256,
+          "read_s": 0.121511,
+          "cpu_to_pinned_copy_s": 0.075647,
+          "pinned_to_gpu_s": 0.004925,
+          "total_s": 0.202612,
+          "note": "Includes pinning and cudaMalloc overhead in total_s, not in transfer_s.",
+          "volume_version": 1,
+          "trial": 2,
+          "mode": "volume_direct_staged"
+        }
+      ],
+      "prefetch": [
+        {
+          "size_mib": 256,
+          "read_s": 0.102129,
+          "cpu_to_pinned_copy_s": 0.076717,
+          "pinned_to_gpu_s": 0.004919,
+          "total_s": 0.184563,
+          "note": "Includes pinning and cudaMalloc overhead in total_s, not in transfer_s.",
+          "volume_version": 1,
+          "mode": "prefetch_local_then_gpu",
+          "prefetch_copy_s": 0.151527,
+          "combined_wall_s": 0.33609,
+          "local_path": "/tmp/qwen-volume-probe-_iccte9g/v1_weight_chunk.bin"
+        },
+        {
+          "size_mib": 256,
+          "read_s": 0.101356,
+          "cpu_to_pinned_copy_s": 0.078879,
+          "pinned_to_gpu_s": 0.005107,
+          "total_s": 0.18589,
+          "note": "Includes pinning and cudaMalloc overhead in total_s, not in transfer_s.",
+          "volume_version": 2,
+          "mode": "prefetch_local_then_gpu",
+          "prefetch_copy_s": 0.104505,
+          "combined_wall_s": 0.290395,
+          "local_path": "/tmp/qwen-volume-probe-_iccte9g/v2_weight_chunk.bin"
+        }
+      ],
+      "elapsed_s": 3.318,
+      "success": true,
+      "limitations": [
+        "256MiB staging is not representative of entire 126.9GiB Penny Royal model startup",
+        "Observed memory reads may use kernel file cache",
+        "Local /tmp may have different persistence/IO path from a dedicated SSD",
+        "No GPUDirect Storage; CUDA uses explicit host-pinned copy"
+      ]
+    }
+  ],
+  "errors": [],
+  "wall_s": 8.391
+}

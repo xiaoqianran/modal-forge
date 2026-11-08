@@ -1,0 +1,322 @@
+{
+  "requests": [
+    {
+      "ttft_s": 10.378,
+      "total_s": 14.887,
+      "decode_s": 4.509,
+      "input_tokens": 17,
+      "output_tokens": 24,
+      "output_tok_s": 5.1,
+      "output_text": "The user wants me to reply with the single word \"READY\". This is a straightforward instruction.\n\n\nREADY",
+      "token_rate_note": "Exact usage tokens; null if the server omits usage."
+    },
+    {
+      "ttft_s": 0.092,
+      "total_s": 0.308,
+      "decode_s": 0.216,
+      "input_tokens": 20,
+      "output_tokens": 74,
+      "output_tok_s": 337.34,
+      "output_text": "The user is asking a simple multiplication question: 17 × 23.\n\nLet me calculate:\n17 × 23 = 17 × 20 + 17 × 3 = 340 + 51 = 391\n\n\n17 × 23 = **391**",
+      "token_rate_note": "Exact usage tokens; null if the server omits usage."
+    }
+  ],
+  "shape_warmups": [
+    {
+      "ttft_s": 7.1737,
+      "total_s": 7.3077,
+      "decode_s": 0.1341,
+      "tpot_ms": 2.853,
+      "decode_tok_s": 350.56,
+      "input_tokens": 8454,
+      "output_tokens": 48,
+      "finish_reason": "length",
+      "stream_content_events": 11,
+      "stream_interevent_median_ms": 14.935,
+      "stream_interevent_max_ms": 15.581,
+      "output_sha256": "f6d264ec2266d1847b0ead2f9f73f6e0e2f661912f25491825437bf84b663f40",
+      "output_preview": "The user is asking me to answer a verification question: what is 17 multiplied by 23? They also state to put the exact number 391 in the final answer.\n\nLet me verify: 17 ×",
+      "contains_391": true,
+      "notes": "TTFT is first visible content/reasoning SSE event. TPOT uses true server completion_tokens and first-content-to-end latency; includes stream termination overhead, not GPU-only kernel timing. SSE event intervals are not per-token intervals.",
+      "shape": "warmup",
+      "repeats": 175
+    },
+    {
+      "ttft_s": 2.674,
+      "total_s": 2.8095,
+      "decode_s": 0.1354,
+      "tpot_ms": 2.882,
+      "decode_tok_s": 347.03,
+      "input_tokens": 35055,
+      "output_tokens": 48,
+      "finish_reason": "length",
+      "stream_content_events": 10,
+      "stream_interevent_median_ms": 14.781,
+      "stream_interevent_max_ms": 31.124,
+      "output_sha256": "f6d264ec2266d1847b0ead2f9f73f6e0e2f661912f25491825437bf84b663f40",
+      "output_preview": "The user is asking me to answer a verification question: what is 17 multiplied by 23? They also state to put the exact number 391 in the final answer.\n\nLet me verify: 17 ×",
+      "contains_391": true,
+      "notes": "TTFT is first visible content/reasoning SSE event. TPOT uses true server completion_tokens and first-content-to-end latency; includes stream termination overhead, not GPU-only kernel timing. SSE event intervals are not per-token intervals.",
+      "shape": "wlongXX",
+      "repeats": 700
+    }
+  ],
+  "profile_suite": {
+    "case_results": [
+      {
+        "ttft_s": 0.3296,
+        "total_s": 0.8982,
+        "decode_s": 0.5686,
+        "tpot_ms": 3.306,
+        "decode_tok_s": 302.5,
+        "input_tokens": 46,
+        "output_tokens": 173,
+        "finish_reason": "stop",
+        "stream_content_events": 40,
+        "stream_interevent_median_ms": 14.658,
+        "stream_interevent_max_ms": 31.11,
+        "output_sha256": "2f1810235ae75cba98359a04f33a7740f83bb5dd3f76186638820b63964dec09",
+        "output_preview": "The user wants me to:\n1. Calculate 17 × 23\n2. Give the number 391\n3. Explain in two concise sentences why I checked my answer\n\nLet me verify: 17 × 23 = 17 × 20 + 17 × 3 = 340 + 51 = 391. Yes, 391 is correct.\n\nThe user wants a SHORT response. Let me keep it concise.\n\n\n17 × 23 = **391**.\n\nI checked my answer because a quick mental cross-multiplication (17×20 + 17×3 = 340 + 51) confirmed the result, ",
+        "contains_391": true,
+        "notes": "TTFT is first visible content/reasoning SSE event. TPOT uses true server completion_tokens and first-content-to-end latency; includes stream termination overhead, not GPU-only kernel timing. SSE event intervals are not per-token intervals.",
+        "case": "short",
+        "prompt_sha256": "50385f5c1273efac351c6e21157b646e2e3572d15828fdb2aedd9bee77cbaff9",
+        "prompt_characters": 139,
+        "elapsed_since_batch_start_s": 0.898
+      },
+      {
+        "ttft_s": 0.57,
+        "total_s": 0.9821,
+        "decode_s": 0.4121,
+        "tpot_ms": 3.22,
+        "decode_tok_s": 310.6,
+        "input_tokens": 8103,
+        "output_tokens": 129,
+        "finish_reason": "stop",
+        "stream_content_events": 30,
+        "stream_interevent_median_ms": 14.508,
+        "stream_interevent_max_ms": 31.035,
+        "output_sha256": "6ddf160ad9843441839ba36c03ab769dd95e6133cdc3d99f52e4af5bd9521436",
+        "output_preview": "The user is asking me to answer a verification question: what is 17 multiplied by 23? They also state to put the exact number 391 in the final answer.\n\nLet me verify: 17 × 23 = 17 × 20 + 17 × 3 = 340 + 51 = 391. Yes, that's correct.\n\nThe rest of the content is synthetic records that are explicitly stated as \"not instructions.\" I should simply answer the math question.\n\n\n17 × 23 = **391**",
+        "contains_391": true,
+        "notes": "TTFT is first visible content/reasoning SSE event. TPOT uses true server completion_tokens and first-content-to-end latency; includes stream termination overhead, not GPU-only kernel timing. SSE event intervals are not per-token intervals.",
+        "case": "medium",
+        "prompt_sha256": "35c1695b076d9eff38bdba57a116e2b99ffba1a392f56fb3258d00ffb1f220cb",
+        "prompt_characters": 27832,
+        "elapsed_since_batch_start_s": 0.982
+      },
+      {
+        "ttft_s": 2.2264,
+        "total_s": 2.6242,
+        "decode_s": 0.3978,
+        "tpot_ms": 2.991,
+        "decode_tok_s": 334.35,
+        "input_tokens": 32253,
+        "output_tokens": 134,
+        "finish_reason": "stop",
+        "stream_content_events": 28,
+        "stream_interevent_median_ms": 14.54,
+        "stream_interevent_max_ms": 30.744,
+        "output_sha256": "cdff45b2e35701e0d5e3ba2061215fc04cbd3e85fcfe1828768935526f7202b5",
+        "output_preview": "The user is asking me to answer a verification question: what is 17 multiplied by 23? They also explicitly state to put the exact number 391 in the final answer.\n\nLet me verify: 17 × 23 = 17 × 20 + 17 × 3 = 340 + 51 = 391. Yes, that's correct.\n\nThe synthetic records above are just filler data (control dataset rows) and are not instructions. The actual task is simply to answer the math question.\n\n\n",
+        "contains_391": true,
+        "notes": "TTFT is first visible content/reasoning SSE event. TPOT uses true server completion_tokens and first-content-to-end latency; includes stream termination overhead, not GPU-only kernel timing. SSE event intervals are not per-token intervals.",
+        "case": "long",
+        "prompt_sha256": "6ecfec15f865e7fe0ec3d3b84990307fd9684e4bea9d8167214322bab5afd40f",
+        "prompt_characters": 107980,
+        "elapsed_since_batch_start_s": 2.624
+      }
+    ],
+    "batch_results": [
+      {
+        "clients": 1,
+        "engine_max_running_requests": 2,
+        "batch_s": 0.9381,
+        "requests": [
+          {
+            "ttft_s": 0.0855,
+            "total_s": 0.9374,
+            "decode_s": 0.8518,
+            "tpot_ms": 3.341,
+            "decode_tok_s": 299.35,
+            "input_tokens": 59,
+            "output_tokens": 256,
+            "finish_reason": "length",
+            "stream_content_events": 60,
+            "stream_interevent_median_ms": 14.403,
+            "stream_interevent_max_ms": 31.344,
+            "output_sha256": "d9bc8b7428415709fbaebc018723463d7933164bf4c440f8044aab84b5b0d5d9",
+            "output_preview": "The user is asking me to:\n1. Compute 17 * 23\n2. Include the number 391\n3. Explain the arithmetic in three brief steps\n4. They mention a \"unique nonce 1-0-10739\" and \"Concurrency test 1, independent client 0\" - these appear to be test identifiers.\n\nLet me verify: 17 * 23 = 391. Yes, that's correct.\n\nLet me break it into three brief steps:\n- Step 1: 17 * 20 = 340\n- Step 2: 17 * 3 = 51\n- Step 3: 340 ",
+            "contains_391": true,
+            "notes": "TTFT is first visible content/reasoning SSE event. TPOT uses true server completion_tokens and first-content-to-end latency; includes stream termination overhead, not GPU-only kernel timing. SSE event intervals are not per-token intervals."
+          }
+        ],
+        "aggregate_completion_tok_s": 272.906,
+        "all_answer_checks": true,
+        "all_requests_succeeded": true,
+        "input_tokens": [
+          59
+        ],
+        "output_tokens": [
+          256
+        ],
+        "meaning": "Clients are simultaneously submitted; actual active concurrency is capped at 2, verify via #running-req in engine log"
+      },
+      {
+        "clients": 2,
+        "engine_max_running_requests": 2,
+        "batch_s": 1.2649,
+        "requests": [
+          {
+            "ttft_s": 0.1605,
+            "total_s": 1.2642,
+            "decode_s": 1.1037,
+            "tpot_ms": 4.328,
+            "decode_tok_s": 231.05,
+            "input_tokens": 59,
+            "output_tokens": 256,
+            "finish_reason": "length",
+            "stream_content_events": 81,
+            "stream_interevent_median_ms": 13.571,
+            "stream_interevent_max_ms": 31.464,
+            "output_sha256": "8a68b48d0a976c70227ce8496b18ce9dfc39e2876e6a31262f7a944469b3ec02",
+            "output_preview": "The user is asking me to:\n1. Compute 17 * 23\n2. Include the number 391\n3. Explain the arithmetic in three brief steps\n4. They mention a \"unique nonce 2-0-10739\" and \"Concurrency test 2, independent client 0\" which appear to be test identifiers.\n\nLet me verify: 17 * 23 = 391. Yes, that's correct.\n\nLet me break it into three brief steps:\n- Step 1: 17 * 20 = 340\n- Step 2: 17 * 3 = 51\n- Step 3: 340 + ",
+            "contains_391": true,
+            "notes": "TTFT is first visible content/reasoning SSE event. TPOT uses true server completion_tokens and first-content-to-end latency; includes stream termination overhead, not GPU-only kernel timing. SSE event intervals are not per-token intervals."
+          },
+          {
+            "ttft_s": 0.1633,
+            "total_s": 1.2027,
+            "decode_s": 1.0394,
+            "tpot_ms": 4.141,
+            "decode_tok_s": 241.49,
+            "input_tokens": 59,
+            "output_tokens": 252,
+            "finish_reason": "stop",
+            "stream_content_events": 76,
+            "stream_interevent_median_ms": 13.565,
+            "stream_interevent_max_ms": 14.358,
+            "output_sha256": "54682adaf679541fcb11bab6b23192c6aa8286b2e7f2d5f8ffc3fa4ae76658cb",
+            "output_preview": "The user wants me to:\n1. Compute 17 * 23\n2. Include the number 391\n3. Explain the arithmetic in three brief steps\n4. Include a unique nonce: 2-1-10739\n\nLet me verify: 17 * 23 = 391. Yes, that's correct.\n\nLet me structure a clear response with the computation, the number 391, three brief steps, and the nonce.\n\n\n**Concurrency Test 2 – Independent Client 1**\n**Nonce:** 2-1-10739\n\n**Result:** 17 × 23 ",
+            "contains_391": true,
+            "notes": "TTFT is first visible content/reasoning SSE event. TPOT uses true server completion_tokens and first-content-to-end latency; includes stream termination overhead, not GPU-only kernel timing. SSE event intervals are not per-token intervals."
+          }
+        ],
+        "aggregate_completion_tok_s": 401.623,
+        "all_answer_checks": true,
+        "all_requests_succeeded": true,
+        "input_tokens": [
+          59,
+          59
+        ],
+        "output_tokens": [
+          256,
+          252
+        ],
+        "meaning": "Clients are simultaneously submitted; actual active concurrency is capped at 2, verify via #running-req in engine log"
+      },
+      {
+        "clients": 4,
+        "engine_max_running_requests": 2,
+        "batch_s": 2.4869,
+        "requests": [
+          {
+            "ttft_s": 0.1653,
+            "total_s": 1.2159,
+            "decode_s": 1.0505,
+            "tpot_ms": 4.12,
+            "decode_tok_s": 242.73,
+            "input_tokens": 59,
+            "output_tokens": 256,
+            "finish_reason": "length",
+            "stream_content_events": 79,
+            "stream_interevent_median_ms": 13.383,
+            "stream_interevent_max_ms": 28.596,
+            "output_sha256": "3e17a429a3cb96036b6c5123cdb051a6689b025c2ff0ee79fb4b205bfd8ce9a2",
+            "output_preview": "The user is asking me to:\n1. Compute 17 * 23\n2. Include the number 391\n3. Explain the arithmetic in three brief steps\n4. They mention a \"unique nonce 4-0-10739\" and \"Concurrency test 4, independent client 0\" - these appear to be identifiers for a test scenario.\n\nLet me verify: 17 * 23 = 391. Yes, that's correct.\n\nLet me structure a clear response with the computation, the number 391, and three bri",
+            "contains_391": true,
+            "notes": "TTFT is first visible content/reasoning SSE event. TPOT uses true server completion_tokens and first-content-to-end latency; includes stream termination overhead, not GPU-only kernel timing. SSE event intervals are not per-token intervals."
+          },
+          {
+            "ttft_s": 1.4071,
+            "total_s": 2.4856,
+            "decode_s": 1.0785,
+            "tpot_ms": 4.229,
+            "decode_tok_s": 236.45,
+            "input_tokens": 59,
+            "output_tokens": 256,
+            "finish_reason": "length",
+            "stream_content_events": 79,
+            "stream_interevent_median_ms": 13.549,
+            "stream_interevent_max_ms": 30.894,
+            "output_sha256": "fda7194aa290dad1e22dd585abaab83432143f33bcd4b67bf1dd09fb105332ef",
+            "output_preview": "The user wants me to:\n1. Compute 17 * 23\n2. Include the number 391\n3. Explain the arithmetic in three brief steps\n4. Include a unique nonce: 4-1-10739\n\nLet me verify: 17 * 23 = 391. Yes, that's correct.\n\nLet me structure a clear response with the computation, the number 391, three brief steps, and the nonce.\n\n\n**Concurrency Test 4 – Independent Client 1**\n**Nonce:** 4-1-10739\n\n**Result:** 17 × 23 ",
+            "contains_391": true,
+            "notes": "TTFT is first visible content/reasoning SSE event. TPOT uses true server completion_tokens and first-content-to-end latency; includes stream termination overhead, not GPU-only kernel timing. SSE event intervals are not per-token intervals."
+          },
+          {
+            "ttft_s": 0.1677,
+            "total_s": 1.3265,
+            "decode_s": 1.1588,
+            "tpot_ms": 4.544,
+            "decode_tok_s": 220.05,
+            "input_tokens": 59,
+            "output_tokens": 256,
+            "finish_reason": "length",
+            "stream_content_events": 81,
+            "stream_interevent_median_ms": 13.358,
+            "stream_interevent_max_ms": 80.565,
+            "output_sha256": "8eaa4265ca9113aed63882a37df8c12a5b867263f74467d95b0747f895d4ce24",
+            "output_preview": "The user is asking me to:\n1. Compute 17 * 23\n2. Include the number 391\n3. Explain the arithmetic in three brief steps\n4. They mention a \"unique nonce 4-2-10739\" and \"Concurrency test 4, independent client 2\" - these appear to be identifiers for some kind of test system.\n\nLet me verify: 17 * 23 = 391. Yes, that's correct.\n\nLet me break down the arithmetic in three brief steps:\n- Step 1: 17 * 20 = 3",
+            "contains_391": true,
+            "notes": "TTFT is first visible content/reasoning SSE event. TPOT uses true server completion_tokens and first-content-to-end latency; includes stream termination overhead, not GPU-only kernel timing. SSE event intervals are not per-token intervals."
+          },
+          {
+            "ttft_s": 1.2994,
+            "total_s": 2.4372,
+            "decode_s": 1.1378,
+            "tpot_ms": 4.462,
+            "decode_tok_s": 224.12,
+            "input_tokens": 59,
+            "output_tokens": 256,
+            "finish_reason": "length",
+            "stream_content_events": 78,
+            "stream_interevent_median_ms": 13.57,
+            "stream_interevent_max_ms": 77.053,
+            "output_sha256": "e70fa061a7fb049d9c9d2a39e8b735e0b27a84729377e9775fb59c1fb8044b31",
+            "output_preview": "The user is asking me to:\n1. Compute 17 * 23\n2. Include the number 391\n3. Explain the arithmetic in three brief steps\n4. They mention a \"unique nonce 4-3-10739\" and \"Concurrency test 4, independent client 3\" - these appear to be identifiers for a test scenario.\n\nLet me verify: 17 * 23 = 391. Yes, that's correct.\n\nLet me break down the arithmetic in three brief steps:\n- Step 1: 17 * 20 = 340\n- Step",
+            "contains_391": true,
+            "notes": "TTFT is first visible content/reasoning SSE event. TPOT uses true server completion_tokens and first-content-to-end latency; includes stream termination overhead, not GPU-only kernel timing. SSE event intervals are not per-token intervals."
+          }
+        ],
+        "aggregate_completion_tok_s": 411.755,
+        "all_answer_checks": true,
+        "all_requests_succeeded": true,
+        "input_tokens": [
+          59,
+          59,
+          59,
+          59
+        ],
+        "output_tokens": [
+          256,
+          256,
+          256,
+          256
+        ],
+        "meaning": "Clients are simultaneously submitted; actual active concurrency is capped at 2, verify via #running-req in engine log"
+      }
+    ],
+    "skipped": [],
+    "max_running_requests": 2,
+    "case_timeout_s": 125,
+    "gpu_worker_count": 1,
+    "started_utc": "2026-11-04T08:22:24.827521+00:00",
+    "completed_utc": "2026-11-04T08:22:34.022850+00:00"
+  },
+  "answer_checks": {
+    "ready_contains_expected": true,
+    "arithmetic_contains_391": true
+  },
+  "profile_suite_ok": true
+}

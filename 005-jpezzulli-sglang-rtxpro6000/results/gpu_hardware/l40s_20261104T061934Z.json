@@ -1,0 +1,7 @@
+{
+  "requested_gpu": "L40S",
+  "success": false,
+  "error": "ConflictError('function fu-IVgB6im2BI6quRdEWTBRRx is stopped')",
+  "timestamp_utc": "2026-11-04T06:19:34.883446+00:00",
+  "wall_seconds": 0.781
+}
