@@ -28,7 +28,7 @@ image = (
     },
     min_containers=0,
     max_containers=2,
-    scaledown_window=300,
+    scaledown_window=2,
     timeout=3600,
 )
 @modal.concurrent(max_inputs=1)
