@@ -12,7 +12,7 @@ import uuid
 from datetime import datetime, timezone
 
 import modal
-from model_cache import get_ready_model
+from model_cache import READY_FILE, get_ready_model
 
 ROOT = Path(__file__).resolve().parent
 MODEL = "Pika-Labs/Pika-H3-Flex"
@@ -27,7 +27,8 @@ app = modal.App(APP_NAME)
 volume = modal.Volume.from_name("modal-forge", create_if_missing=True)
 image = (modal.Image.from_registry("lmsysorg/sglang:dev")
          .entrypoint([])
-         .env({"HF_HOME": MODEL_CACHE, "HF_HUB_OFFLINE": "1", "TRANSFORMERS_OFFLINE": "1"})
+         .env({"HF_HOME": MODEL_CACHE, "HF_HUB_OFFLINE": "1", "TRANSFORMERS_OFFLINE": "1",
+               "SGLANG_DIFFUSION_CACHE_ROOT": MODEL_CACHE + "/sglang"})
          .env({"PYTHONPATH": "/opt/pika"})
          .add_local_file(str(ROOT / "model_cache.py"), "/opt/pika/model_cache.py")
          )
@@ -221,11 +222,13 @@ def generate_batch(workflow: dict, items: list[dict], output_prefix: str):
     """Load the checkpoint once, then generate every item sequentially."""
     # A missing/incomplete CPU-prepared snapshot must not trigger a GPU-side download.
     model_path = get_ready_model()
+    model_manifest_hash = hashlib.sha256(READY_FILE.read_bytes()).hexdigest()
     output_root = Path(VOLUME_ROOT) / output_prefix
     output_root.mkdir(parents=True, exist_ok=True)
     started = time.perf_counter()
     report = {
         "model": MODEL, "gpu": GPU, "mode": workflow["mode"],
+        "model_manifest_sha256": model_manifest_hash,
         "output_prefix": output_prefix, "startup_seconds": None,
         "results": [], "total": len(items),
     }
@@ -256,7 +259,11 @@ def generate_batch(workflow: dict, items: list[dict], output_prefix: str):
         for index, item in enumerate(items, 1):
             target = output_root / (item["id"] + ".mp4")
             metadata_path = output_root / (item["id"] + ".json")
-            signature = item["intent_hash"]
+            # 更换模型组件或卸载策略后，不允许复用旧视频。
+            signature = hashlib.sha256(
+                (item["intent_hash"] + model_manifest_hash
+                 + "performance=memory;offload=text_encoder,vae;video_vae=36").encode()
+            ).hexdigest()
             if metadata_path.is_file() and valid_mp4(target):
                 try:
                     previous = json_read(metadata_path)

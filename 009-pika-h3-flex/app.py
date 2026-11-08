@@ -2,6 +2,7 @@
 import os
 import subprocess
 import threading
+import time
 from pathlib import Path
 
 import modal
@@ -19,6 +20,7 @@ image = (
     .entrypoint([])
     .env({"HF_HOME": "/mnt/modal/009-pika-h3-flex",
           "HF_HUB_OFFLINE": "1", "TRANSFORMERS_OFFLINE": "1",
+          "SGLANG_DIFFUSION_CACHE_ROOT": "/mnt/modal/009-pika-h3-flex/sglang",
           "PYTHONPATH": "/opt/pika"})
     .add_local_file(str(Path(__file__).with_name("proxy.py")), "/opt/pika/proxy.py")
     .add_local_file(str(Path(__file__).with_name("model_cache.py")), "/opt/pika/model_cache.py")
@@ -33,7 +35,7 @@ image = (
     volumes={"/mnt/modal": volume},
     min_containers=0,
     max_containers=1,
-    scaledown_window=2,
+    scaledown_window=120,
     timeout=7200,
 )
 @modal.concurrent(max_inputs=1)
@@ -54,10 +56,15 @@ def serve():
     gateway = subprocess.Popen(["python", "-u", "/opt/pika/proxy.py"])
 
     def monitor():
-        name, code = ("engine", engine.wait())
-        print(f"{name} exited: {code}", flush=True)
+        # 两个核心子进程中任意一个退出，都停止另一个，避免静默失效。
+        while engine.poll() is None and gateway.poll() is None:
+            time.sleep(2)
+        print(f"Pika process exited: engine={engine.poll()}, gateway={gateway.poll()}",
+              flush=True)
         try:
-            gateway.terminate()
+            for process in (engine, gateway):
+                if process.poll() is None:
+                    process.terminate()
             volume.commit()
         except Exception as exc:
             print(f"Cleanup failed: {exc}", flush=True)

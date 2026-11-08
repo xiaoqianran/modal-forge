@@ -4,6 +4,7 @@ import binascii
 import json
 import os
 import shutil
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -15,6 +16,7 @@ UPSTREAM = "http://127.0.0.1:30010"
 FRAME_DIR = Path("/tmp/pika-frames")
 MAX_REQUEST = 64 * 1024 * 1024
 MAX_FRAME = 20 * 1024 * 1024
+FRAME_TTL_SECONDS = 7200
 
 
 def _decode_frame(value):
@@ -143,6 +145,21 @@ def main():
             pass
         time.sleep(3)
     print("SGLang ready; starting Pika frame proxy at port 30011", flush=True)
+    def clean_expired_frames():
+        """删除两小时以前的临时帧，避免长时间运行耗尽容器磁盘。"""
+        while True:
+            time.sleep(600)
+            if not FRAME_DIR.exists():
+                continue
+            for frame in FRAME_DIR.iterdir():
+                try:
+                    if (frame.is_file() and not frame.is_symlink()
+                            and time.time() - frame.stat().st_mtime > FRAME_TTL_SECONDS):
+                        frame.unlink()
+                except OSError:
+                    pass
+
+    threading.Thread(target=clean_expired_frames, daemon=True).start()
     ThreadingHTTPServer(("0.0.0.0", 30011), Handler).serve_forever()
 
 

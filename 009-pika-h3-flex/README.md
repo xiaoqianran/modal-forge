@@ -1,35 +1,38 @@
 # 009 Pika H3 Flex · SGLang fixed workflow
 
-## Mandatory separate model download (CPU only)
+## 模型下载与推理严格分离
 
-Model download and GPU inference are now **separate commands**. Both HTTP
-service (`app.py`) and batch mode (`run_batch.py`) require a completed
-CPU download. They use the same `modal-forge` Volume.
+CPU 下载使用和推理一致的 SGLang Diffusion 镜像与模型注册机制。它会处理
+Pika Overlay、官方锁定的 MiniMax-H3 基础组件，以及模型物化目录；
+不再通过直接下载 Pika 仓库全部文件来代替模型准备。
 
-First run (or whenever updating weights):
+第一次运行先检查环境，再执行 CPU 模型准备：
 
+    uv run modal run download_model.py --preflight-only
     uv run modal run download_model.py
 
-CPU downloads the full `Pika-Labs/Pika-H3-Flex` repository to
-`/009-pika-h3-flex/hub` inside `modal-forge`, checks that weight files
-exist and writes `/009-pika-h3-flex/model-ready.json` only after completion.
-The GPU reads that marker and passes an **absolute local snapshot path** to
-SGLang. `HF_HUB_OFFLINE=1` and `TRANSFORMERS_OFFLINE=1` prevent automatic
-Hugging Face downloads in inference. A missing or invalid marker causes an
-immediate error rather than a fallback download on GPU.
+下载和物化完全成功后，会生成共享 Volume 中的
+`/009-pika-h3-flex/model-ready.json`，包含逐文件大小清单。
+失败时不主动删除上一份完成标记，但推理启动时会重新校验文件清单，
+任何损坏或缺失均拒绝执行。
 
-Then run inference:
+随后运行 GPU 批处理：
 
     uv run modal run run_batch.py --workflow workflow_t2va.json --task tasks/t2va_demo.json
 
-Alternatively, deploy the HTTP service:
+也可以按需部署 HTTP 服务：
 
     uv run modal deploy app.py
 
-Downloading is not automatically triggered by either inference entrypoint.
-Running the CPU download again uses Hugging Face caching to avoid re-fetching
-unchanged files. The GPU still needs to load model weights into VRAM at startup.
-Do not update weights while an inference process is using them.
+GPU 推理必须使用 `HF_HUB_OFFLINE=1`、`TRANSFORMERS_OFFLINE=1`，
+并共享 `SGLANG_DIFFUSION_CACHE_ROOT` 和 `HF_HOME`。SGLang 的启动模型标识
+保留为 `Pika-Labs/Pika-H3-Flex`，以匹配其官方 Overlay 注册表。
+缓存不存在或未通过检查时应直接失败，不能在 GPU 容器中补充下载。
+已准备的模型仍需要在 GPU 启动时重新加载至显存。
+
+注意：不要同时运行两份 CPU 下载程序，也不要在推理期间升级模型或更换
+SGLang `dev` 镜像。Modal Volume 不提供分布式文件锁。
+本次修改不会自动执行下载或 GPU 推理。
 
 Pika-H3-Flex native six-step stochastic re-noising; both T2VA (text-to-video-and-audio) and FL2VA (first+last frames + prompt) share one FL2VA model partition.
 
@@ -49,7 +52,7 @@ Pika-H3-Flex native six-step stochastic re-noising; both T2VA (text-to-video-and
     uv run modal deploy app.py
 
 Service: modal-forge-009-pika-h3-flex-fl2va
-Default GPU: RTX-PRO-6000; min_containers=0, max_containers=1, scaledown_window=2.
+Default GPU: RTX-PRO-6000; min_containers=0, max_containers=1, scaledown_window=120.
 Modal Proxy Auth is disabled; the endpoint is publicly accessible and does not need tokens.
 Weights cache in existing modal-forge Volume, /009-pika-h3-flex subpath.
 
@@ -66,7 +69,7 @@ FL2VA mode uses two images with frame_index=0 and -1, role=keyframe. The local c
 
 Output: results/<mode>/<task name>/<id>.mp4, <id>.json, report.json. Completed jobs are skipped ONLY when prompt, workflow, seed, model, frames and MP4 checksum still match. Changed inputs regenerate output, failures write <id>.error.json. Start with one GPU container and serial requests to avoid duplicate GPU loading.
 
-Important: the SGLang video job registry lives in the GPU container. Very short idle scale-down (2 seconds) may interrupt a gap between polling calls, so the client polls every second. If a GPU container is interrupted anyway, rerun the task; already saved MP4 files are skipped.
+Important: the SGLang video job registry lives in the GPU container. The HTTP service now uses a 120-second idle window to reduce accidental scale-down between polling calls. Container interruptions can still invalidate in-memory jobs; rerun the task to recover saved outputs.
 
 Do not use MiniMax-H3 original Euler sampler or force flow_shift; Pika model requires its trained six-step schedule.
 

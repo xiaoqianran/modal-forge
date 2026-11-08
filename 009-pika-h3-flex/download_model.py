@@ -1,44 +1,47 @@
-"""Download Pika weights on CPU to the shared Modal Volume (no GPU allocation)."""
+"""仅使用 CPU 准备 Pika 模型和 SGLang Overlay，并提交共享缓存清单。"""
 import json
 from pathlib import Path
 
 import modal
 
-from model_cache import CACHE_ROOT, HF_HUB_CACHE, MODEL, READY_FILE, VOLUME_ROOT, inspect_snapshot
+from model_cache import CACHE_ROOT, MATERIALIZED_ROOT, MODEL, READY_FILE, VOLUME_ROOT, inspect_snapshot
 
 app = modal.App("modal-forge-009-pika-h3-flex-download")
 volume = modal.Volume.from_name("modal-forge", create_if_missing=True)
-image = (modal.Image.debian_slim(python_version="3.12")
-         .pip_install("huggingface_hub>=0.34,<2")
+image = (modal.Image.from_registry("lmsysorg/sglang:dev")
+         .entrypoint([])
+         # Windows 主机上 str(Path("/mnt/...")) 会变成反斜杠，
+         # 导致 Modal 镜像 Dockerfile 解析失败。容器路径必须使用 POSIX 字面量。
+         .env({"HF_HOME": "/mnt/modal/009-pika-h3-flex",
+               "SGLANG_DIFFUSION_CACHE_ROOT": "/mnt/modal/009-pika-h3-flex/sglang"})
+         .env({"PYTHONPATH": "/opt/pika"})
          .add_local_file(str(Path(__file__).with_name("model_cache.py")),
-                         "/root/model_cache.py"))
+                         "/opt/pika/model_cache.py"))
 
 
 @app.function(
     image=image,
     cpu=4,
-    memory=16384,
+    memory=32768,
     timeout=14400,
     volumes={VOLUME_ROOT: volume},
 )
-def download(revision: str = "main"):
-    from huggingface_hub import snapshot_download
+def download():
+    from sglang.multimodal_gen.runtime.utils.hf_diffusers_utils import maybe_download_model
 
     CACHE_ROOT.mkdir(parents=True, exist_ok=True)
-    READY_FILE.unlink(missing_ok=True)
-    volume.commit()
-    print(f"CPU DOWNLOAD: {MODEL} revision={revision}", flush=True)
-    snapshot = Path(snapshot_download(
-        repo_id=MODEL,
-        revision=revision,
-        cache_dir=str(HF_HUB_CACHE),
-        max_workers=8,
-    ))
-    details = inspect_snapshot(snapshot)
+    # 不删除旧标记：下载失败时继续保留上一个已验证版本。
+    print(f"CPU PREPARE: {MODEL} (overlay + pinned base components)", flush=True)
+    # 与推理端使用相同的 SGLang 模型注册与 Overlay 物化逻辑。
+    # 强制检查是否真正生成可加载的模型目录，而非只下载 Pika 仓库权重。
+    materialized = Path(maybe_download_model(MODEL, force_diffusers_model=True))
+    if not materialized.resolve().is_relative_to(MATERIALIZED_ROOT.resolve()):
+        raise RuntimeError(f"SGLang materialized model outside persisted Volume: {materialized}")
+    details = inspect_snapshot(materialized)
     manifest = {
+        "manifest_version": 2,
         "repo_id": MODEL,
-        "revision": revision,
-        "snapshot_path": str(snapshot),
+        "materialized_path": str(materialized),
         **details,
     }
     temp = READY_FILE.with_suffix(".json.tmp")
@@ -49,6 +52,20 @@ def download(revision: str = "main"):
     return manifest
 
 
+@app.function(image=image, cpu=2, memory=8192, timeout=600)
+def preflight():
+    """只检查 SGLang 模型注册，不下载权重，也不挂载 GPU。"""
+    from sglang.multimodal_gen.runtime.utils.hf_diffusers_utils import maybe_download_model
+    from sglang.multimodal_gen.runtime.utils.model_overlay import resolve_model_overlay
+
+    overlay = resolve_model_overlay(MODEL)
+    if not overlay or not callable(maybe_download_model):
+        raise RuntimeError("当前 SGLang 镜像不支持 Pika Overlay")
+    print(json.dumps(overlay, indent=2), flush=True)
+    return overlay
+
+
 @app.local_entrypoint()
-def main(revision: str = "main"):
-    print(json.dumps(download.remote(revision), indent=2))
+def main(preflight_only: bool = False):
+    result = preflight.remote() if preflight_only else download.remote()
+    print(json.dumps(result, indent=2))
