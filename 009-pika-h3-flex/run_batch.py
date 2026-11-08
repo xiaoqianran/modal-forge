@@ -12,6 +12,7 @@ import uuid
 from datetime import datetime, timezone
 
 import modal
+from model_cache import get_ready_model
 
 ROOT = Path(__file__).resolve().parent
 MODEL = "Pika-Labs/Pika-H3-Flex"
@@ -24,9 +25,12 @@ VALID_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
 
 app = modal.App(APP_NAME)
 volume = modal.Volume.from_name("modal-forge", create_if_missing=True)
-image = modal.Image.from_registry("lmsysorg/sglang:dev").entrypoint([]).env(
-    {"HF_HOME": MODEL_CACHE}
-)
+image = (modal.Image.from_registry("lmsysorg/sglang:dev")
+         .entrypoint([])
+         .env({"HF_HOME": MODEL_CACHE, "HF_HUB_OFFLINE": "1", "TRANSFORMERS_OFFLINE": "1"})
+         .env({"PYTHONPATH": "/opt/pika"})
+         .add_local_file(str(ROOT / "model_cache.py"), "/opt/pika/model_cache.py")
+         )
 
 
 def json_read(path):
@@ -194,11 +198,13 @@ def preflight_runtime():
         "diffusion_module": str(package),
         "cli_exit_code": check.returncode,
         "supports_performance_mode": "--performance-mode" in help_text,
+        "supports_layerwise_offload": "--layerwise-offload-components" in help_text,
+        "supports_layerwise_resident_layers": "--layerwise-resident-layers" in help_text,
         "pika_files": candidates[:20],
         "pika_registry_references": model_strings[:20],
     }
     print(json.dumps(result, indent=2), flush=True)
-    if check.returncode != 0 or "--performance-mode" not in help_text:
+    if check.returncode != 0 or any(flag not in help_text for flag in ("--performance-mode", "--layerwise-offload-components", "--layerwise-resident-layers")):
         raise RuntimeError("Diffusion CLI failed preflight")
     if not (candidates or model_strings):
         raise RuntimeError("This image does not register Pika H3 Flex")
@@ -213,6 +219,8 @@ def preflight_runtime():
 )
 def generate_batch(workflow: dict, items: list[dict], output_prefix: str):
     """Load the checkpoint once, then generate every item sequentially."""
+    # A missing/incomplete CPU-prepared snapshot must not trigger a GPU-side download.
+    model_path = get_ready_model()
     output_root = Path(VOLUME_ROOT) / output_prefix
     output_root.mkdir(parents=True, exist_ok=True)
     started = time.perf_counter()
@@ -223,8 +231,10 @@ def generate_batch(workflow: dict, items: list[dict], output_prefix: str):
     }
     process = subprocess.Popen([
         "python", "-m", "sglang.multimodal_gen.runtime.entrypoints.cli.main",
-        "serve", "--model-path", MODEL,
-        "--performance-mode", "speed",
+        "serve", "--model-path", model_path,
+        "--performance-mode", "memory",
+        "--layerwise-offload-components", "text_encoder,vae",
+        "--layerwise-resident-layers", "video_vae=36",
         "--host", "127.0.0.1", "--port", str(PORT),
     ])
     try:

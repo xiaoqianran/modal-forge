@@ -1,5 +1,36 @@
 # 009 Pika H3 Flex · SGLang fixed workflow
 
+## Mandatory separate model download (CPU only)
+
+Model download and GPU inference are now **separate commands**. Both HTTP
+service (`app.py`) and batch mode (`run_batch.py`) require a completed
+CPU download. They use the same `modal-forge` Volume.
+
+First run (or whenever updating weights):
+
+    uv run modal run download_model.py
+
+CPU downloads the full `Pika-Labs/Pika-H3-Flex` repository to
+`/009-pika-h3-flex/hub` inside `modal-forge`, checks that weight files
+exist and writes `/009-pika-h3-flex/model-ready.json` only after completion.
+The GPU reads that marker and passes an **absolute local snapshot path** to
+SGLang. `HF_HUB_OFFLINE=1` and `TRANSFORMERS_OFFLINE=1` prevent automatic
+Hugging Face downloads in inference. A missing or invalid marker causes an
+immediate error rather than a fallback download on GPU.
+
+Then run inference:
+
+    uv run modal run run_batch.py --workflow workflow_t2va.json --task tasks/t2va_demo.json
+
+Alternatively, deploy the HTTP service:
+
+    uv run modal deploy app.py
+
+Downloading is not automatically triggered by either inference entrypoint.
+Running the CPU download again uses Hugging Face caching to avoid re-fetching
+unchanged files. The GPU still needs to load model weights into VRAM at startup.
+Do not update weights while an inference process is using them.
+
 Pika-H3-Flex native six-step stochastic re-noising; both T2VA (text-to-video-and-audio) and FL2VA (first+last frames + prompt) share one FL2VA model partition.
 
 ## System
@@ -50,7 +81,7 @@ The API is public with no authentication. Anyone who knows the URL may trigger G
 
 ## Modal run (recommended batch entrypoint, without deployment)
 
-Compatibility fix (2026-11-08): The original `lmsysorg/sglang:v0.5.23` language-model CLI rejected Pika-specific Diffusion arguments. `run_batch.py` now uses `lmsysorg/sglang:dev` and explicitly starts `python -m sglang.multimodal_gen.runtime.entrypoints.cli.main serve --model-path Pika-Labs/Pika-H3-Flex --performance-mode speed --port 30010`. The default FL2VA partition handles both T2VA and FL2VA. To verify the Diffusion runtime and Pika model registry without allocating a GPU, run `uv run modal run run_batch.py --preflight`. The dev Docker tag is mutable; this runtime was verified on 2026-11-08 and should be pinned to a stable compatible release when available. Model files cache in the existing Volume at `/009-pika-h3-flex`.
+Compatibility fix (2026-11-08): The original `lmsysorg/sglang:v0.5.23` language-model CLI rejected Pika-specific Diffusion arguments. Both inference entrypoints use `lmsysorg/sglang:dev` and the Diffusion CLI with `--model-path` set to the downloaded local snapshot. The default FL2VA partition handles both T2VA and FL2VA. To verify the Diffusion runtime and Pika model registry without allocating a GPU, run `uv run modal run run_batch.py --preflight`. The dev Docker tag is mutable and should be pinned to a stable compatible release when available.
 
 
 run_batch.py is independent from app.py. Each invocation starts one Modal GPU container, loads Pika H3 Flex only once, sequentially generates videos, then exits. No HTTP URL or Proxy Token required. app.py stays available as an optional HTTP service.
