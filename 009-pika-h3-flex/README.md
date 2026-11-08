@@ -47,3 +47,29 @@ https://github.com/sgl-project/sglang/blob/main/docs/cookbook/diffusion/MiniMax/
 The batch format and local tests are not proof of actual successful GPU model inference. Full GPU model loading, VRAM peak, and MP4 validation must be separately checked.
 
 The API is public with no authentication. Anyone who knows the URL may trigger GPU inference and incur cost. Keep the endpoint confidential or add access control when needed.
+
+## Modal run (recommended batch entrypoint, without deployment)
+
+run_batch.py is independent from app.py. Each invocation starts one Modal GPU container, loads Pika H3 Flex only once, sequentially generates videos, then exits. No HTTP URL or Proxy Token required. app.py stays available as an optional HTTP service.
+
+Both entrypoints reuse the SAME "modal-forge" Volume checkpoint cache subdirectory "009-pika-h3-flex". Cached checkpoint files survive container shutdown, but GPU-loaded weights do not.
+
+PowerShell:
+
+    cd D:\a_programming_list\Ai-application\A-modal\modal-forge\009-pika-h3-flex
+    uv run modal run run_batch.py --workflow workflow_t2va.json --task tasks/t2va_demo.json
+    uv run modal run run_batch.py --workflow workflow_fl2va.json --task tasks/fl2va_demo.json
+
+To run ONLY the first item:
+
+    uv run modal run run_batch.py --workflow workflow_fl2va.json --task tasks/fl2va_demo.json --limit 1
+
+Images may use paths relative to this module or absolute paths. Images are uploaded once to the existing Volume rather than passed as Base64 Modal arguments. The GPU uses those images as first/last keyframes through file:// conditions. This path uses six Pika steps, SGLang performance=speed and no explicit quantization or CPU Offload.
+
+Results: results/<mode>/<task name>/<run id>/*.mp4, *.json, report.json.
+Cloud: 009-pika-batch/<mode>/<task name>/<run id>/ in the Volume.
+After every completed video the cloud output is committed. Use the SAME --run-id on subsequent invocations to resume. Matching videos and hashes are skipped; changed prompts, frames or workflow regenerate. Failures stop the batch without starting further items.
+
+Offline tests (no GPU):
+
+    uv run python -m unittest discover -s tests -v
