@@ -16,7 +16,6 @@ volume = modal.Volume.from_name("modal-forge", create_if_missing=True)
 image = (
     modal.Image.from_registry("vllm/vllm-omni:v0.32.0")
     .entrypoint([])
-    .run_commands("python -m pip install --no-cache-dir 'typing_extensions>=4.15.0' 'protobuf>=6.33.5' 'aiohttp>=3.13.3' 'idna>=3.18'")
     .env({"HF_HOME": "/root/.cache/huggingface"})
 )
 
