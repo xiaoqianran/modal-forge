@@ -1,46 +1,51 @@
-# 009 Pika H3 Flex — SGLang Diffusion
+# 009 Pika H3 Flex · SGLang fixed workflow
 
-This module serves the Pika-Labs/Pika-H3-Flex model with its native SIX-STEP stochastic re-noising sampler (not generic MiniMax-H3 6-step Euler).
+Pika-H3-Flex native six-step stochastic re-noising; both T2VA (text-to-video-and-audio) and FL2VA (first+last frames + prompt) share one FL2VA model partition.
 
-Official guide:
-https://github.com/sgl-project/sglang/blob/main/docs/cookbook/diffusion/MiniMax/MiniMax-H3.mdx
+## System
+
+- app.py: Modal RTX PRO 6000 (96GB), SGLang speed mode, bf16-base architecture; no explicit quantization or CPU-offload.
+- proxy.py: authenticated public port 30011, waits for SGLang health on internal port 30010, stages inline frame bytes in the SAME running container and translates them into official keyframe conditions.
+- workflow_t2va.json / workflow_fl2va.json: fixed video parameters (5 seconds, 480p short edge, six steps).
+- tasks/*.json: prompt lists. FL2VA items have first_frame + last_frame relative to this module directory.
+- batch_run.py: run every item, resume completed and unchanged MP4s, download files, save run JSONs.
+- generate.py: legacy single-request client, for low-level testing; does not upload local images.
 
 ## Deploy
 
-Default GPU RTX PRO 6000 96GB. Explicitly uses --performance-mode speed (resident components); no CPU offload or explicit quantization flags are enabled. Actual peak VRAM usage has not yet been measured.
-Official SGLang image: lmsysorg/sglang:v0.5.23.
-Modal settings: min_containers=0, max_containers=1, scaledown_window=2.
-HF model cache is on modal-forge Volume, subpath /009-pika-h3-flex.
-Proxy auth enabled.
-
-PowerShell:
     cd 009-pika-h3-flex
     uv sync
     uv run modal deploy app.py
 
-For Ref2VA, deploy a separate app:
-    $env:PIKA_VARIANT = "ref2va"
-    uv run modal deploy app.py
+Service: modal-forge-009-pika-h3-flex-fl2va
+Default GPU: RTX-PRO-6000; min_containers=0, max_containers=1, scaledown_window=2.
+Modal Proxy Auth is mandatory. Configure MODAL_PROXY_KEY and MODAL_PROXY_SECRET locally.
+Weights cache in existing modal-forge Volume, /009-pika-h3-flex subpath.
 
-## Generate text + audio video (5 seconds, native 480p)
+## Batch generation (Windows PowerShell)
 
-Edit only the prompt in request.example.json. Set Modal Proxy Token environment variables
-MODAL_PROXY_KEY and MODAL_PROXY_SECRET first.
+    $env:MODAL_PROXY_KEY = "<your-proxy-key>"
+    $env:MODAL_PROXY_SECRET = "<your-proxy-secret>"
+    $url = "https://yuqueaaa--modal-forge-009-pika-h3-flex-fl2va-serve.us-east.modal.run"
 
-    uv run python generate.py --endpoint "https://<your-modal-server>"
+    uv run python batch_run.py --endpoint $url --workflow workflow_t2va.json --task tasks/t2va_demo.json
+    uv run python batch_run.py --endpoint $url --workflow workflow_fl2va.json --task tasks/fl2va_demo.json
 
-The client calls POST /v1/videos, GET /v1/videos/{id}, and GET
-/v1/videos/{id}/content, then saves both MP4 and a JSON timing record.
+To generate 10 clips, add 10 entries to the task JSON. All fixed video parameters remain in the workflow JSON.
 
-For first/last image conditioning or Ref2VA, supply conditions with an accessible
-URI on the server side. Local Windows drive paths are not visible in Modal.
+FL2VA mode uses two images with frame_index=0 and -1, role=keyframe. The local client base64-encodes PNG/JPEG/WebP images into ONE video submission; the HTTP gateway saves them to per-container /tmp, translates to file:// URI and forwards the request to internal SGLang. No public image host, R2, or extra upload call is needed.
 
-Pika H3 Flex requires exactly six denoiser updates and the original trained
-sampling schedule. Do NOT override flow_shift/audio_flow_shift or use an
-arbitrary MiniMax-H3 LoRA loader. Native outputs: 480p or 768p, 5-15 seconds.
+Output: results/<mode>/<task name>/<id>.mp4, <id>.json, report.json. Completed jobs are skipped ONLY when prompt, workflow, seed, model, frames and MP4 checksum still match. Changed inputs regenerate output, failures write <id>.error.json. Start with one GPU container and serial requests to avoid duplicate GPU loading.
 
-## Validation
+Important: the SGLang video job registry lives in the GPU container. Very short idle scale-down (2 seconds) may interrupt a gap between polling calls, so the client polls every second. If a GPU container is interrupted anyway, rerun the task; already saved MP4 files are skipped.
 
-Code is newly implemented; do not infer production inference success from
-the fact that deployment succeeds. Record real GPU peak memory and end-to-end
-MP4 results after full inference validation.
+Do not use MiniMax-H3 original Euler sampler or force flow_shift; Pika model requires its trained six-step schedule.
+
+## Verification and limits
+
+SGLang official reference:
+https://github.com/sgl-project/sglang/blob/main/docs/cookbook/diffusion/MiniMax/MiniMax-H3.mdx
+
+The batch format and local tests are not proof of actual successful GPU model inference. Full GPU model loading, VRAM peak, and MP4 validation must be separately checked.
+
+The API is protected by Modal Proxy Auth. Do not make it public without additional file-URI access controls.

@@ -1,23 +1,23 @@
-"""Pika H3 Flex SGLang Diffusion server on Modal."""
+"""Pika H3 Flex SGLang Diffusion + inline FL2VA frame proxy on Modal."""
 import os
 import subprocess
 import threading
+from pathlib import Path
 
 import modal
 
 MODEL = "Pika-Labs/Pika-H3-Flex"
-VARIANT = os.getenv("PIKA_VARIANT", "fl2va").lower()
-if VARIANT not in {"fl2va", "ref2va"}:
-    raise ValueError("PIKA_VARIANT must be fl2va or ref2va")
 GPU = os.getenv("PIKA_GPU", "RTX-PRO-6000")
-PORT = 30010
+SG_PORT = 30010
+PROXY_PORT = 30011
 
-app = modal.App(f"modal-forge-009-pika-h3-flex-{VARIANT}")
+app = modal.App("modal-forge-009-pika-h3-flex-fl2va")
 volume = modal.Volume.from_name("modal-forge", create_if_missing=True)
 image = (
     modal.Image.from_registry("lmsysorg/sglang:v0.5.23")
     .entrypoint([])
     .env({"HF_HOME": "/root/.cache/huggingface"})
+    .add_local_file(str(Path(__file__).with_name("proxy.py")), "/opt/pika/proxy.py")
 )
 
 
@@ -37,24 +37,26 @@ image = (
     timeout=7200,
 )
 @modal.concurrent(max_inputs=1)
-@modal.web_server(port=PORT, startup_timeout=3600, requires_proxy_auth=True)
+@modal.web_server(port=PROXY_PORT, startup_timeout=3600, requires_proxy_auth=True)
 def serve():
-    """Launch a six-step Pika H3 Flex server without changing its sampler."""
-    args = [
+    """Serve T2VA / FL2VA through one six-step model and HTTP gateway."""
+    cmd = [
         "sglang", "serve", "--model-path", MODEL,
-        "--host", "0.0.0.0", "--port", str(PORT),
-        "--model-variant", VARIANT,
+        "--host", "127.0.0.1", "--port", str(SG_PORT),
+        "--model-variant", "fl2va",
         "--performance-mode", "speed",
-
     ]
-    print(f"Starting Pika H3 Flex: variant={VARIANT} gpu={GPU}", flush=True)
-    process = subprocess.Popen(args)
+    print(f"Pika H3 Flex: GPU={GPU}, performance=speed, T2VA+FL2VA", flush=True)
+    engine = subprocess.Popen(cmd)
+    gateway = subprocess.Popen(["python", "-u", "/opt/pika/proxy.py"])
 
     def monitor():
-        print(f"SGLang exited: {process.wait()}", flush=True)
+        name, code = ("engine", engine.wait())
+        print(f"{name} exited: {code}", flush=True)
         try:
+            gateway.terminate()
             volume.commit()
         except Exception as exc:
-            print(f"Volume commit failed: {exc}", flush=True)
+            print(f"Cleanup failed: {exc}", flush=True)
 
     threading.Thread(target=monitor, daemon=True).start()
