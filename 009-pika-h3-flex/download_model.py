@@ -21,9 +21,10 @@ image = (modal.Image.from_registry("lmsysorg/sglang:dev")
 
 @app.function(
     image=image,
-    cpu=4,
-    memory=32768,
-    timeout=14400,
+    # 参考 ComfyUI 下载分片容器的 4 vCPU 配置；SGLang Overlay 物化预留更多内存。
+    cpu=4.0,
+    memory=8192,
+    timeout=86400,
     volumes={VOLUME_ROOT: volume},
 )
 def download():
