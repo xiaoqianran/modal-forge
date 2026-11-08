@@ -50,6 +50,9 @@ The API is public with no authentication. Anyone who knows the URL may trigger G
 
 ## Modal run (recommended batch entrypoint, without deployment)
 
+Compatibility fix (2026-11-08): The original `lmsysorg/sglang:v0.5.23` language-model CLI rejected Pika-specific Diffusion arguments. `run_batch.py` now uses `lmsysorg/sglang:dev` and explicitly starts `python -m sglang.multimodal_gen.runtime.entrypoints.cli.main serve --model-path Pika-Labs/Pika-H3-Flex --performance-mode speed --port 30010`. The default FL2VA partition handles both T2VA and FL2VA. To verify the Diffusion runtime and Pika model registry without allocating a GPU, run `uv run modal run run_batch.py --preflight`. The dev Docker tag is mutable; this runtime was verified on 2026-11-08 and should be pinned to a stable compatible release when available. Model files cache in the existing Volume at `/009-pika-h3-flex`.
+
+
 run_batch.py is independent from app.py. Each invocation starts one Modal GPU container, loads Pika H3 Flex only once, sequentially generates videos, then exits. No HTTP URL or Proxy Token required. app.py stays available as an optional HTTP service.
 
 Both entrypoints reuse the SAME "modal-forge" Volume checkpoint cache subdirectory "009-pika-h3-flex". Cached checkpoint files survive container shutdown, but GPU-loaded weights do not.

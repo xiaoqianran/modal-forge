@@ -24,7 +24,7 @@ VALID_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
 
 app = modal.App(APP_NAME)
 volume = modal.Volume.from_name("modal-forge", create_if_missing=True)
-image = modal.Image.from_registry("lmsysorg/sglang:v0.5.23").entrypoint([]).env(
+image = modal.Image.from_registry("lmsysorg/sglang:dev").entrypoint([]).env(
     {"HF_HOME": MODEL_CACHE}
 )
 
@@ -164,6 +164,47 @@ def _payload(workflow, item):
     return data
 
 
+@app.function(image=image, cpu=4, memory=8192, timeout=900)
+def preflight_runtime():
+    """Check the Diffusion CLI and Pika registry before allocating a GPU."""
+    import importlib.util
+    spec = importlib.util.find_spec("sglang.multimodal_gen")
+    if spec is None:
+        raise RuntimeError("SGLang Diffusion package is missing")
+    package = Path(spec.submodule_search_locations[0])
+    cmd = [
+        "python", "-m", "sglang.multimodal_gen.runtime.entrypoints.cli.main",
+        "serve", "--help",
+    ]
+    check = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
+    help_text = check.stdout + check.stderr
+    candidates = []
+    for path in package.rglob("*.py"):
+        if "pika" in path.name.lower():
+            candidates.append(str(path.relative_to(package)))
+    model_strings = []
+    for path in package.rglob("*.py"):
+        # Look for explicit model registration, not a generic H3 implementation.
+        if path.stat().st_size > 500_000:
+            continue
+        source = path.read_text(encoding="utf-8", errors="replace")
+        if "Pika-H3-Flex" in source or "PikaH3Flex" in source:
+            model_strings.append(str(path.relative_to(package)))
+    result = {
+        "diffusion_module": str(package),
+        "cli_exit_code": check.returncode,
+        "supports_performance_mode": "--performance-mode" in help_text,
+        "pika_files": candidates[:20],
+        "pika_registry_references": model_strings[:20],
+    }
+    print(json.dumps(result, indent=2), flush=True)
+    if check.returncode != 0 or "--performance-mode" not in help_text:
+        raise RuntimeError("Diffusion CLI failed preflight")
+    if not (candidates or model_strings):
+        raise RuntimeError("This image does not register Pika H3 Flex")
+    return result
+
+
 @app.function(
     image=image, gpu=GPU, cpu=12, memory=131072,
     volumes={VOLUME_ROOT: volume},
@@ -181,8 +222,9 @@ def generate_batch(workflow: dict, items: list[dict], output_prefix: str):
         "results": [], "total": len(items),
     }
     process = subprocess.Popen([
-        "sglang", "serve", "--model-path", MODEL,
-        "--model-variant", "fl2va", "--performance-mode", "speed",
+        "python", "-m", "sglang.multimodal_gen.runtime.entrypoints.cli.main",
+        "serve", "--model-path", MODEL,
+        "--performance-mode", "speed",
         "--host", "127.0.0.1", "--port", str(PORT),
     ])
     try:
@@ -285,8 +327,12 @@ def main(workflow: str = "workflow_t2va.json",
          task: str = "tasks/t2va_demo.json",
          limit: int = 0,
          output: str = "",
-         run_id: str = ""):
+         run_id: str = "",
+         preflight: bool = False):
     """uv run modal run run_batch.py --workflow ... --task ... --limit 1"""
+    if preflight:
+        preflight_runtime.remote()
+        return
     wf_path = resolve_path(workflow)
     task_path = resolve_path(task)
     settings, request = json_read(wf_path), json_read(task_path)
