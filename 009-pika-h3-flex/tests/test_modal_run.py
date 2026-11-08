@@ -1,10 +1,12 @@
 """Offline tests for the independent modal-run entrypoint."""
 import importlib.util
 import tempfile
+import sys
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 spec = importlib.util.spec_from_file_location("pika_modal_batch", ROOT / "run_batch.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)

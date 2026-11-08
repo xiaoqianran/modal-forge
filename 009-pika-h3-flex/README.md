@@ -35,7 +35,7 @@ Pika-H3-Flex native six-step stochastic re-noising; both T2VA (text-to-video-and
 
 ## System
 
-- app.py: Modal RTX PRO 6000 (96GB), SGLang speed mode, bf16-base architecture; no explicit quantization or CPU-offload.
+- app.py: Modal RTX PRO 6000 (96GB), SGLang memory mode (RTX PRO 6000 96GB): text_encoder and VAE layerwise offload, video_vae=36 resident layers; no explicit weight quantization.
 - proxy.py: public port 30011, waits for SGLang health on internal port 30010, stages inline frame bytes in the SAME running container and translates them into official keyframe conditions.
 - workflow_t2va.json / workflow_fl2va.json: fixed video parameters (5 seconds, 480p short edge, six steps).
 - tasks/*.json: prompt lists. FL2VA items have first_frame + last_frame relative to this module directory.
@@ -98,7 +98,7 @@ To run ONLY the first item:
 
     uv run modal run run_batch.py --workflow workflow_fl2va.json --task tasks/fl2va_demo.json --limit 1
 
-Images may use paths relative to this module or absolute paths. Images are uploaded once to the existing Volume rather than passed as Base64 Modal arguments. The GPU uses those images as first/last keyframes through file:// conditions. This path uses six Pika steps, SGLang performance=speed and no explicit quantization or CPU Offload.
+Images may use paths relative to this module or absolute paths. Images are uploaded once to the existing Volume rather than passed as Base64 Modal arguments. The GPU uses those images as first/last keyframes through file:// conditions. This path uses six Pika steps, SGLang performance=memory with text_encoder,vae layerwise offload and video_vae=36 resident layers; no explicit weight quantization. CPU↔GPU transfers can increase latency.
 
 Results: results/<mode>/<task name>/<run id>/*.mp4, *.json, report.json.
 Cloud: 009-pika-batch/<mode>/<task name>/<run id>/ in the Volume.
