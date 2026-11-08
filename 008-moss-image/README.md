@@ -5,7 +5,7 @@
 ## 模型及后端
 MOSS-Image **同时支持 vLLM-Omni、SGLang 和 ComfyUI**。此模块实际实现 vLLM-Omni，因为官方有明确的 MOSS Docker 镜像、单 GPU 服务命令和兼容 OpenAI 的图像生成 API。SGLang 暂未加入部署实现，必须在相同环境实测后才能选择更快者。
 
-默认模型 `OpenMOSS-Team/MOSS-Image-SFT`，可替换 `OpenMOSS-Team/MOSS-Image-Base`。默认 GPU `L40S`。镜像 `vllm/vllm-omni:v0.32.0`，运行 `vllm serve MODEL --omni --enforce-eager`。已在 RTX PRO 6000 上成功加载模型并完成 50 步推理。使用 Modal Image Builder 2026.10 和 SDK 1.6.3，直接保留官方镜像的 Python 依赖；无需手动安装兼容包。
+默认模型 `OpenMOSS-Team/MOSS-Image-SFT`，可替换 `OpenMOSS-Team/MOSS-Image-Base`。默认 GPU `RTX-PRO-6000`。镜像 `vllm/vllm-omni:v0.32.0`，运行 `vllm serve MODEL --omni --enforce-eager`。已在 RTX PRO 6000 上成功加载模型并完成 50 步推理。使用 Modal Image Builder 2026.10 和 SDK 1.6.3，直接保留官方镜像的 Python 依赖；无需手动安装兼容包。
 
 ## 部署
 
@@ -13,7 +13,7 @@ MOSS-Image **同时支持 vLLM-Omni、SGLang 和 ComfyUI**。此模块实际实�
 cd 008-moss-image
 uv sync
 $env:MOSS_MODEL = "OpenMOSS-Team/MOSS-Image-SFT"
-$env:MOSS_GPU = "L40S"
+$env:MOSS_GPU = "RTX-PRO-6000"
 uv run modal deploy app.py
 ```
 

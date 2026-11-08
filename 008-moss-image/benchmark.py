@@ -10,7 +10,7 @@ from pathlib import Path
 
 import modal
 
-GPU = os.getenv("MOSS_GPU", "L40S")
+GPU = os.getenv("MOSS_GPU", "RTX-PRO-6000")
 MODEL = os.getenv("MOSS_MODEL", "OpenMOSS-Team/MOSS-Image-SFT")
 app = modal.App("modal-forge-008-moss-benchmark")
 volume = modal.Volume.from_name("modal-forge", create_if_missing=True)
