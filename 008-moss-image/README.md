@@ -17,7 +17,7 @@ $env:MOSS_GPU = "RTX-PRO-6000"
 uv run modal deploy app.py
 ```
 
-Modal App 名称：`modal-forge-008-moss-image`。使用现有 Modal Volume `modal-forge` 暂时复用历史 `007-moss-image` 子目录缓存模型（仅内部缓存路径不变，避免重新下载权重；每 60 秒尝试提交）；首次请求需要下载模型。默认 `min_containers=0`、`max_containers=2`、每容器并发 1 个请求。空闲时不常驻 GPU。API 启用 Modal Proxy Auth；需要在 Workspace 创建 Proxy Token。
+Modal App 名称：`modal-forge-008-moss-image`。使用现有 Modal Volume `modal-forge` 暂时复用历史 `007-moss-image` 子目录缓存模型（仅内部缓存路径不变，避免重新下载权重；每 60 秒尝试提交）；首次请求需要下载模型。默认 `min_containers=0`、`max_containers=1`、每容器并发 1 个请求。空闲时不常驻 GPU。API 启用 Modal Proxy Auth；需要在 Workspace 创建 Proxy Token。
 
 ## 请求
 

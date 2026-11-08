@@ -27,7 +27,7 @@ image = (
         )
     },
     min_containers=0,
-    max_containers=2,
+    max_containers=1,
     scaledown_window=2,
     timeout=3600,
 )
