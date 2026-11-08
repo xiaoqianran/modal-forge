@@ -7,7 +7,7 @@ import modal
 
 MODEL = os.getenv("MOSS_MODEL", "OpenMOSS-Team/MOSS-Image-SFT")
 GPU = os.getenv("MOSS_GPU", "L40S")
-app = modal.App("modal-forge-007-moss-image")
+app = modal.App("modal-forge-008-moss-image")
 volume = modal.Volume.from_name("modal-forge", create_if_missing=True)
 image = (
     modal.Image.from_registry("vllm/vllm-omni:v0.32.0")
@@ -23,7 +23,7 @@ image = (
     memory=32768,
     volumes={
         "/root/.cache/huggingface": volume.with_mount_options(
-            sub_path="/007-moss-image"
+            sub_path="/007-moss-image"  # 复用已有权重缓存，避免重新下载
         )
     },
     min_containers=0,

@@ -517,7 +517,7 @@ api-proxy-support = [
 ]
 
 [[package]]
-name = "modal-forge-007-moss-image"
+name = "modal-forge-008-moss-image"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

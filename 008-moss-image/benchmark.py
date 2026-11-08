@@ -12,7 +12,7 @@ import modal
 
 GPU = os.getenv("MOSS_GPU", "L40S")
 MODEL = os.getenv("MOSS_MODEL", "OpenMOSS-Team/MOSS-Image-SFT")
-app = modal.App("modal-forge-007-moss-benchmark")
+app = modal.App("modal-forge-008-moss-benchmark")
 volume = modal.Volume.from_name("modal-forge", create_if_missing=True)
 image = (
     modal.Image.from_registry("vllm/vllm-omni:v0.32.0")
