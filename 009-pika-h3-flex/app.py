@@ -37,7 +37,7 @@ image = (
     timeout=7200,
 )
 @modal.concurrent(max_inputs=1)
-@modal.web_server(port=PROXY_PORT, startup_timeout=3600, requires_proxy_auth=True)
+@modal.web_server(port=PROXY_PORT, startup_timeout=3600, requires_proxy_auth=False)
 def serve():
     """Serve T2VA / FL2VA through one six-step model and HTTP gateway."""
     cmd = [

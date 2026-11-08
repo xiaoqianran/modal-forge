@@ -97,11 +97,7 @@ def build_payload(workflow, item, index):
 
 
 def fetch(base, path, payload=None, timeout=180, attempts=3):
-    key = os.getenv("MODAL_PROXY_KEY")
-    secret = os.getenv("MODAL_PROXY_SECRET")
-    if not key or not secret:
-        raise RuntimeError("Set MODAL_PROXY_KEY and MODAL_PROXY_SECRET for authenticated deployment")
-    headers = {"Modal-Key": key, "Modal-Secret": secret}
+    headers = {}
     data = None
     if payload is not None:
         data = json.dumps(payload).encode("utf-8")

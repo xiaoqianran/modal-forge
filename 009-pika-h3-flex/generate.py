@@ -1,4 +1,4 @@
-"""Submit an authenticated Pika H3 Flex job, poll status, and save its MP4."""
+"""Submit a Pika H3 Flex job, poll status, and save its MP4."""
 import argparse
 import json
 import os
@@ -11,11 +11,7 @@ MODEL = "Pika-Labs/Pika-H3-Flex"
 
 def fetch(url, payload=None, timeout=120):
     headers = {}
-    if os.getenv("MODAL_PROXY_KEY") and os.getenv("MODAL_PROXY_SECRET"):
-        headers.update({
-            "Modal-Key": os.environ["MODAL_PROXY_KEY"],
-            "Modal-Secret": os.environ["MODAL_PROXY_SECRET"],
-        })
+
     if payload is not None:
         headers["Content-Type"] = "application/json"
         payload = json.dumps(payload).encode("utf-8")

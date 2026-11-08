@@ -5,7 +5,7 @@ Pika-H3-Flex native six-step stochastic re-noising; both T2VA (text-to-video-and
 ## System
 
 - app.py: Modal RTX PRO 6000 (96GB), SGLang speed mode, bf16-base architecture; no explicit quantization or CPU-offload.
-- proxy.py: authenticated public port 30011, waits for SGLang health on internal port 30010, stages inline frame bytes in the SAME running container and translates them into official keyframe conditions.
+- proxy.py: public port 30011, waits for SGLang health on internal port 30010, stages inline frame bytes in the SAME running container and translates them into official keyframe conditions.
 - workflow_t2va.json / workflow_fl2va.json: fixed video parameters (5 seconds, 480p short edge, six steps).
 - tasks/*.json: prompt lists. FL2VA items have first_frame + last_frame relative to this module directory.
 - batch_run.py: run every item, resume completed and unchanged MP4s, download files, save run JSONs.
@@ -19,13 +19,11 @@ Pika-H3-Flex native six-step stochastic re-noising; both T2VA (text-to-video-and
 
 Service: modal-forge-009-pika-h3-flex-fl2va
 Default GPU: RTX-PRO-6000; min_containers=0, max_containers=1, scaledown_window=2.
-Modal Proxy Auth is mandatory. Configure MODAL_PROXY_KEY and MODAL_PROXY_SECRET locally.
+Modal Proxy Auth is disabled; the endpoint is publicly accessible and does not need tokens.
 Weights cache in existing modal-forge Volume, /009-pika-h3-flex subpath.
 
 ## Batch generation (Windows PowerShell)
 
-    $env:MODAL_PROXY_KEY = "<your-proxy-key>"
-    $env:MODAL_PROXY_SECRET = "<your-proxy-secret>"
     $url = "https://yuqueaaa--modal-forge-009-pika-h3-flex-fl2va-serve.us-east.modal.run"
 
     uv run python batch_run.py --endpoint $url --workflow workflow_t2va.json --task tasks/t2va_demo.json
@@ -48,4 +46,4 @@ https://github.com/sgl-project/sglang/blob/main/docs/cookbook/diffusion/MiniMax/
 
 The batch format and local tests are not proof of actual successful GPU model inference. Full GPU model loading, VRAM peak, and MP4 validation must be separately checked.
 
-The API is protected by Modal Proxy Auth. Do not make it public without additional file-URI access controls.
+The API is public with no authentication. Anyone who knows the URL may trigger GPU inference and incur cost. Keep the endpoint confidential or add access control when needed.
