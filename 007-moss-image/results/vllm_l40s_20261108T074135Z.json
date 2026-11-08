@@ -1,0 +1,15 @@
+{
+  "engine": "vllm-omni",
+  "model": "OpenMOSS-Team/MOSS-Image-SFT",
+  "gpu_requested": "L40S",
+  "startup_seconds": 55.05,
+  "single_seconds": 25.54,
+  "parallel_each_seconds": [
+    26.24,
+    52.72
+  ],
+  "parallel_total_seconds": 52.72,
+  "parallel_images_per_minute": 2.276,
+  "gpu_after_run": "NVIDIA L40S, 32575, 46068",
+  "recorded_at_utc": "2026-11-08T07:41:35.423629+00:00"
+}

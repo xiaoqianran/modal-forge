@@ -1,5 +1,6 @@
 """Bounded MOSS-Image GPU benchmark using loopback requests inside Modal."""
 import concurrent.futures
+from datetime import datetime, timezone
 import json
 import os
 import subprocess
@@ -9,7 +10,7 @@ from pathlib import Path
 
 import modal
 
-GPU = os.getenv("MOSS_GPU", "RTX-PRO-6000")
+GPU = os.getenv("MOSS_GPU", "L40S")
 MODEL = os.getenv("MOSS_MODEL", "OpenMOSS-Team/MOSS-Image-SFT")
 app = modal.App("modal-forge-007-moss-benchmark")
 volume = modal.Volume.from_name("modal-forge", create_if_missing=True)
@@ -112,4 +113,11 @@ def run_benchmark():
 @app.local_entrypoint()
 def main():
     report = run_benchmark.remote()
+    report["recorded_at_utc"] = datetime.now(timezone.utc).isoformat()
+    destination = Path(__file__).parent / "results"
+    destination.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    output = destination / f"vllm_{report['gpu_requested'].lower().replace('-', '_')}_{stamp}.json"
+    output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"Benchmark report: {output}")
     print(json.dumps(report, ensure_ascii=False, indent=2))
